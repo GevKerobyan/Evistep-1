@@ -15,8 +15,6 @@ export const Postlists = () => {
 
     // Fetch Data
 
-
-
     useEffect(() => {
         if (postsRenderFlag.current) {
             const url = "https://dummyapi.io/data/v1/post?limit=10"
@@ -87,24 +85,3 @@ export const Postlists = () => {
         </div>
     )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// git remote add origin git@github.com:GevKerobyan/Task1-Evistep.git

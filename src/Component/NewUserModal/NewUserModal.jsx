@@ -51,24 +51,31 @@ export const NewUserModal = () => {
     
     const handleNewUserSubmit = (e)=> {
         e.preventDefault()
-        const newUserApi = axios.create({
-            baseURL: `https://dummyapi.io/data/v1/user/create`,
-            headers: {
-                'app-id': "62b1dfc56fa280809ad74846",
-                "Access-Control-Allow-Origin": "*",
-               },
-            body:
-            {
-            'User Create': {
-                'lastName': newUser.lastName,
-                'firstName': `${newUser.firstName}`,
-                'email': newUser.email,
-            }
+        const url = `https://dummyapi.io/data/v1/user/create`;
+        const headers = {
+            'app-id': "62b1dfc56fa280809ad74846",
+            "Access-Control-Allow-Origin": "*"
         }
-        })      
-        console.log(newUser.lastName)
-        newUserApi.post()
-        .then (res => {console.log(res)})
+        // const newUserApi = axios.create({
+        //     baseURL: `https://dummyapi.io/data/v1/user/create`,
+        //     headers: {
+        //         'app-id': "62b1dfc56fa280809ad74846",
+        //         "Access-Control-Allow-Origin": "*",
+        //        },
+        //     body:
+        //     {
+        //     'User Create': {
+        //         // path: ['/firstName', '/lastName', '/email',],
+
+        //         lastName: newUser.lastName,
+        //         firstName: newUser.firstName,
+        //         email: newUser.email,
+        //     }
+        // }
+        // })      
+        // console.log(newUser.lastName)
+        axios.post(url, newUser, {headers})
+        .then (res => {console.log('res : ',res.data)})
         .catch(er=> {console.log(er)})
     }
 

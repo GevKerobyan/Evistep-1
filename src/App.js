@@ -13,8 +13,8 @@ function App() {
 
   return (
     <div className="App">
-      {/* <UsersList/> */}
-      <Postlists/>
+      <UsersList/>
+      {/* <Postlists/> */}
       {/* <UserProfile /> */}
     </div>
   );
