@@ -53,7 +53,6 @@ export const Postslists = () => {
                                             <div className={postslistStyles.postSingleTag}>{tag}</div>
                                         )
                                     })}
-                                    git@github.com:GevKerobyan/Task1-Evistep.git
                                 </div>
                                 <div className={postslistStyles.postLikeContainer}>
                                     <span className={postslistStyles.likeThumb}>{svgs.thumbUp}</span>
