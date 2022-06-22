@@ -91,7 +91,28 @@ const postsListStyling = createUseStyles({
             width: '20px',
             heigth: '20px',
         }
-    }
+    },
+
+    userListNavBar: {
+        width: '100%',
+        height: '50px',
+        padding: '5px 200px',
+        position: 'fixed',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        top: '5px',
+        left: '0',
+        backgroundColor: 'rgba(0,0,0,0.3)',
+        color: 'silver',
+        '& div': {
+            padding: '8px 10px',
+            backgroundColor: 'rgb(30,64,175)',
+            borderRadius: '5px',
+            color: 'white',
+            cursor: 'pointer',
+        }
+    },
 
 })
 

@@ -5,18 +5,18 @@ import {
 } from "react-router-dom";
 import './App.css';
 import { UserProfile } from "./Component/UserProfile/UserProfile";
-import { Postslists } from "./Pages/PostsList/PostLists";
+import { Postlists } from "./Pages/PostList/PostLists";
 import { UsersList } from "./Pages/UsersList/UsersList";
 
 function App() {
 
-  
+
   return (
-      <div className="App">
-        {/* <UsersList/> */}
-<Postslists/>
-        {/* <UserProfile/> */}
-      </div>
+    <div className="App">
+      {/* <UsersList/> */}
+      <Postlists/>
+      {/* <UserProfile /> */}
+    </div>
   );
 }
 

@@ -11,9 +11,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #3c4cad;
-    background-image: linear-gradient(180deg,#3c4cad,#c24ca2,#ff6d7d,#ffb05d,#f9f871);
-    color: #6b7280;
+  
+  
 }
 
 code {
