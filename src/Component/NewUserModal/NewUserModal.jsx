@@ -3,8 +3,17 @@ import { useEffect, useState } from "react"
 import { newUserModalStyling } from "./newUserModalStyling"
 import reactDOM from "react-dom";
 
-export const NewUserModal = () => {
+export const NewUserModal = ({ setNewUserModalOpen }) => {
     const modalStyles = newUserModalStyling()
+
+    const regexCheck = new RegExp('^[a-zA-Z]+$')
+
+    const [registerFlag, setRegisterFlag] = useState(false)
+    const [pushedUser, setPushedUser] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+    })
 
     const [newUser, setNewUser] = useState({
         firstName: '',
@@ -14,9 +23,10 @@ export const NewUserModal = () => {
     useEffect(() => {
         console.log(newUser)
     }, [newUser])
-    // const [startFetching, setStartFetching] = useState(false)
 
     const handleChange = (e) => {
+
+        console.log('check', regexCheck.test(e.target.value))
         switch (e.target.id) {
             case 'nameInput': {
                 setNewUser({ ...newUser, firstName: e.target.value })
@@ -43,13 +53,29 @@ export const NewUserModal = () => {
         }
 
         axios.post(url, newUser, { headers })
-            .then(res => { console.log('res : ', res.data) })
+            .then(res => { handleResult(res.data) })
             .catch(er => { console.log(er) })
     }
+
+    const handleResult = (user) => {
+        console.log(user)
+        setRegisterFlag(true)
+        setPushedUser(user)
+    }
+
+    useEffect(() => {
+        console.log(pushedUser)
+    }, [pushedUser])
 
     return reactDOM.createPortal(
         <>
             <div className={modalStyles.modalBG} >
+                {registerFlag
+                    ? <div className={modalStyles.registerPopUp} onClick={() => setRegisterFlag(false)}>
+                        <p>Welcome on board <strong>{pushedUser.firstName}</strong></p>
+                        <p>Please confirm your mail at <strong>{pushedUser.email}</strong></p>
+                    </div>
+                    : null}
                 <form onSubmit={handleNewUserSubmit} className={modalStyles.modalContainer}>
                     <div className={modalStyles.nameInputWrapper}>
                         <label htmlFor="nameInput">Your Name</label>
@@ -58,7 +84,10 @@ export const NewUserModal = () => {
                             id="nameInput"
                             className={modalStyles.nameInput}
                             value={newUser.firstName}
-                            onChange={e => handleChange(e)}
+                            onChange={e =>
+                                regexCheck.test(e.target.value)
+                                    ? handleChange(e)
+                                    : null}
                         />
                     </div>
                     <div className={modalStyles.lastNameInputWrapper}>
@@ -68,7 +97,10 @@ export const NewUserModal = () => {
                             id="lastNameInput"
                             className={modalStyles.lastNameInput}
                             value={newUser.lastName}
-                            onChange={e => handleChange(e)}
+                            onChange={e =>
+                                regexCheck.test(e.target.value)
+                                    ? handleChange(e)
+                                    : null}
                         />
                     </div>
                     <div className={modalStyles.mailInputWrapper}>
@@ -81,7 +113,10 @@ export const NewUserModal = () => {
                             onChange={e => handleChange(e)}
                         />
                     </div>
-                    <button type="submit" className={modalStyles.submitButton}>let's try</button>
+                    <div className={modalStyles.buttonsContainer}>
+                        <button className={modalStyles.submitButton} onClick={() => setNewUserModalOpen(false)}>Cancel</button>
+                        <button type="submit" className={modalStyles.submitButton}>Let's Try</button>
+                    </div>
                 </form>
             </div>
         </>, document.getElementById('modal-root')

@@ -23,7 +23,6 @@ export const UsersList = () => {
     }, [])
 
     useEffect(() => {
-
         console.log(data)
     }, [data])
 
@@ -33,7 +32,7 @@ export const UsersList = () => {
         <>
             <div className={userStyles.usersPage}>
                 {newUserModalOpen
-                    ? (<NewUserModal />)
+                    ? (<NewUserModal setNewUserModalOpen = {setNewUserModalOpen}/>)
                     : ''}
                 {data.map((user, index) => {
                     return (
