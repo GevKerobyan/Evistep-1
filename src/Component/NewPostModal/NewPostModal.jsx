@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import reactDOM from "react-dom";
 
 import { postModalStyling } from "./newPostModalStyling";
 
 function NewPostModal() {
+
     const modalStyles = postModalStyling()
 
     const userRenderFlag = useRef(true)
@@ -11,37 +13,22 @@ function NewPostModal() {
     const [newPost, setNewPost] = useState({
         image: '',
         likes: 0,
-        tags: [],
+        tags: {
+            singleTag: '',
+            tagsList: [],
+        },
         text: '',
     })
-
-    // text: string(length: 6-50, preview only)
-    // image: string(url)
-    // likes: number(init value: 0)
-    // tags: array(string)
-    // owner: string(User id)
-
-    // ID
-
-    // Image
-
-    // likes
-
-    // tags
-
-    // text
-
-    // publish date
 
     const handleChange = (e) => {
         switch (e.target.id) {
             case 'image': {
                 let img = e.target.files[0]
-                setNewPost({ ...newPost, image: img })
+                setNewPost({ ...newPost, image: URL.createObjectURL(img) })
                 break;
             }
-            case 'lastNameInput': {
-                // setNewPost({...newPost, lastName: e.target.value})
+            case 'tags': {
+                setNewPost({ ...newPost, tags: { ...newPost.tags, singleTag: e.target.value } })
                 break;
             }
             case 'text': {
@@ -52,61 +39,78 @@ function NewPostModal() {
         }
     }
 
-    const handleNewPostSubmit = (e) => {
-        e.prevent.default()
-        if (userRenderFlag.curent) {
-            const newPostPost = axios.create({
-                baseURL: `https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca`,
-                headers: {
-                    'app-id': "62b043e72dfd91bd6b56c58d",
-                },
-                body: {newPost}
-            })
-            newPostPost.post()
-            .then( res => {console.log(res)})
-            userRenderFlag.current=false
-        }
-        console.log(URL.createObjectURL(newPost.image))
+    const handleAddTag = e => {
+        // e.prevent.default()
+        newPost.tags.singleTag
+        ?  setNewPost({ ...newPost, tags: { tagsList: [newPost.tags.singleTag, ...newPost.tags.tagsList], singleTag: '' } })
+        : console.log('singleTag', newPost.tags.singleTag)
     }
 
-    useEffect(() => {
-        console.log('image', newPost)
-    }, [newPost])
+    const handleNewPostSubmit = (e) => {
+        // e.prevent.default()
+        const url = `https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca`;
+        const headers = {
+            'app-id': "62b1dfc56fa280809ad74846",
+            "Access-Control-Allow-Origin": "*"
+        }
 
-    return (
-        <div className={modalStyles.modalWrapper}>
-            <form onSubmit={e=> handleNewPostSubmit(e)}>
+        axios.post(url, newPost, { headers })
+            .then(res => { console.log('res : ', res) })
+    }
 
-                <div>
-                    <label htmlFor="image"></label>
-                    <input
-                        type="file"
-                        id="image"
-                        onChange={e => handleChange(e)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="mailInput"></label>
-                    <input
-                        type="text"
-                        id="tags"
-                        value={newPost.tags}
-                        placeholder="now your mail and that's it"
-                        onChange={e => handleChange(e)}
-                    />
-                </div>
-                <div>
-                    <label htmlFor="nameInput"></label>
-                    <textarea
-                        id="text"
-                        value={newPost.text}
-                        placeholder="Please tell us your name"
-                        onChange={e => handleChange(e)}
-                    />
-                </div>
-                <button type="submit">let's try</button>
-            </form>
-        </div>
+
+    // useEffect(() => {
+    //     console.log('image', newPost)
+    // }, [newPost])
+
+    return reactDOM.createPortal(
+        <>
+            <div className={modalStyles.modalBG}>
+                <form className={modalStyles.modalContainer} onSubmit={e => handleNewPostSubmit(e)}>
+
+                    <div className={modalStyles.uploadInputWrapper}>
+                        <input
+                            type="file"
+                            id="image"
+                            className={modalStyles.uploadButton}
+                            onChange={e => handleChange(e)}
+                        />
+                    </div>
+                    <div className={modalStyles.tagsInputWrapper}>
+                        <div className={modalStyles.tagsInputTop}>
+                            <label htmlFor="tags">Tag It</label>
+                            <input
+                                type="text"
+                                id="tags"
+                                className={modalStyles.tagsInput}
+                                value={newPost.tags.singleTag}
+                                onChange={e => handleChange(e)}
+                            />
+                            <button onClick={e => handleAddTag(e)}>+</button>
+                        </div>
+                        
+                        {newPost.tags.tagsList
+                            ? <div className={modalStyles.tagsDisplay}>
+                                {newPost.tags.tagsList.map((item, index) => {
+                                    return (
+                                        <span key={index} className={modalStyles.singleTagDisplay}>{item}</span>
+                                    )
+                                })}</div>
+                            : null}
+                    </div>
+                    <div className={modalStyles.textInputWrapper}>
+                        <textarea
+                            id="text"
+                            className={modalStyles.texInput}
+                            value={newPost.text}
+                            onChange={e => handleChange(e)}
+                        />
+                    </div>
+                    <button type="submit">let's try</button>
+                </form>
+            </div>
+        </>,
+        document.getElementById('modal-root')
     )
 }
 

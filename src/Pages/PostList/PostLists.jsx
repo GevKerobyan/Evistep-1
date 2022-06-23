@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { svgs } from "../../Assets/svgs"
+import { ReactDOM } from "react-dom"
 import NewPostModal from "../../Component/NewPostModal/NewPostModal"
 import postListStyling from "./PostListStyling"
 
@@ -8,7 +9,7 @@ export const Postlists = () => {
     const postlistStyles = postListStyling()
     const [posts, setPosts] = useState([])
 
-    const [newPostModalOpen, setNewPostModalOpen] = useState(false)
+    const [addModalOpen, setAddModalOpen] = useState(false)
 
     const postsRenderFlag = useRef(true);
 
@@ -38,16 +39,15 @@ export const Postlists = () => {
     return (
         <div className={postlistStyles.pageWrapper}>
             <div className={postlistStyles.userListNavBar}>
-                <div className={postlistStyles.addUser} onClick={(e) => {
-                    setNewPostModalOpen(true)
-                    console.log(e)
+                <div className={postlistStyles.addUser} onClick={() => {
+                    setAddModalOpen(true)
                 }}>Add Post</div>
             </div>
-            {newPostModalOpen
+            {addModalOpen
                 ? (<NewPostModal />)
                 : ''}
             {posts.map((post, index) => {
-                console.log(post.id)
+                // console.log(post.id)
                 return (
                     <div className={postlistStyles.singlePostWrapper} key={post.id+index}>
                         <div className={postlistStyles.singlePostTop}>
