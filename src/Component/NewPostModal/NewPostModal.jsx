@@ -15,10 +15,10 @@ function NewPostModal({ setAddModalOpen }) {
     // const userRenderFlag = useRef(true)
 
 
-    const [singleImage, setSingleImage] = useState('')
+    const [singleImage, setSingleImage] = useState({})
     const [singleTag, setSingleTag] = useState('')
 
-    
+
 
     const handleChange = (e) => {
         switch (e.target.id) {
@@ -40,8 +40,8 @@ function NewPostModal({ setAddModalOpen }) {
     }
 
     useEffect(() => {
-        // console.log('tags : ', newPost.tags.singleTag)
-    }, [newPost])
+        console.log('image : ', singleImage)
+    }, [singleImage])
 
 
     const handleAddTag = (e) => {
@@ -55,18 +55,17 @@ function NewPostModal({ setAddModalOpen }) {
         }
     }
 
-
     const handleNewPostSubmit = (e) => {
         e.prevent.default()
-        const sendData = new FormData();
-        sendData.append('image', singleImage)
+        // const sendData = new FormData();
+        // sendData.append('image', {singleImage})
         const url = `https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca`;
         const headers = {
             'app-id': "62b1dfc56fa280809ad74846",
             "Access-Control-Allow-Origin": "*"
         }
-        const body = { sendData }
-        axios.post(url, newPost, { headers, body })
+        const body = { singleImage, newPost }
+        axios.post(url, { headers, body })
             .then(res => { console.log('res : ', res) })
     }
 
@@ -103,7 +102,8 @@ function NewPostModal({ setAddModalOpen }) {
                                 return (
                                     <span key={index} className={modalStyles.singleTagDisplay}>{item}</span>
                                 )
-                            })}</div>
+                            })}
+                        </div>
                         : null}
                 </div>
                 <div className={modalStyles.inputWrapper}>

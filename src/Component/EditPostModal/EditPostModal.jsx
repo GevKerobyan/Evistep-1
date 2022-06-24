@@ -3,6 +3,25 @@ import { postModalStyling } from "../NewPostModal/newPostModalStyling";
 
 function EditPostModal() {
 
+    const handleChange = (e) => {
+        switch (e.target.id) {
+            case 'image': {
+                let img = e.target.files[0]
+                setSingleImage(URL.createObjectURL(img))
+                break;
+            }
+            case 'tags': {
+                setSingleTag(e.target.value)
+                break;
+            }
+            case 'text': {
+                setNewPost({ ...newPost, text: e.target.value })
+                break;
+            }
+            default: return;
+        }
+    }
+
     const modalStyles = postModalStyling();
   return (
     <Modal isOpen>

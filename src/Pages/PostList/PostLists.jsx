@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react"
 import { svgs } from "../../Assets/svgs"
-import { ReactDOM } from "react-dom"
 import NewPostModal from "../../Component/NewPostModal/NewPostModal"
 import postListStyling from "./PostListStyling"
 
