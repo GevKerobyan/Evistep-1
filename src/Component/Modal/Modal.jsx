@@ -1,20 +1,18 @@
 import modalStyling from "./modalStyling";
+import reactDOM from "react-dom";
 
-function Modal(addition) {
+const Modal = ({ children, isOpen }) => {
 
-    const modalStyles = modalStyling()
     
-    if (addition === 'user') {
-        return (
+    const modalStyles = modalStyling()
 
-            <div>Add User</div>
-
-        )
-    } else if (addition === 'post') {
-        return (
-            <div>Add Post</div>
-        )
-    }
+    if (!isOpen) return null
+    return reactDOM.createPortal(
+        <>
+            <div className={modalStyles.modalBG}>
+                {children}
+            </div>
+        </>, document.getElementById('modal-root'))
 
 }
 

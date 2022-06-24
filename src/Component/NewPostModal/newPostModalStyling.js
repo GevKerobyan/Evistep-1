@@ -1,98 +1,107 @@
-
 import { createUseStyles } from "react-jss";
 
 export const postModalStyling = createUseStyles({
 
-    modalBG: {
-        position: 'fixed',
-        backgroundColor: 'darkgrey',
-        top: '0',
-        bottom: '0',
-        left: '0',
-        right: '0',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        color: 'aliceblue',
-    },
-
     modalContainer: {
+        position: 'relative',
         width: '600px',
         height: '400px',
-        padding:'50px 0',
+        padding: '50px 50px',
         boxShadow: '1px 2px 6px rgb(0,0,0)',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
         borderRadius: '10px',
-        '& div': {
-            // margin: '10px 0',
-            // height: '40px',
-            width: '500px',
-            borderRadius: '5px',
+        backgroundColor: 'rgba(85, 122, 149, 0.8)',
+        color: 'rgb(11,12,16)',
+    },
 
-        }
-
+    inputWrapper: {
+        width: '100%',
+        height: '50px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
 
     uploadInputWrapper: {
-        padding: '4px 8px',
+        width: '100%',
+        height: '50px',
         display: 'flex',
-        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'RGBa(0, 0,0,0.7)',
-        '& input': {
-            padding: '4px 10px',
-            width: '200px',
-            // backgroundColor: 'aliceblue',
-            border: 'none',
-            color: 'aliceblue'
-        }
+        justifyContent: 'space-between',
+    },
+
+    uploadButton: {
+        lineHeight: '28px',
+        backgroundColor: 'rgb(122,38,64)',
+        borderRadius: '50px',
+        padding: '5px 15px',
+        color: 'white',
+
     },
 
     tagsInputWrapper: {
-        maxHeight: '350px',
-        height:'auto',
-        padding: '4px 8px',
+        width: '100%',
+        height: '100px',
         display: 'flex',
-        margin: '25px 0',
         flexDirection: 'column',
-        justifyContent: 'center',
         alignItems: 'center',
-        '& input': {
-            height: '25px',
-            padding: '4px 10px',
-            backgroundColor: 'RGBa(0, 0,0,0.4)',
-            border: 'none',
-            color: 'aliceblue',
-            borderRadius: '5px'
-        }
+        justifyContent: 'space-between'
     },
 
     tagsInputTop: {
-        width: '500px',
-        padding: '4px 8px',
+        position: 'relative',
+        width: '100%',
+        height: '40px',
         display: 'flex',
-        justifyContent: 'space-between',
         alignItems: 'center',
+        justifyContent: 'space-between',
+
         '& button': {
+            position: 'absolute',
             height: '25px',
             width: '25px',
+            right: '10px',
             border: 'none',
             borderRadius: '4px',
-            boxShadow: '1px 2px 6px rgb(0,0,0)'
+            backgroundColor: 'rgba(122,38,64,1)',
+            color: 'white',
+            boxShadow: '1px 2px 6px rgb(0,0,0)',
+            fontWeight: 'bold',
         }
+    },
+
+    tagsInputandButton: {
+        width: '70%',
+        height: '40px',
+        borderRadius: '5px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+    },
+
+    tagsInput: {
+        width: '100%',
+        height: '90%',
+        padding: '4px 10px',
+        border: 'none',
+        borderRadius: '4px',
+        boxShadow: '1px 2px 4px rgb(0,0,0)',
+        color: 'rgb(11,12,16)',
     },
 
     tagsDisplay: {
         width: '500px',
+        height: 'auto',
+        maxHeight: '100px',
+        overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',        
-        '& span' : {
+        justifyContent: 'flex-start',
+        flexWrap: 'wrap',
+        '& span': {
             margin: '5px 10px',
             padding: '4px 8px',
             backgroundColor: 'crimson',
@@ -102,8 +111,36 @@ export const postModalStyling = createUseStyles({
     },
 
     textInputWrapper: {
-        width: '500px',
-        margin:'20px 0'
+        width: '100%',
+        height: '40px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
 
+    textInput: {
+        width: '70%',
+        maxHeight: '80px',
+        height: '40px',
+        padding: '10px',
+        borderRadius: '5px',
+        boxShadow: '1px 2px 4px rgb(0,0,0)',
+    },
+
+    buttonsContainer: {
+        width: '100%',
+        height: '30px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+
+    button: {
+        padding: '10px 15px',
+        border: 'none',
+        borderRadius: '4px',
+        boxShadow: '1px 2px 6px rgb(0,0,0)',
+        color: 'white',
+        backgroundColor: 'rgb(122,38,64)'
     },
 })

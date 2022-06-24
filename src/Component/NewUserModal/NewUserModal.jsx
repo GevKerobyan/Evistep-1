@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { newUserModalStyling } from "./newUserModalStyling"
-import reactDOM from "react-dom";
+import Modal from "../Modal/Modal";
 
 export const NewUserModal = ({ setNewUserModalOpen }) => {
     const modalStyles = newUserModalStyling()
@@ -67,59 +67,56 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
         console.log(pushedUser)
     }, [pushedUser])
 
-    return reactDOM.createPortal(
-        <>
-            <div className={modalStyles.modalBG} >
-                {registerFlag
-                    ? <div className={modalStyles.registerPopUp} onClick={() => setRegisterFlag(false)}>
-                        <p>Welcome on board <strong>{pushedUser.firstName}</strong></p>
-                        <p>Please confirm your mail at <strong>{pushedUser.email}</strong></p>
-                    </div>
-                    : null}
-                <form onSubmit={handleNewUserSubmit} className={modalStyles.modalContainer}>
-                    <div className={modalStyles.nameInputWrapper}>
-                        <label htmlFor="nameInput">Your Name</label>
-                        <input
-                            type="text"
-                            id="nameInput"
-                            className={modalStyles.nameInput}
-                            value={newUser.firstName}
-                            onChange={e =>
-                                regexCheck.test(e.target.value)
-                                    ? handleChange(e)
-                                    : null}
-                        />
-                    </div>
-                    <div className={modalStyles.lastNameInputWrapper}>
-                        <label htmlFor="lastNameInput">Lastname</label>
-                        <input
-                            type="text"
-                            id="lastNameInput"
-                            className={modalStyles.lastNameInput}
-                            value={newUser.lastName}
-                            onChange={e =>
-                                regexCheck.test(e.target.value)
-                                    ? handleChange(e)
-                                    : null}
-                        />
-                    </div>
-                    <div className={modalStyles.mailInputWrapper}>
-                        <label htmlFor="mailInput">Email</label>
-                        <input
-                            type="email"
-                            id="mailInput"
-                            className={modalStyles.mailInput}
-                            value={newUser.email}
-                            onChange={e => handleChange(e)}
-                        />
-                    </div>
-                    <div className={modalStyles.buttonsContainer}>
-                        <button className={modalStyles.submitButton} onClick={() => setNewUserModalOpen(false)}>Cancel</button>
-                        <button type="submit" className={modalStyles.submitButton}>Let's Try</button>
-                    </div>
-                </form>
-            </div>
-        </>, document.getElementById('modal-root')
+    return (
+        <Modal isOpen>
+            {registerFlag
+                ? <div className={modalStyles.registerPopUp} onClick={() => setRegisterFlag(false)}>
+                    <p>Welcome on board <strong>{pushedUser.firstName}</strong></p>
+                    <p>Please confirm your mail at <strong>{pushedUser.email}</strong></p>
+                </div>
+                : null}
+            <form onSubmit={handleNewUserSubmit} className={modalStyles.modalContainer}>
+                <div className={modalStyles.inputWrapper}>
+                    <label htmlFor="nameInput">Your Name</label>
+                    <input
+                        type="text"
+                        id="nameInput"
+                        className={modalStyles.inputs}
+                        value={newUser.firstName}
+                        onChange={e =>
+                            regexCheck.test(e.target.value)
+                                ? handleChange(e)
+                                : null}
+                    />
+                </div>
+                <div className={modalStyles.inputWrapper}>
+                    <label htmlFor="lastNameInput">Lastname</label>
+                    <input
+                        type="text"
+                        id="lastNameInput"
+                        className={modalStyles.inputs}
+                        value={newUser.lastName}
+                        onChange={e =>
+                            regexCheck.test(e.target.value)
+                                ? handleChange(e)
+                                : null}
+                    />
+                </div>
+                <div className={modalStyles.inputWrapper}>
+                    <label htmlFor="mailInput">Email</label>
+                    <input
+                        type="email"
+                        id="mailInput"
+                        className={modalStyles.inputs}
+                        value={newUser.email}
+                        onChange={e => handleChange(e)}
+                    />
+                </div>
+                <div className={modalStyles.buttonsContainer}>
+                    <button className={modalStyles.submitButton} onClick={() => setNewUserModalOpen(false)}>Cancel</button>
+                    <button type="submit" className={modalStyles.submitButton}>Let's Try</button>
+                </div>
+            </form>
+        </Modal >
     )
-
 }

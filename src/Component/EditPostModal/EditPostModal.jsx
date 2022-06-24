@@ -1,77 +1,11 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
+import { postModalStyling } from "../NewPostModal/newPostModalStyling";
 
-import { postModalStyling } from "./newPostModalStyling";
+function EditPostModal() {
 
-function NewPostModal({ setAddModalOpen }) {
-    const modalStyles = postModalStyling()
-    const [newPost, setNewPost] = useState({
-        image: '',
-        likes: 0,
-        tags: [],
-        text: '',
-    })
-    // const userRenderFlag = useRef(true)
-
-
-    const [singleImage, setSingleImage] = useState('')
-    const [singleTag, setSingleTag] = useState('')
-
-    
-
-    const handleChange = (e) => {
-        switch (e.target.id) {
-            case 'image': {
-                let img = e.target.files[0]
-                setSingleImage(URL.createObjectURL(img))
-                break;
-            }
-            case 'tags': {
-                setSingleTag(e.target.value)
-                break;
-            }
-            case 'text': {
-                setNewPost({ ...newPost, text: e.target.value })
-                break;
-            }
-            default: return;
-        }
-    }
-
-    useEffect(() => {
-        // console.log('tags : ', newPost.tags.singleTag)
-    }, [newPost])
-
-
-    const handleAddTag = (e) => {
-        e.preventDefault()
-        console.log('tags 2: ', newPost.tags)
-        if (singleTag) {
-            setNewPost({
-                ...newPost, tags: [singleTag, ...newPost.tags],
-            })
-            setSingleTag('')
-        }
-    }
-
-
-    const handleNewPostSubmit = (e) => {
-        e.prevent.default()
-        const sendData = new FormData();
-        sendData.append('image', singleImage)
-        const url = `https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca`;
-        const headers = {
-            'app-id': "62b1dfc56fa280809ad74846",
-            "Access-Control-Allow-Origin": "*"
-        }
-        const body = { sendData }
-        axios.post(url, newPost, { headers, body })
-            .then(res => { console.log('res : ', res) })
-    }
-
-    return (
-        <Modal isOpen>
+    const modalStyles = postModalStyling();
+  return (
+    <Modal isOpen>
             <form className={modalStyles.modalContainer} onSubmit={e => handleNewPostSubmit(e)}>
                 <div className={modalStyles.inputWrapper}>
                     <label htmlFor="image">Pic</label>
@@ -122,7 +56,7 @@ function NewPostModal({ setAddModalOpen }) {
                 </div>
             </form>
         </Modal>
-    )
+  )
 }
 
-export default NewPostModal
+export default EditPostModal

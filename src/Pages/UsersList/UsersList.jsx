@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { useAddUser } from "../../Actions/useAddUser"
 import { NewUserModal } from "../../Component/NewUserModal/NewUserModal"
 import userConatinerStyles from "./UsersListStyling"
 

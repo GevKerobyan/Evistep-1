@@ -18,8 +18,8 @@ function App() {
 
       {/* <Test1 /> */}
 
-      <UsersList/>
-      {/* <Postlists/> */}
+      {/* <UsersList/> */}
+      <Postlists/>
       {/* <UserProfile /> */}
     </div>
   );

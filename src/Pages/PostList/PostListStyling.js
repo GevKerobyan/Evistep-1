@@ -7,22 +7,30 @@ const postsListStyling = createUseStyles({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        padding: '50px 200px'
+        padding: '100px 200px'
     },
 
     singlePostWrapper: {
+        position: 'relative',
         width: '600px',
         height: '350px',
-        backgroundColor: 'white',
         borderRadius: '5px',
         padding:'16px',
-        margin: '0 20px 20px 0'
+        margin: '0 20px 20px 0',
+        backgroundColor: 'silver',
+    },
 
+    editIcon: {
+        position: 'absolute',
+        right: '16px',
+        top: '16px',
+        width: '25px',
+        height: '25px',
+        fill: '#3C4CAD',
     },
 
     singlePostTop: {
         width:'250px',
-        // height: '100px',
         display: 'flex',
     },
 

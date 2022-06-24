@@ -2,20 +2,6 @@ import { createUseStyles } from "react-jss";
 
 export const newUserModalStyling = createUseStyles({
 
-    modalBG: {
-        position: 'fixed',
-        backgroundColor: 'darkgrey',
-        top: '0',
-        bottom: '0',
-        left: '0',
-        right: '0',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        // color: 'mediumslateblue',
-    },
-
     modalContainer: {
         position: 'relative',
         width: '600px',
@@ -27,31 +13,36 @@ export const newUserModalStyling = createUseStyles({
         justifyContent: 'space-between',
         alignItems: 'center',
         borderRadius: '10px',
-        backgroundColor: '#557a95',
+        backgroundColor: 'rgba(85, 122, 149, 0.8)',
         color: 'rgb(11,12,16)',
-
-        '& div': {
-            width: '100%',
-            height: '30px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-
-            '& input': {
-                width: '50%',
-                height: '90%',
-                padding: '4px',
-                border: 'none',
-                borderRadius: '4px',
-                boxShadow: '1px 2px 4px rgb(0,0,0)',
-                color: 'rgb(11,12,16)',
-
-
-            }
-        },
     },
 
 
+    inputWrapper: {
+        width: '100%',
+        height: '30px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
+
+    inputs: {
+        width: '50%',
+        height: '90%',
+        padding: '4px',
+        border: 'none',
+        borderRadius: '4px',
+        boxShadow: '1px 2px 4px rgb(0,0,0)',
+        color: 'rgb(11,12,16)',
+    },
+
+    buttonsContainer: {
+        width: '100%',
+        height: '30px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+    },
 
     submitButton: {
         padding: '10px 15px',
@@ -82,5 +73,5 @@ export const newUserModalStyling = createUseStyles({
             lineHeight: '30px',
             color: 'rgb(11,12,16)',
         }
-    }
+    },
 })

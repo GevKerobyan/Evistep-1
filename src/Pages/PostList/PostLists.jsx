@@ -8,7 +8,7 @@ import postListStyling from "./PostListStyling"
 export const Postlists = () => {
     const postlistStyles = postListStyling()
     const [posts, setPosts] = useState([])
-
+    const [editModeOn, setEditModeOn] = useState(false)
     const [addModalOpen, setAddModalOpen] = useState(false)
 
     const postsRenderFlag = useRef(true);
@@ -36,6 +36,10 @@ export const Postlists = () => {
         console.log(posts)
     }, [posts])
 
+    const handleEditClick = () => {
+        setEditModeOn(prev => !prev);
+    }
+
     return (
         <div className={postlistStyles.pageWrapper}>
             <div className={postlistStyles.userListNavBar}>
@@ -44,12 +48,14 @@ export const Postlists = () => {
                 }}>Add Post</div>
             </div>
             {addModalOpen
-                ? (<NewPostModal />)
+                ? (<NewPostModal setAddModalOpen={setAddModalOpen}/>)
                 : ''}
             {posts.map((post, index) => {
                 // console.log(post.id)
                 return (
                     <div className={postlistStyles.singlePostWrapper} key={post.id+index}>
+                       <div className={postlistStyles.editIcon} onClick={(e)=>handleEditClick(e)}>{svgs.edit}</div>
+                       
                         <div className={postlistStyles.singlePostTop}>
                             <div className={postlistStyles.postOwnerImgBox}>
                                 <img src={post.owner.picture} alt='' />
@@ -65,7 +71,10 @@ export const Postlists = () => {
                             </div>
                             <div className={postlistStyles.BottomPostInfo}>
                                 <p>{post.publishDate}</p>
-                                <p>{post.text}</p>
+                                {editModeOn
+                                ? <input type='text' value = {post.text} className={postlistStyles.singlePostBottom} />
+                                :<p>{post.text}</p>
+                                }
                                 <div className={postlistStyles.postTags}>
                                     {post.tags.map(tag => {
                                         return (
