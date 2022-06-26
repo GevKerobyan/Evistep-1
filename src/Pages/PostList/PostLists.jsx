@@ -75,9 +75,9 @@ export const Postlists = () => {
                                 :<p>{post.text}</p>
                                 }
                                 <div className={postlistStyles.postTags}>
-                                    {post.tags.map(tag => {
+                                    {post.tags.map((tag, index) => {
                                         return (
-                                            <div className={postlistStyles.postSingleTag}>{tag}</div>
+                                            <div className={postlistStyles.postSingleTag} key={index}>{tag}</div>
                                         )
                                     })}
                                 </div>

@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
+import NavBar from "../../Component/NavBar/NavBar"
 import { NewUserModal } from "../../Component/NewUserModal/NewUserModal"
 import userConatinerStyles from "./UsersListStyling"
 
@@ -26,17 +28,19 @@ export const UsersList = () => {
     }, [data])
 
 
-
     return (
         <>
+            <div className={userStyles.userListNavBar}>
+                <div className={userStyles.addUser} onClick={() => { setNewUserModalOpen(true) }}>Add User</div>
+            </div>
             <div className={userStyles.usersPage}>
                 {newUserModalOpen
-                    ? (<NewUserModal setNewUserModalOpen = {setNewUserModalOpen}/>)
+                    ? (<NewUserModal setNewUserModalOpen={setNewUserModalOpen} />)
                     : ''}
-                {data.map((user, index) => {
+                {data.map(user => {
                     return (
-                        <div >
-                            <div className={userStyles.userContainer} key={user.id}>
+                        <Link to='/profile' state={user} key={user.id}>
+                            <div className={userStyles.userContainer} >
                                 <img src={user.picture} className={userStyles.userPicture} alt='' />
                                 <div className={userStyles.userInfo}>
                                     <div className={userStyles.userId}>{user.id}</div>
@@ -45,11 +49,9 @@ export const UsersList = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>)
+                        </Link>)
                 })}
-                <div className={userStyles.userListNavBar}>
-                    <div className={userStyles.addUser} onClick={() => { setNewUserModalOpen(true) }}>Add User</div>
-                </div>
+
 
             </div>
             <div>Show More Users</div>

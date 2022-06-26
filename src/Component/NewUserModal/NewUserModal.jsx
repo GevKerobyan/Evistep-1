@@ -2,9 +2,18 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { newUserModalStyling } from "./newUserModalStyling"
 import Modal from "../Modal/Modal";
+import useUserContext from '../../Hooks/useUserContext'
+import { useNavigate } from "react-router-dom";
 
 export const NewUserModal = ({ setNewUserModalOpen }) => {
     const modalStyles = newUserModalStyling()
+    
+    const {loggedUser, dispatch} = useUserContext()
+    const navigate = useNavigate()
+
+    if(loggedUser.isLoggedIn){
+        navigate('/profile')
+    }
 
     const regexCheck = new RegExp('^[a-zA-Z]+$')
 
@@ -23,6 +32,11 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
     useEffect(() => {
         console.log(newUser)
     }, [newUser])
+
+    
+   useEffect(()=> {
+    localStorage.setItem('onlineUser', JSON.stringify(loggedUser))
+},[loggedUser])
 
     const handleChange = (e) => {
 
@@ -59,6 +73,8 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
 
     const handleResult = (user) => {
         console.log(user)
+        console.log('consoling: dispatch :::', dispatch )
+        dispatch({type: 'createUser', user: user})
         setRegisterFlag(true)
         setPushedUser(user)
     }
