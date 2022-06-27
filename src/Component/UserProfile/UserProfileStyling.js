@@ -22,7 +22,6 @@ const UserProfileStyles = createUseStyles({
         borderRadius:'5px',
         boxShadow: '5px 4px 10px rgba(94,97,100,1)',
         '& div': {
-            textAlign: 'left',
             '& span': {
                 fontWeight: 'bold',
             }
@@ -30,10 +29,12 @@ const UserProfileStyles = createUseStyles({
     },
 
     left: {    
-        // textAlign: 'left',
+        textAlign: 'left',
     },
 
     middle: {
+        textAlign: 'left',
+
       '& div': {
             margin: ' 20px 0',
         }
@@ -43,7 +44,15 @@ const UserProfileStyles = createUseStyles({
 
     middleBottom: {},
 
-    right: {},
+    right: {
+        height: '100%',
+        textAlign: 'left',
+        minWidth: '250px',
+        maxWidth: '300',
+        '& p': {
+            marginTop: '10px'
+        }
+    },
 
     userFooter: {
         width: 'calc(100% - 400px)',

@@ -18,12 +18,7 @@ const defaultState = {
 	isLoggedIn: false,
 };
 
-const stateFromStorage = JSON.parse(localStorage.getItem('onlineUser'))
-
-console.log('storage', stateFromStorage)
-
 export const State = createContext(defaultState);
-
 
 function reducer(state, actions) {
 	switch (actions.type) {
@@ -33,15 +28,38 @@ function reducer(state, actions) {
 				isLoggedIn: true,
 			}
 		}
+
+		case 'logIn': {
+			return {
+				userInfo: actions.user,
+				isLoggedIn: true,
+			}
+		}
+		case 'signOut': {
+			return {
+				userInfo: {},
+				isLoggedIn: false,
+			}
+		}
 	}
 }
 
 function App() {
 
-	const [loggedUser, dispatch] = useReducer(reducer, defaultState)
-	useEffect(()=> {
-		console.log('consoling: loggedUser :::', loggedUser )
-	},[loggedUser])
+// 	useEffect(()=> {
+// 		localStorage.setItem('onlineUser', JSON.stringify(loggedUser))
+//   },[loggedUser])
+
+	const [loggedUser, dispatch] = useReducer(reducer, defaultState, () => {
+		const localStorageUser = localStorage.getItem('onlineUser')
+		return localStorageUser
+		? JSON.parse(localStorageUser)
+		: {
+			userInfo: {},
+			isLoggedIn: false,
+		}
+	})
+	
 	return (
 		<State.Provider value={{loggedUser, dispatch}}>
 			<Router>

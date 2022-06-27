@@ -30,12 +30,13 @@ export const UsersList = () => {
 
     return (
         <>
+            <NavBar />
             <div className={userStyles.userListNavBar}>
                 <div className={userStyles.addUser} onClick={() => { setNewUserModalOpen(true) }}>Add User</div>
             </div>
             <div className={userStyles.usersPage}>
                 {newUserModalOpen
-                    ? (<NewUserModal setNewUserModalOpen={setNewUserModalOpen} />)
+                    ? <NewUserModal setNewUserModalOpen={setNewUserModalOpen} />
                     : ''}
                 {data.map(user => {
                     return (

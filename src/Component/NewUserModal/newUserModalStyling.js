@@ -52,26 +52,4 @@ export const newUserModalStyling = createUseStyles({
         color: 'white',
         backgroundColor: 'rgb(122,38,64)'
     },
-
-    registerPopUp: {
-        position: 'absolute',
-        width: '350px',
-        height: '350px',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#7395ae',
-        borderRadius: '10px',
-        boxShadow: '1px 2px 6px rgb(0,0,0)',
-        zIndex: '200',
-        '& p': {
-            height: '30px',
-            textAlign: 'center',
-            margin: '10px 0',
-            fontSize: '20px',
-            lineHeight: '30px',
-            color: 'rgb(11,12,16)',
-        }
-    },
 })

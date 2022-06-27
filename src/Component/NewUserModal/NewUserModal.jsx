@@ -11,13 +11,14 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
     const {loggedUser, dispatch} = useUserContext()
     const navigate = useNavigate()
 
-    if(loggedUser.isLoggedIn){
-        navigate('/profile')
-    }
+    useEffect(()=> {
+        if(loggedUser.isLoggedIn){
+            navigate('/profile')
+        }
+    }, [loggedUser.isLoggedIn])
 
     const regexCheck = new RegExp('^[a-zA-Z]+$')
 
-    const [registerFlag, setRegisterFlag] = useState(false)
     const [pushedUser, setPushedUser] = useState({
         firstName: '',
         lastName: '',
@@ -73,24 +74,17 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
 
     const handleResult = (user) => {
         console.log(user)
-        console.log('consoling: dispatch :::', dispatch )
         dispatch({type: 'createUser', user: user})
-        setRegisterFlag(true)
         setPushedUser(user)
     }
 
     useEffect(() => {
-        console.log(pushedUser)
+        // console.log(pushedUser)
     }, [pushedUser])
 
     return (
         <Modal isOpen>
-            {registerFlag
-                ? <div className={modalStyles.registerPopUp} onClick={() => setRegisterFlag(false)}>
-                    <p>Welcome on board <strong>{pushedUser.firstName}</strong></p>
-                    <p>Please confirm your mail at <strong>{pushedUser.email}</strong></p>
-                </div>
-                : null}
+            
             <form onSubmit={handleNewUserSubmit} className={modalStyles.modalContainer}>
                 <div className={modalStyles.inputWrapper}>
                     <label htmlFor="nameInput">Your Name</label>
