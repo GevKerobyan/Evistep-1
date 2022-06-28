@@ -17,6 +17,10 @@ body {
 
 }
 
+Link, a {
+  text-decoration: none;
+  color: inherit;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -25,4 +29,8 @@ code {
 textarea:focus,
 input:focus {
   outline: none;
+}
+
+.App {
+  text-align: center;
 }

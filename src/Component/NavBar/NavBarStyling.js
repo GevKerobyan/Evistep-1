@@ -5,10 +5,14 @@ const navBarStyling = createUseStyles({
 		width: '100%',
 		height: 'auto',
 		display: 'flex',
-		justifyContent: 'flex-end',
+		justifyContent: 'space-between',
 		alignItems: 'center',
 		padding: '15px 200px',
 		backgroundColor: 'RGB(146, 168, 209)',
+	},
+
+	home: {
+		width: '50px',
 	},
 
 	container: {
@@ -16,6 +20,15 @@ const navBarStyling = createUseStyles({
 		display: 'flex',
 		justifyContent: 'flex-end',
 		alignItems: 'center',
+		'& button': {
+			padding: '10px 15px',
+			border: 'none',
+			borderRadius: '4px',
+			boxShadow: '1px 2px 6px rgb(0,0,0)',
+			color: 'white',
+			backgroundColor: 'rgb(122,38,64)',
+			marginLeft: '20px',
+		},
 	},
 
 	userContainer: {
@@ -44,7 +57,7 @@ const navBarStyling = createUseStyles({
 	userName: {
 		width: '200px',
 		height: '35px',
-      display: 'flex',
+		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
 		backgroundColor: 'azure',
@@ -56,8 +69,7 @@ const navBarStyling = createUseStyles({
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-      marginLeft: '50px',
-
+		marginLeft: '50px',
 	},
 
 	searchInput: {
@@ -68,15 +80,15 @@ const navBarStyling = createUseStyles({
 		marginLeft: '25px',
 	},
 
-	button: {
-		padding: '10px 15px',
-		border: 'none',
-		borderRadius: '4px',
-		boxShadow: '1px 2px 6px rgb(0,0,0)',
-		color: 'white',
-		backgroundColor: 'rgb(122,38,64)',
-      marginLeft: '20px'
-	},
+	// button: {
+	// 	padding: '10px 15px',
+	// 	border: 'none',
+	// 	borderRadius: '4px',
+	// 	boxShadow: '1px 2px 6px rgb(0,0,0)',
+	// 	color: 'white',
+	// 	backgroundColor: 'rgb(122,38,64)',
+	// 	marginLeft: '20px',
+	// },
 });
 
 export default navBarStyling;

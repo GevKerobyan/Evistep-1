@@ -11,11 +11,7 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
     const {loggedUser, dispatch} = useUserContext()
     const navigate = useNavigate()
 
-    useEffect(()=> {
-        if(loggedUser.isLoggedIn){
-            navigate('/profile')
-        }
-    }, [loggedUser.isLoggedIn])
+    
 
     const regexCheck = new RegExp('^[a-zA-Z]+$')
 
@@ -30,18 +26,10 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
         lastName: '',
         email: '',
     })
-    useEffect(() => {
-        console.log(newUser)
-    }, [newUser])
 
-    
-   useEffect(()=> {
-    localStorage.setItem('onlineUser', JSON.stringify(loggedUser))
-},[loggedUser])
 
     const handleChange = (e) => {
 
-        console.log('check', regexCheck.test(e.target.value))
         switch (e.target.id) {
             case 'nameInput': {
                 setNewUser({ ...newUser, firstName: e.target.value })
@@ -72,15 +60,16 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
             .catch(er => { console.log(er) })
     }
 
+    useEffect(()=> {
+        if(loggedUser.isLoggedIn){
+            navigate('/profile')
+        }
+    }, [loggedUser.isLoggedIn])
+
     const handleResult = (user) => {
-        console.log(user)
         dispatch({type: 'createUser', user: user})
         setPushedUser(user)
     }
-
-    useEffect(() => {
-        // console.log(pushedUser)
-    }, [pushedUser])
 
     return (
         <Modal isOpen>

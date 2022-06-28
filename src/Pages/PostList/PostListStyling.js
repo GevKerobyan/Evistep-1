@@ -7,7 +7,7 @@ const postsListStyling = createUseStyles({
         alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
-        padding: '100px 200px'
+        padding: '30px 100px'
     },
 
     singlePostWrapper: {
@@ -16,8 +16,8 @@ const postsListStyling = createUseStyles({
         height: '350px',
         borderRadius: '5px',
         padding:'16px',
-        margin: '0 20px 20px 0',
-        backgroundColor: 'silver',
+        margin: '30px 20px 20px 0',
+		backgroundColor: 'rgba(146, 168, 209, 0.8)',
     },
 
     editIcon: {
@@ -121,7 +121,6 @@ const postsListStyling = createUseStyles({
             cursor: 'pointer',
         }
     },
-
 })
 
 export default postsListStyling

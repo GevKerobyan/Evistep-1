@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import { loginStylings } from "./LoginModalStyling";
 
-function LoginModal(setLoginModal) {
+function LoginModal({ setLoginModal }) {
 
    const loginStyles = loginStylings()
    const [allUsers, setAllUsers] = useState([])
@@ -16,30 +16,30 @@ function LoginModal(setLoginModal) {
 
    const navigate = useNavigate()
 
+   const [checkFlag, setCheckFlag] = useState(false)
+   const [page, setPage] = useState(0)
+   const limit = 50;
+   let total;
 
 
    const loggingUserId = null
 
    useEffect(() => {
       allUsers.map(item => {
-          (item.firstName === loginUserCheck.userName
+         if (item.firstName === loginUserCheck.userName
             &&
-            item.lastName === loginUserCheck.userLastName)
-            ? setLoginUserCheck({
+            item.lastName === loginUserCheck.userLastName) {
+            setLoginUserCheck({
                ...loginUserCheck,
                id: item.id
             })
-            : console.log('no such user')
+         } else console.log('first')
       })
    }, [allUsers])
-   
-   useEffect(()=> {
-      console.log('consoling: loginUserCheck :::', loginUserCheck )
-   },[loginUserCheck])
 
-   useEffect(()=> {
-      if(loginUserCheck.id) navigate('./profile', {state: loginUserCheck.id})
-},[loginUserCheck.id])
+   useEffect(() => {
+      if (loginUserCheck.id) navigate('./profile', { state: loginUserCheck.id })
+   }, [loginUserCheck.id])
 
    const handleChange = (e) => {
       switch (e.target.id) {
@@ -50,7 +50,6 @@ function LoginModal(setLoginModal) {
             })
             break
          }
-
          case 'lastNameInput': {
             setLoginUserCheck({
                ...loginUserCheck,
@@ -61,18 +60,28 @@ function LoginModal(setLoginModal) {
       }
    }
 
-   const handleLoginSubmit = (e) => {
-      e.preventDefault()
+   useEffect(() => {
       const api = axios.create({
-         baseURL: `https://dummyapi.io/data/v1/user`,
+         baseURL: `https://dummyapi.io/data/v1/user?page=${page}&limit=${limit}`,
          headers: {
             'app-id': "62b043e72dfd91bd6b56c58d",
          }
       })
       api.get()
          .then(response => {
-            console.log('res', response.data.data)
-            setAllUsers(response.data.data)})
+            total = response.data.total
+            setAllUsers([
+               ...allUsers,
+               ...response.data.data])
+            if (Math.ceil(total / limit) >= page + 1) {
+               setPage(prev => prev += 1)
+            }
+         })
+   }, [page, limit])
+
+   const handleLoginSubmit = (e) => {
+      e.preventDefault()
+      setCheckFlag(true)
    }
 
    return (

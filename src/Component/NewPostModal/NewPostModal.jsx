@@ -4,7 +4,7 @@ import Modal from "../Modal/Modal";
 
 import { postModalStyling } from "./newPostModalStyling";
 
-function NewPostModal({ setAddModalOpen }) {
+function NewPostModal({ setAddModalOpen, action }) {
     const modalStyles = postModalStyling()
     const [newPost, setNewPost] = useState({
         image: '',
@@ -39,14 +39,10 @@ function NewPostModal({ setAddModalOpen }) {
         }
     }
 
-    useEffect(() => {
-        console.log('image : ', singleImage)
-    }, [singleImage])
 
 
     const handleAddTag = (e) => {
         e.preventDefault()
-        console.log('tags 2: ', newPost.tags)
         if (singleTag) {
             setNewPost({
                 ...newPost, tags: [singleTag, ...newPost.tags],

@@ -17,7 +17,19 @@ function HomePage() {
     setLoginModal(!isLoginModal)
   }
 
-  
+  useEffect(()=> {
+    const url = "https://dummyapi.io/data/v1/user?page=1&limit=50"
+    const options = {
+        method: "GET",
+        headers: {
+            'app-id': "62b043e72dfd91bd6b56c58d",
+        }
+    }
+
+        fetch(url, options)
+            .then(response => response.json())
+            // .then(res => console.log('consoling: res :::', res.data ))
+  },[])
 
   return (
       <div className={homePageStyles.page}>

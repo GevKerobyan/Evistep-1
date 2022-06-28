@@ -23,24 +23,22 @@ export const UsersList = () => {
             .then(res => setData(...data, res.data))
     }, [])
 
-    useEffect(() => {
-        console.log(data)
-    }, [data])
-
-
     return (
         <>
-            <NavBar />
-            <div className={userStyles.userListNavBar}>
+            <NavBar >
+            <button onClick={() => { setNewUserModalOpen(true) }}>Add User</button>
+            </NavBar>
+            {/* <div className={userStyles.userListNavBar}>
                 <div className={userStyles.addUser} onClick={() => { setNewUserModalOpen(true) }}>Add User</div>
-            </div>
+            </div> */}
             <div className={userStyles.usersPage}>
                 {newUserModalOpen
                     ? <NewUserModal setNewUserModalOpen={setNewUserModalOpen} />
                     : ''}
                 {data.map(user => {
+                    console.log(user);
                     return (
-                        <Link to='/profile' state={user} key={user.id}>
+                        <Link to={`/profile/${user.id}`} key={user.id}>
                             <div className={userStyles.userContainer} >
                                 <img src={user.picture} className={userStyles.userPicture} alt='' />
                                 <div className={userStyles.userInfo}>
@@ -52,8 +50,6 @@ export const UsersList = () => {
                             </div>
                         </Link>)
                 })}
-
-
             </div>
             <div>Show More Users</div>
         </>

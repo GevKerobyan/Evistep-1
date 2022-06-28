@@ -1,89 +1,118 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useLocation, useRouteMatch } from "react-router-dom";
 import useUserContext from "../../Hooks/useUserContext";
 import NavBar from "../NavBar/NavBar";
 import UserProfileStyles from "./UserProfileStyling";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Modal from "../Modal/Modal";
+import EditUserProfile from "./EditUserProfile";
 
-export const UserProfile = () => {
+export const UserProfile = (userId) => {
   const profileUser = useLocation()
+  const match = useParams()
 
   const { loggedUser, dispatch } = useUserContext()
   const userPageStyles = UserProfileStyles()
 
   const userRenderFlag = useRef(true);
 
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [deleteFlag, setDeleteFlag] = useState(false)
+  const [user, setUser] = useState({})
   const navigate = useNavigate()
   const [userPosts, setUserPosts] = useState([])
+
+  // console.log(user);
 
   if (!loggedUser.isLoggedIn) {
     navigate('/')
   }
 
-  useEffect(()=> {
-    console.log('consoling: loggedUser :::', loggedUser )
-  },[loggedUser])
-
-
   useEffect(() => {
     if (userRenderFlag.current) {
       const api = axios.create({
-        baseURL: `https://dummyapi.io/data/v1/user/${profileUser.state}`,
+        baseURL: `https://dummyapi.io/data/v1/user/${match.id}`,
         headers: {
           'app-id': "62b043e72dfd91bd6b56c58d",
         }
       })
       api.get()
-        .then(response => dispatch({type: 'logIn', user: response.data}))
+        .then(({ data }) => setUser(data))
     }
     userRenderFlag.current = false
   }, [])
 
   const loadUserPosts = () => {
-    console.log('consoling: profileUser.state :::', profileUser.state )
     const api = axios.create({
-      baseURL: `https://dummyapi.io/data/v1/user/${profileUser.state}/post`,
+      baseURL: `https://dummyapi.io/data/v1/user/${match.id}/post`,
       headers: {
         'app-id': "62b043e72dfd91bd6b56c58d",
       }
     })
     api.get()
-      .then(response => console.log('consoling: response :::', response ) )
+      .then(response => console.log('consoling: response :::', response))
   }
 
-  // setUserPosts(response)
+  const handleDelete = () => {
+    const api = axios.create({
+      baseURL: `https://dummyapi.io/data/v1/user/${match.id}`,
+      headers: {
+        'app-id': "62b043e72dfd91bd6b56c58d",
+      }
+    })
+    api.delete()
+      .then(response => console.log('consoling: response :::', response))
+  }
 
   return (
     <>
       <NavBar />
-      <div key={loggedUser.userInfo.id} className={userPageStyles.pageContainer}>
+      {deleteFlag
+        ? <>
+          <div className={userPageStyles.deletePopUpWrapper}>
+            <h2 className={userPageStyles.deletePopUpText}>Are you sure you want to delete?</h2>
+            <div className={userPageStyles.buttonContainer}>
+              <button className={userPageStyles.deleteYes} onClick={handleDelete}>Yes</button>
+              <button className={userPageStyles.deleteNo} onClick={()=>setDeleteFlag(false)}>No</button>
+            </div>
+          </div>
+        </>
+        : null
+      }
+
+      {editModalOpen
+      ? <EditUserProfile setEditModalOpen={setEditModalOpen} />
+        : null
+    }
+
+      <div key={user.id} className={userPageStyles.pageContainer}>
         <div className={userPageStyles.userContainer}>
           <div className={userPageStyles.left}>
-            <p><span>ID: </span>{loggedUser.userInfo.id}</p>
-            <img src={loggedUser.userInfo.picture} alt=''></img>
+            <p><span>ID: </span>{user.id}</p>
+            <img src={user.picture} alt=''></img>
           </div>
 
           <div className={userPageStyles.middle}>
             <div className={userPageStyles.middleTop}>
               <span>
-                {loggedUser.userInfo.title} {loggedUser.userInfo.firstName} {loggedUser.userInfo.lastName}
+                {user.title} {user.firstName} {user.lastName}
               </span>
               <p>
-                <span>Gender: </span>{loggedUser.userInfo.gender}
+                <span>Gender: </span>{user.gender}
               </p>
 
               <p>
-                <span>Date of birth: </span>{loggedUser.userInfo.dateOfBirth}
+                <span>Date of birth: </span>{user.dateOfBirth}
               </p>
 
               <p>
-                <span>Register date: </span>{loggedUser.userInfo.registerDate}
+                <span>Register date: </span>{user.registerDate}
               </p>
             </div>
             <div className={userPageStyles.middleBottom}>
-              <p><span>Email: </span>{loggedUser.userInfo.email}</p>
-              <p><span>Phone: </span>{loggedUser.userInfo.phone}</p>
+              <p><span>Email: </span>{user.email}</p>
+              <p><span>Phone: </span>{user.phone}</p>
             </div>
           </div>
 
@@ -92,18 +121,24 @@ export const UserProfile = () => {
               <span>Address</span>
             </p>
 
-            <p>State: {loggedUser.userInfo.location?.state ? loggedUser.userInfo.location.state : null}</p>
-            <p>Street: {loggedUser.userInfo.location?.street ? loggedUser.userInfo.location.street : null}</p>
-            <p>City: {loggedUser.userInfo.location?.city ? loggedUser.userInfo.location.city : null}</p>
-            <p>Country: {loggedUser.userInfo.location?.country ? loggedUser.userInfo.location.country : null}</p>
-            <p>Timezone: {loggedUser.userInfo.location?.timezone ? loggedUser.userInfo.location.timezone : null} </p>
+            <p>State: {user.location?.state ? user.location.state : null}</p>
+            <p>Street: {user.location?.street ? user.location.street : null}</p>
+            <p>City: {user.location?.city ? user.location.city : null}</p>
+            <p>Country: {user.location?.country ? user.location.country : null}</p>
+            <p>Timezone: {user.location?.timezone ? user.location.timezone : null} </p>
           </div>
         </div>
 
         <div className={userPageStyles.userFooter}>
           <div className={userPageStyles.loadPosts} onClick={loadUserPosts}>Show User Posts</div>
-          <div className={userPageStyles.edit} onClick={(e) => { console.dir(e.target) }}>Edit Profile</div>
-          <div className={userPageStyles.delete} onClick={() => { }}>Delete Profile</div>
+          {/* {(loggedUser.isLoggedIn && loggedUser.userInfo.id === user.id) */}
+          {loggedUser.isLoggedIn
+            ? <>
+              <div className={userPageStyles.edit} onClick={() => { setEditModalOpen(true) }}>Edit Profile</div>
+              <div className={userPageStyles.delete} onClick={() => { setDeleteFlag(true) }}>Delete Profile</div>
+            </>
+            : null
+          }
         </div>
       </div>
     </>

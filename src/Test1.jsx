@@ -3,9 +3,7 @@ import React from 'react'
 
 function Test1() {
 
-    console.log('axios', {axios})
-
-  return (
+ return (
     <div>test</div>
   )
 }

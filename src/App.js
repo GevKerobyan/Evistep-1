@@ -6,7 +6,6 @@ import {
 	Link,
 	Routes,
 } from 'react-router-dom';
-import './App.css';
 import { UserProfile } from './Component/UserProfile/UserProfile';
 import HomePage from './Pages/HomePage/HomePage';
 import { Postlists } from './Pages/PostList/PostLists';
@@ -18,7 +17,20 @@ const defaultState = {
 	isLoggedIn: false,
 };
 
+const defaultUnloggedState = {
+	
+}
+export const unLoggedState = createContext(defaultUnloggedState);
 export const State = createContext(defaultState);
+
+function unloggedReducer(state, actions) {
+	switch (actions.type) {
+		case 'set': {
+
+		}
+	}
+}
+
 
 function reducer(state, actions) {
 	switch (actions.type) {
@@ -45,11 +57,6 @@ function reducer(state, actions) {
 }
 
 function App() {
-
-// 	useEffect(()=> {
-// 		localStorage.setItem('onlineUser', JSON.stringify(loggedUser))
-//   },[loggedUser])
-
 	const [loggedUser, dispatch] = useReducer(reducer, defaultState, () => {
 		const localStorageUser = localStorage.getItem('onlineUser')
 		return localStorageUser
@@ -59,17 +66,23 @@ function App() {
 			isLoggedIn: false,
 		}
 	})
+
+	const [otherUser, otherDispatch] = useReducer(unloggedReducer, defaultUnloggedState)
 	
+	useEffect(()=> {
+		localStorage.setItem('onlineUser', JSON.stringify(loggedUser))
+  },[loggedUser])
+
 	return (
 		<State.Provider value={{loggedUser, dispatch}}>
 			<Router>
 				<div className='App'>
 					<Routes>
 						{/* <Test1 /> */}
-						<Route path='/' element={<HomePage />} />
+						<Route exact path='/' element={<HomePage />} />
 						<Route path='/users' element={<UsersList />} />
 						<Route path='/posts' element={<Postlists />} />
-						<Route path='/profile' element={<UserProfile />} />
+						<Route path='/profile/:id' element={<UserProfile />} />
 					</Routes>
 				</div>
 			</Router>
