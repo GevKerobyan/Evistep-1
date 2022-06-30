@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 export const NewUserModal = ({ setNewUserModalOpen }) => {
     const modalStyles = newUserModalStyling()
 
-
-
     const {loggedUser, dispatch} = useUserContext()
     const navigate = useNavigate()
 
@@ -65,7 +63,7 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
         console.log('consoling: newUser :::', newUser )
         console.log('consoling: pushedUser :::', pushedUser )
         if(loggedUser.isLoggedIn){
-            navigate(`/profile?id=${loggedUser.userInfo.id}`)
+            navigate(`/profile/${loggedUser.userInfo.id}`)
         }
     }, [loggedUser.isLoggedIn])
 

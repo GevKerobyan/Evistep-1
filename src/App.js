@@ -41,7 +41,7 @@ function reducer(state, actions) {
 	switch (actions.type) {
 		case 'createUser': {
 			return {
-				userInfo: actions.user,
+				userInfo: {...actions.user},
 				isLoggedIn: true,
 			};
 		}
@@ -97,7 +97,7 @@ function App() {
 								<Route exact path='/' element={<HomePage />} />
 								<Route path='/users' element={<UsersList />} />
 								<Route path='/posts/' element={<Postlists />} />
-								<Route path='/taggedposts/:tag' element={<TaggedPosts />} />
+								{/* <Route path='/taggedposts/:tag' element={<TaggedPosts />} /> */}
 								<Route path='/profile/:id' element={<UserProfile />} />
 							</Routes>
 						</div>
