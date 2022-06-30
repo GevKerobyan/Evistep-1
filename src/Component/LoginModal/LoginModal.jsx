@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Modal from "../Modal/Modal";
 import { loginStylings } from "./LoginModalStyling";
 
@@ -14,6 +14,8 @@ function LoginModal({ setLoginModal }) {
       userLastName: '',
    })
 
+   
+
    const navigate = useNavigate()
 
    const [checkFlag, setCheckFlag] = useState(false)
@@ -24,21 +26,21 @@ function LoginModal({ setLoginModal }) {
 
    const loggingUserId = null
 
-   useEffect(() => {
-      allUsers.map(item => {
-         if (item.firstName === loginUserCheck.userName
-            &&
-            item.lastName === loginUserCheck.userLastName) {
-            setLoginUserCheck({
-               ...loginUserCheck,
-               id: item.id
-            })
-         } else console.log('first')
-      })
-   }, [allUsers])
+   // useEffect(() => {
+   //    allUsers.map(item => {
+   //       if (item.firstName === loginUserCheck.userName
+   //          &&
+   //          item.lastName === loginUserCheck.userLastName) {
+   //          setLoginUserCheck({
+   //             ...loginUserCheck,
+   //             id: item.id
+   //          })
+   //       } else console.log('first')
+   //    })
+   // }, [allUsers])
 
    useEffect(() => {
-      if (loginUserCheck.id) navigate('./profile', { state: loginUserCheck.id })
+      if (loginUserCheck.id) navigate(`./profile/${loginUserCheck.id}`)
    }, [loginUserCheck.id])
 
    const handleChange = (e) => {
@@ -75,12 +77,23 @@ function LoginModal({ setLoginModal }) {
                ...response.data.data])
             if (Math.ceil(total / limit) >= page + 1) {
                setPage(prev => prev += 1)
+               console.log('consoling: allUsers :::', allUsers )
             }
          })
    }, [page, limit])
 
    const handleLoginSubmit = (e) => {
       e.preventDefault()
+      allUsers.map(item => {
+         if (item.firstName === loginUserCheck.userName
+            &&
+            item.lastName === loginUserCheck.userLastName) {
+            setLoginUserCheck({
+               ...loginUserCheck,
+               id: item.id
+            })
+         } else console.log('first')
+      })
       setCheckFlag(true)
    }
 
@@ -99,7 +112,7 @@ function LoginModal({ setLoginModal }) {
                />
             </div>
             <div className={loginStyles.inputWrapper}>
-               <label htmlFor="mailInput">Email</label>
+               <label htmlFor="mailInput">Lastname</label>
                <input
                   type="text"
                   id="lastNameInput"

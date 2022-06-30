@@ -2,7 +2,8 @@ import { createUseStyles } from 'react-jss';
 
 const UserProfileStyles = createUseStyles({
 	pageContainer: {
-		padding: '50px 100px',
+		minHeight: '100vh',
+		padding: '0 5%',
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
@@ -38,10 +39,6 @@ const UserProfileStyles = createUseStyles({
 			margin: ' 20px 0',
 		},
 	},
-
-	middleTop: {},
-
-	middleBottom: {},
 
 	right: {
 		height: '100%',

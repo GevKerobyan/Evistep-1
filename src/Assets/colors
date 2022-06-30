@@ -1,0 +1,7 @@
+const Colors = {
+   backGround : 'black',
+   textColor : 'black',
+   buttonBGcolor: 'crimson'
+}
+
+export default Colors

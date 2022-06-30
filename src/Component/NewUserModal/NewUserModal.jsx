@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 export const NewUserModal = ({ setNewUserModalOpen }) => {
     const modalStyles = newUserModalStyling()
-    
+
+
+
     const {loggedUser, dispatch} = useUserContext()
     const navigate = useNavigate()
-
-    
 
     const regexCheck = new RegExp('^[a-zA-Z]+$')
 
@@ -56,13 +56,16 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
         }
 
         axios.post(url, newUser, { headers })
-            .then(res => { handleResult(res.data) })
+            .then(res => handleResult(res.data))
             .catch(er => { console.log(er) })
     }
 
     useEffect(()=> {
+        console.log('consoling: loggedUser :::', loggedUser )
+        console.log('consoling: newUser :::', newUser )
+        console.log('consoling: pushedUser :::', pushedUser )
         if(loggedUser.isLoggedIn){
-            navigate('/profile')
+            navigate(`/profile?id=${loggedUser.userInfo.id}`)
         }
     }, [loggedUser.isLoggedIn])
 
@@ -73,7 +76,6 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
 
     return (
         <Modal isOpen>
-            
             <form onSubmit={handleNewUserSubmit} className={modalStyles.modalContainer}>
                 <div className={modalStyles.inputWrapper}>
                     <label htmlFor="nameInput">Your Name</label>

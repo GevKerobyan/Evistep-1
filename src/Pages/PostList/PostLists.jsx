@@ -1,20 +1,28 @@
 import { useEffect, useRef, useState } from "react"
-import { svgs } from "../../Assets/svgs"
+import { useParams } from "react-router-dom"
 import NavBar from "../../Component/NavBar/NavBar"
 import NewPostModal from "../../Component/NewPostModal/NewPostModal"
+import SinglePost from "../../Component/SinglePostComponent/SinglePost"
+import { Button } from "../../Component/styled/Buttons.styled"
+import { PageContainer } from "../../Component/styled/PageContainer.styled"
+import fixDate from "../../Helpers/dateFix"
 import useUserContext from "../../Hooks/useUserContext"
 import postListStyling from "./PostListStyling"
 
 
-export const Postlists = () => {
+export const Postlists = ({ searchTag }) => {
     const postlistStyles = postListStyling()
     const [posts, setPosts] = useState([])
-    const [editModalOpen, setEditModalOpen] = useState(false)
     const [addModalOpen, setAddModalOpen] = useState(false)
 
     const postsRenderFlag = useRef(true);
 
+    const { postId } = useParams()
+
     const { loggedUser, dispatch } = useUserContext()
+    const [tagSearchflag, setTagSearchFlag] = useState(false)
+    const [liked, setLiked] = useState(true)
+
 
 
 
@@ -36,88 +44,57 @@ export const Postlists = () => {
         postsRenderFlag.current = false
     }, [posts])
 
+    useEffect(() => {
+        // console.log('consoling: posts :::')
+    }, [tagSearchflag])
 
-    const handleEditClick = () => {
-        setEditModalOpen(true);
+
+    const handleThumbUp = (index) => {
+        if (liked) {
+            setPosts([
+                ...posts, posts[index] = { ...posts[index], likes: posts[index].likes - 1 }
+            ])
+            console.log('consoling: posts[index] 1 :::', posts[index].likes)
+            setLiked(false)
+        } else {
+            console.log('consoling: posts[index] 2 :::', posts[index].likes)
+            setPosts([
+                ...posts, posts[index] = { ...posts[index], likes: posts[index].likes + 1 }
+            ])
+            setLiked(true)
+        }
     }
 
-    const fixDate = (inputDate) => {
-        const monthArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-        let outputDate;
-
-        const day = inputDate.getDate()
-        const month = monthArr[inputDate.getMonth()] 
-        const year = inputDate.getFullYear()
-
-        const hours = inputDate.getHours()
-        const minutes = inputDate.getMinutes()
-        const seconds = inputDate.getSeconds()
-
-
-        outputDate = `${month} ${day} ${year} ${hours}:${minutes}:${seconds}`
-        
-        return outputDate
+    const handleTagClick = () => {
+        setTagSearchFlag(true)
     }
 
     return (
         <>
             <NavBar className={postlistStyles.userListNavBar}>
-                <button className={postlistStyles.addUser} onClick={() => {
+                <Button onClick={() => {
                     setAddModalOpen(true)
-                }}>Add Post</button>
+                }}>Add Post</Button>
             </NavBar>
-            <div className={postlistStyles.pageWrapper}>
+            <PageContainer>
                 {addModalOpen
-                    ? (<NewPostModal setAddModalOpen={setAddModalOpen} action ='create' />)
+                    ? (<NewPostModal setAddModalOpen={setAddModalOpen} action='create' />)
                     : ''}
-                {/* {editModalOpen
-                ? <NewPostModal setAddModalOpen={setAddModalOpen} action ='edit'/>} */}
                 {posts.map((post, index) => {
                     let date = fixDate(new Date(post.publishDate));
-                    console.dir(date)
                     return (
-                        <div className={postlistStyles.singlePostWrapper} key={post.id + index}>
-                            {post.owner.id === loggedUser.userInfo.id
-                                ? <div className={postlistStyles.editIcon} onClick={(e) => handleEditClick(e)}>{svgs.edit}</div>
-                                : <div className={postlistStyles.editIcon} />
-                            }
-
-                            <div className={postlistStyles.singlePostTop}>
-                                <div className={postlistStyles.postOwnerImgBox}>
-                                    <img src={post.owner.picture} alt='' />
-                                </div>
-                                <div className={postlistStyles.postOwnerInfo}>
-                                    <p>{post.owner.title} {post.owner.firstName} {post.owner.lastName}</p>
-                                    <p>{}</p>
-                                </div>
-                            </div>
-                            <div className={postlistStyles.singlePostBottom}>
-                                <div className={postlistStyles.BottomImgBox}>
-                                    <img src={post.image} alt='' />
-                                </div>
-                                <div className={postlistStyles.BottomPostInfo}>
-                                    <p>{date}</p>
-                                    {editModalOpen
-                                        ? <input type='text' value={post.text} className={postlistStyles.singlePostBottom} />
-                                        : <p>{post.text}</p>
-                                    }
-                                    <div className={postlistStyles.postTags}>
-                                        {post.tags.map((tag, index) => {
-                                            return (
-                                                <div className={postlistStyles.postSingleTag} key={index}>{tag}</div>
-                                            )
-                                        })}
-                                    </div>
-                                    <div className={postlistStyles.postLikeContainer}>
-                                        <span className={postlistStyles.likeThumb}>{svgs.thumbUp}</span>
-                                        <span className={postlistStyles.likeCount}>{post.likes}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <SinglePost
+                            key={post.id+index}
+                            handleThumbUp={handleThumbUp}
+                            post={post}
+                            liked={liked}
+                            setLiked={setLiked}
+                            index={index}
+                            date={date}
+                            handleTagClick={handleTagClick} />
                     )
                 })}
-            </div>
+            </PageContainer>
         </>
     )
 }

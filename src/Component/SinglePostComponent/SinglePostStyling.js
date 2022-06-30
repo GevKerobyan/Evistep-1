@@ -1,6 +1,24 @@
 import { createUseStyles } from 'react-jss';
 
-const postsListStyling = createUseStyles({
+const singlePostStyling = createUseStyles({
+	pageWrapper: {
+		width: '100vw',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		flexWrap: 'wrap',
+		padding: '30px 100px',
+	},
+
+	singlePostWrapper: {
+		position: 'relative',
+		width: '600px',
+		height: '350px',
+		borderRadius: '5px',
+		padding: '16px',
+		margin: '30px 20px 20px 0',
+		backgroundColor: 'rgba(146, 168, 209, 0.8)',
+	},
 
 	editIcon: {
 		position: 'absolute',
@@ -16,6 +34,7 @@ const postsListStyling = createUseStyles({
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
+		marginBottom: '10px '
 	},
 
 	postOwnerImgBox: {
@@ -35,19 +54,21 @@ const postsListStyling = createUseStyles({
 		alignItems: 'center',
 	},
 
-	//
-
 	BottomImgBox: {
-		height: '250px',
-		width: '300px',
+		width: 'auto',
+		minWidth: '200px',
+		maxWidth: '250px',
+		height: '200px',
 		overflow: 'hidden',
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		'& img': {
-			width: '250px',
-			heigth: 'auto',
-		},
+	},
+
+	postImg: {
+		width: 'auto',
+		height: '200px',
+		overflow: 'hidden',
 	},
 
 	BottomPostInfo: {
@@ -66,36 +87,35 @@ const postsListStyling = createUseStyles({
 		justifyContent: 'flex-start',
 	},
 
-    singleTagWrapper: {
-        position: 'relative',
-    },
+	singleTagWrapper: {
+		position: 'relative',
+	},
 
 	postSingleTag: {
-		// height: '40px',
-		// width: '60px',
-		backgroundColor: 'rgb(219,39,119)',
 		margin: '0 4px 4px 0',
 		padding: '4px 8px',
 		font: '12px',
 		display: 'flex',
 		whiteSpace: 'nowrap',
 		borderRadius: '3px',
+		color: 'white',
+		backgroundColor: 'rgb(122,38,64)',
 	},
 
-    postSingleTagPopUp: {
-
-        position: 'absolute',
-        top: '-20px',
-        right: '0',
-        width: '40px',
-        heigth: '20px',
-        backgroundColor: 'blue',
-    },
+	postSingleTagPopUp: {
+		position: 'absolute',
+		top: '-20px',
+		right: '0',
+		width: '40px',
+		heigth: '20px',
+		backgroundColor: 'blue',
+	},
 
 	likeThumb: {
 		height: '20px',
 		width: '20px',
 		fill: '#3C4CAD',
+		cursor: 'pointer',
 		'& svg': {
 			width: '20px',
 			heigth: '20px',
@@ -108,27 +128,6 @@ const postsListStyling = createUseStyles({
 		alignItems: 'center',
 		justifyContent: 'space-between',
 	},
-
-	// userListNavBar: {
-	// 	width: '100%',
-	// 	height: '50px',
-	// 	padding: '5px 200px',
-	// 	position: 'fixed',
-	// 	display: 'flex',
-	// 	alignItems: 'center',
-	// 	justifyContent: 'flex-end',
-	// 	top: '5px',
-	// 	left: '0',
-	// 	backgroundColor: 'rgba(0,0,0,0.3)',
-	// 	color: 'silver',
-	// 	'& div': {
-	// 		padding: '8px 10px',
-	// 		backgroundColor: 'rgb(30,64,175)',
-	// 		borderRadius: '5px',
-	// 		color: 'white',
-	// 		cursor: 'pointer',
-	// 	},
-	// },
 });
 
-export default postsListStyling;
+export default singlePostStyling;

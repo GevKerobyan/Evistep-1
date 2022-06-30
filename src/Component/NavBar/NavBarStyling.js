@@ -1,18 +1,29 @@
 import { createUseStyles } from 'react-jss';
 
 const navBarStyling = createUseStyles({
+	
 	navWrapper: {
-		width: '100%',
+		position: 'fixed',
+		left: '0',
+		right: '0',
+		top: '0',
 		height: 'auto',
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		padding: '15px 200px',
-		backgroundColor: 'RGB(146, 168, 209)',
+		padding: '10px 15%',
+		backgroundColor: `white`,
+		transition: 'all 0.5s',
+		boxShadow: '1px 1px 3px rgb(0, 0, 50)',
+		zIndex: '999'
 	},
 
-	home: {
-		width: '50px',
+	leftLinkContainer: {
+		width: '25%',
+		minWidth: '200px',
+		display: 'flex',
+		justifyContent: 'space-between',
+		color: 'black'
 	},
 
 	container: {
@@ -20,15 +31,6 @@ const navBarStyling = createUseStyles({
 		display: 'flex',
 		justifyContent: 'flex-end',
 		alignItems: 'center',
-		'& button': {
-			padding: '10px 15px',
-			border: 'none',
-			borderRadius: '4px',
-			boxShadow: '1px 2px 6px rgb(0,0,0)',
-			color: 'white',
-			backgroundColor: 'rgb(122,38,64)',
-			marginLeft: '20px',
-		},
 	},
 
 	userContainer: {
@@ -60,7 +62,7 @@ const navBarStyling = createUseStyles({
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		backgroundColor: 'azure',
+		backgroundColor: 'white',
 		borderRadius: '4px',
 		marginLeft: '20px',
 	},
@@ -70,25 +72,17 @@ const navBarStyling = createUseStyles({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		marginLeft: '50px',
+		color:'black'
 	},
 
 	searchInput: {
 		height: '25px',
-		pading: '4px 10px',
+		padding: '4px 10px',
 		border: 'none',
 		borderRadius: '4px',
 		marginLeft: '25px',
 	},
 
-	// button: {
-	// 	padding: '10px 15px',
-	// 	border: 'none',
-	// 	borderRadius: '4px',
-	// 	boxShadow: '1px 2px 6px rgb(0,0,0)',
-	// 	color: 'white',
-	// 	backgroundColor: 'rgb(122,38,64)',
-	// 	marginLeft: '20px',
-	// },
 });
 
 export default navBarStyling;

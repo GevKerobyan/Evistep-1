@@ -2,6 +2,9 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import NavBar from "../../Component/NavBar/NavBar"
 import { NewUserModal } from "../../Component/NewUserModal/NewUserModal"
+import { Button } from "../../Component/styled/Buttons.styled"
+import { PageContainer } from "../../Component/styled/PageContainer.styled"
+import { UserContainer } from "../../Component/styled/UserContainer.styled"
 import userConatinerStyles from "./UsersListStyling"
 
 export const UsersList = () => {
@@ -26,20 +29,16 @@ export const UsersList = () => {
     return (
         <>
             <NavBar >
-            <button onClick={() => { setNewUserModalOpen(true) }}>Add User</button>
+                <Button onClick={() => { setNewUserModalOpen(true) }}>Add User</Button>
             </NavBar>
-            {/* <div className={userStyles.userListNavBar}>
-                <div className={userStyles.addUser} onClick={() => { setNewUserModalOpen(true) }}>Add User</div>
-            </div> */}
-            <div className={userStyles.usersPage}>
+            <PageContainer>
                 {newUserModalOpen
                     ? <NewUserModal setNewUserModalOpen={setNewUserModalOpen} />
                     : ''}
                 {data.map(user => {
-                    console.log(user);
                     return (
                         <Link to={`/profile/${user.id}`} key={user.id}>
-                            <div className={userStyles.userContainer} >
+                            <UserContainer>
                                 <img src={user.picture} className={userStyles.userPicture} alt='' />
                                 <div className={userStyles.userInfo}>
                                     <div className={userStyles.userId}>{user.id}</div>
@@ -47,11 +46,12 @@ export const UsersList = () => {
                                         <span>{user.title} {user.firstName} {user.lastName}</span>
                                     </div>
                                 </div>
-                            </div>
-                        </Link>)
+                            </UserContainer>
+                        </Link>
+                    )
                 })}
-            </div>
-            <div>Show More Users</div>
+            </PageContainer>
+                <div>Show More Users</div>
         </>
     )
 }
