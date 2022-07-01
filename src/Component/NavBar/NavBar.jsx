@@ -17,6 +17,8 @@ function NavBar({ children }) {
       navigate('/');
    }
 
+   console.log('loggedUser NAVBAR', loggedUser)
+
    let myNav = document.querySelector("#Nav")
 
    window.addEventListener("scroll", (event) => {

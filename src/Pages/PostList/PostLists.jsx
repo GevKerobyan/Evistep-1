@@ -21,7 +21,7 @@ export const Postlists = ({ searchTag }) => {
 
     const { loggedUser, dispatch } = useUserContext()
     const [tagSearchflag, setTagSearchFlag] = useState(false)
-    const [liked, setLiked] = useState(true)
+    const [likedUsers, setLiked] = useState(true)
 
 
 
@@ -45,25 +45,34 @@ export const Postlists = ({ searchTag }) => {
     }, [posts])
 
     useEffect(() => {
-        // console.log('consoling: posts :::')
-    }, [tagSearchflag])
+        // console.log('consoling: posts :::', posts)
+    }, [posts])
 
+    
 
-    const handleThumbUp = (index) => {
-        if (liked) {
-            setPosts([
-                ...posts, posts[index] = { ...posts[index], likes: posts[index].likes - 1 }
-            ])
-            console.log('consoling: posts[index] 1 :::', posts[index].likes)
-            setLiked(false)
-        } else {
-            console.log('consoling: posts[index] 2 :::', posts[index].likes)
-            setPosts([
-                ...posts, posts[index] = { ...posts[index], likes: posts[index].likes + 1 }
-            ])
-            setLiked(true)
-        }
-    }
+    // const handleThumbUp = (index) => {
+    //         setPosts(
+    //             posts.map((item, ind) => {
+    //                 return ((ind === index)
+    //                 ? (posts[ind].likedUsers?.includes(loggedUser.userInfo.id)
+    //                 ? {...posts[ind], likes: posts[ind].likes-1, likedUsers: [posts[ind].likedUsers.filter(user=>user === loggedUser.userInfo.id)]}
+                   
+    //                 : {...posts[ind], likes: posts[ind].likes+1, likedUsers: [...posts[ind].likedUsers, loggedUser.userInfo.id]})
+    //                 : item)
+    //             })
+    //         )
+    //         setLiked(false)
+       
+    //         // setPosts(
+    //         //     posts.map((item, ind) => {
+    //         //         return ((ind === index)
+                    
+    //         //         ? {...posts[ind], likes: posts[ind].likes+1}
+    //         //         : item)
+    //         //     })
+    //         // )
+    //         setLiked(true)
+    //     }
 
     const handleTagClick = () => {
         setTagSearchFlag(true)
@@ -85,9 +94,9 @@ export const Postlists = ({ searchTag }) => {
                     return (
                         <SinglePost
                             key={post.id+index}
-                            handleThumbUp={handleThumbUp}
+                            // handleThumbUp={handleThumbUp}
                             post={post}
-                            liked={liked}
+                            likedUsers={likedUsers}
                             setLiked={setLiked}
                             index={index}
                             date={date}

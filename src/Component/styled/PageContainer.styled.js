@@ -11,4 +11,3 @@ export const PageContainer = styled.div`
 	padding: 100px 2%;
 	background-color: rgb(245,245,245);
 `
-

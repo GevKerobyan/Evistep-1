@@ -12,8 +12,6 @@ function NewPostModal({ setAddModalOpen, action }) {
         tags: [],
         text: '',
     })
-    // const userRenderFlag = useRef(true)
-
 
     const [singleImage, setSingleImage] = useState({})
     const [singleTag, setSingleTag] = useState('')
@@ -53,8 +51,6 @@ function NewPostModal({ setAddModalOpen, action }) {
 
     const handleNewPostSubmit = (e) => {
         e.prevent.default()
-        // const sendData = new FormData();
-        // sendData.append('image', {singleImage})
         const url = `https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca`;
         const headers = {
             'app-id': "62b1dfc56fa280809ad74846",
@@ -91,7 +87,6 @@ function NewPostModal({ setAddModalOpen, action }) {
                             <button onClick={e => handleAddTag(e)}>+</button>
                         </div>
                     </div>
-
                     {newPost.tags
                         ? <div className={modalStyles.tagsDisplay}>
                             {newPost.tags.map((item, index) => {
@@ -112,7 +107,6 @@ function NewPostModal({ setAddModalOpen, action }) {
                     />
                 </div>
                 <div className={modalStyles.buttonsContainer}>
-
                     <button type="button" className={modalStyles.button} onClick={() => setAddModalOpen(false)}>Cancel</button>
                     <button type="submit" className={modalStyles.button}>Post</button>
                 </div>

@@ -4,8 +4,9 @@ const navBarStyling = createUseStyles({
 	
 	navWrapper: {
 		position: 'fixed',
+		width: '100%',
 		left: '0',
-		right: '0',
+		
 		top: '0',
 		height: 'auto',
 		display: 'flex',
@@ -65,6 +66,7 @@ const navBarStyling = createUseStyles({
 		backgroundColor: 'white',
 		borderRadius: '4px',
 		marginLeft: '20px',
+		backgroundColor: 'silver',
 	},
 
 	searchContainer: {
@@ -81,6 +83,7 @@ const navBarStyling = createUseStyles({
 		border: 'none',
 		borderRadius: '4px',
 		marginLeft: '25px',
+		backgroundColor: 'silver',
 	},
 
 });

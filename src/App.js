@@ -41,7 +41,7 @@ function reducer(state, actions) {
 	switch (actions.type) {
 		case 'createUser': {
 			return {
-				userInfo: {...actions.user},
+				userInfo: { ...actions.user },
 				isLoggedIn: true,
 			};
 		}
@@ -54,6 +54,8 @@ function reducer(state, actions) {
 		}
 
 		case 'logIn': {
+			localStorage.setItem('onlineUser', JSON.stringify(actions.user));
+			console.log('logIn')
 			return {
 				userInfo: actions.user,
 				isLoggedIn: true,
@@ -61,6 +63,7 @@ function reducer(state, actions) {
 		}
 
 		case 'signOut': {
+			localStorage.removeItem('onlineUser')
 			return {
 				userInfo: {},
 				isLoggedIn: false,
@@ -70,40 +73,35 @@ function reducer(state, actions) {
 }
 
 function App() {
-	const [loggedUser, dispatch] = useReducer(reducer, defaultState, () => {
-		const localStorageUser = localStorage.getItem('onlineUser');
-		return localStorageUser
-			? JSON.parse(localStorageUser)
-			: {
-					userInfo: {},
-					isLoggedIn: false,
-			  };
+	const [loggedUser, dispatch] = useReducer(reducer, defaultState, ()=> {
+		const localStorageUser = JSON.parse(localStorage.getItem('onlineUser'))
+		return {userInfo: {...localStorageUser},
+		isLoggedIn: true}
 	});
 
 	const [otherUser, otherDispatch] = useReducer(
 		unloggedReducer,
 		defaultUnloggedState
-	);
-
-	useEffect(() => {
-		localStorage.setItem('onlineUser', JSON.stringify(loggedUser));
-	}, [loggedUser]);
+	)
 
 	return (
-				<State.Provider value={{ loggedUser, dispatch }}>
-					<Router>
-						<div className='App'>
-							<Routes>
-								<Route exact path='/' element={<HomePage />} />
-								<Route path='/users' element={<UsersList />} />
-								<Route path='/posts/' element={<Postlists />} />
-								{/* <Route path='/taggedposts/:tag' element={<TaggedPosts />} /> */}
-								<Route path='/profile/:id' element={<UserProfile />} />
-							</Routes>
-						</div>
-					</Router>
-				</State.Provider>
+		<State.Provider value={{ loggedUser, dispatch }}>
+			<Router>
+				<div className='App'>
+					<Routes>
+						<Route exact path='/' element={<HomePage />} />
+						<Route path='/users' element={<UsersList />} />
+						<Route path='/posts/' element={<Postlists />} />
+						{/* <Route path='/taggedposts/:tag' element={<TaggedPosts />} /> */}
+						<Route path='/profile/:id' element={<UserProfile />} />
+					</Routes>
+				</div>
+			</Router>
+		</State.Provider>
 	);
 }
 
 export default App;
+
+
+// {"id":"60d0fe4f5311236168a109e1","userName":"James","userLastName":"Black"}

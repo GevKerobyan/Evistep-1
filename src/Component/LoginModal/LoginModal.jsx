@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import useUserContext from "../../Hooks/useUserContext";
 import Modal from "../Modal/Modal";
 import { loginStylings } from "./LoginModalStyling";
 
@@ -19,25 +20,14 @@ function LoginModal({ setLoginModal }) {
    const navigate = useNavigate()
 
    const [checkFlag, setCheckFlag] = useState(false)
+   const { loggedUser, dispatch } = useUserContext()
+
    const [page, setPage] = useState(0)
    const limit = 50;
    let total;
 
 
    const loggingUserId = null
-
-   // useEffect(() => {
-   //    allUsers.map(item => {
-   //       if (item.firstName === loginUserCheck.userName
-   //          &&
-   //          item.lastName === loginUserCheck.userLastName) {
-   //          setLoginUserCheck({
-   //             ...loginUserCheck,
-   //             id: item.id
-   //          })
-   //       } else console.log('first')
-   //    })
-   // }, [allUsers])
 
    useEffect(() => {
       if (loginUserCheck.id) navigate(`./profile/${loginUserCheck.id}`)
@@ -88,10 +78,13 @@ function LoginModal({ setLoginModal }) {
          if (item.firstName === loginUserCheck.userName
             &&
             item.lastName === loginUserCheck.userLastName) {
-            setLoginUserCheck({
+           return (setLoginUserCheck({
                ...loginUserCheck,
                id: item.id
-            })
+            }),
+            dispatch({ type: 'logIn', user: {...item} })
+            )
+            
          } else console.log('first')
       })
       setCheckFlag(true)

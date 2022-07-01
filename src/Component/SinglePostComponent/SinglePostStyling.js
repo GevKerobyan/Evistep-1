@@ -34,7 +34,7 @@ const singlePostStyling = createUseStyles({
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		marginBottom: '10px '
+		marginBottom: '10px ',
 	},
 
 	postOwnerImgBox: {
@@ -111,6 +111,13 @@ const singlePostStyling = createUseStyles({
 		backgroundColor: 'blue',
 	},
 
+	postLikeContainer: {
+		width: '50px',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+	},
+	
 	likeThumb: {
 		height: '20px',
 		width: '20px',
@@ -120,13 +127,6 @@ const singlePostStyling = createUseStyles({
 			width: '20px',
 			heigth: '20px',
 		},
-	},
-
-	postLikeContainer: {
-		width: '50px',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'space-between',
 	},
 });
 

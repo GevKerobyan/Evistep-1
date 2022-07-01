@@ -24,6 +24,7 @@ export const UserProfile = () => {
   const navigate = useNavigate()
   const [userPosts, setUserPosts] = useState([])
 
+  console.log('loggedUser', loggedUser)
   // console.log(user);
 
   // if (!loggedUser.isLoggedIn) {
@@ -39,11 +40,14 @@ export const UserProfile = () => {
         }
       })
       api.get()
-        .then(({ data }) => dispatch({type: 'createUser', user: data}))
-        .then(console.log('consoling: loggedUser :::', loggedUser ))
+        .then(res => setUser(res.data))
     }
     userRenderFlag.current = false
   }, [])
+
+  useEffect(()=> {
+    console.log('consoling: user in profile :::', user )
+  },[user])
 
   const loadUserPosts = () => {
     const api = axios.create({
@@ -88,33 +92,33 @@ export const UserProfile = () => {
         : null
     }
 
-      <div key={loggedUser.userInfo.id} className={userPageStyles.pageContainer}>
+      <div key={user.id} className={userPageStyles.pageContainer}>
         <div className={userPageStyles.userContainer}>
           <div className={userPageStyles.left}>
-            <p><span>ID: </span>{loggedUser.userInfo.id}</p>
-            <img src={loggedUser.userInfo.picture} alt=''></img>
+            <p><span>ID: </span>{user.id}</p>
+            <img src={user.picture} alt=''></img>
           </div>
 
           <div className={userPageStyles.middle}>
             <div className={userPageStyles.middleTop}>
               <span>
-                {loggedUser.userInfo.title} {loggedUser.userInfo.firstName} {loggedUser.userInfo.lastName}
+                {user.title} {user.firstName} {user.lastName}
               </span>
               <p>
-                <span>Gender: </span>{loggedUser.userInfo.gender}
+                <span>Gender: </span>{user.gender}
               </p>
 
               <p>
-                <span>Date of birth: </span>{fixDate(new Date(loggedUser.userInfo.dateOfBirth))}
+                <span>Date of birth: </span>{fixDate(new Date(user.dateOfBirth))}
               </p>
 
               <p>
-                <span>Register date: </span>{fixDate(new Date(loggedUser.userInfo.registerDate))}
+                <span>Register date: </span>{fixDate(new Date(user.registerDate))}
               </p>
             </div>
             <div className={userPageStyles.middleBottom}>
-              <p><span>Email: </span>{loggedUser.userInfo.email}</p>
-              <p><span>Phone: </span>{loggedUser.userInfo.phone}</p>
+              <p><span>Email: </span>{user.email}</p>
+              <p><span>Phone: </span>{user.phone}</p>
             </div>
           </div>
 
@@ -123,11 +127,11 @@ export const UserProfile = () => {
               <span>Address</span>
             </p>
 
-            <p>State: {loggedUser.userInfo.location?.state ? loggedUser.userInfo.location.state : null}</p>
-            <p>Street: {loggedUser.userInfo.location?.street ? loggedUser.userInfo.location.street : null}</p>
-            <p>City: {loggedUser.userInfo.location?.city ? loggedUser.userInfo.location.city : null}</p>
-            <p>Country: {loggedUser.userInfo.location?.country ? loggedUser.userInfo.location.country : null}</p>
-            <p>Timezone: {loggedUser.userInfo.location?.timezone ? loggedUser.userInfo.location.timezone : null} </p>
+            <p>State: {user.location?.state ? user.location.state : null}</p>
+            <p>Street: {user.location?.street ? user.location.street : null}</p>
+            <p>City: {user.location?.city ? user.location.city : null}</p>
+            <p>Country: {user.location?.country ? user.location.country : null}</p>
+            <p>Timezone: {user.location?.timezone ? user.location.timezone : null} </p>
           </div>
         </div>
 

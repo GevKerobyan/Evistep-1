@@ -1,15 +1,16 @@
 import modalStyling from "./modalStyling";
 import reactDOM from "react-dom";
 
-const Modal = ({ children, isOpen }) => {
+const Modal = ({ children, isOpen, openPost}) => {
 
     
-    const modalStyles = modalStyling()
+    const modalStyles = modalStyling(openPost)
 
     if (!isOpen) return null
+    console.log(openPost);
     return reactDOM.createPortal(
         <>
-            <div className={modalStyles.modalBG}>
+            <div className={openPost ? modalStyles.openPostModal : modalStyles.modalBG}>
                 {children}
             </div>
         </>, document.getElementById('modal-root'))
