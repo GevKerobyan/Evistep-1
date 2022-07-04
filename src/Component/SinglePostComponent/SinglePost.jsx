@@ -4,9 +4,10 @@ import { svgs } from '../../Assets/svgs'
 import useUserContext from '../../Hooks/useUserContext'
 import OpenPostModal from '../OpenPostModal/OpenPostModal'
 import { PostContainer } from '../styled/PostContainer.styled'
+import Tag from '../Tag/Tag'
 import singlePostStyling from './SinglePostStyling'
 
-function SinglePost({ handleThumbUp, post, liked, setLiked, index, date, handleTagClick }) {
+function SinglePost({ post, index, date }) {
     const postStyles = singlePostStyling()
 
     const { loggedUser, dispatch } = useUserContext()
@@ -20,21 +21,25 @@ function SinglePost({ handleThumbUp, post, liked, setLiked, index, date, handleT
         setEditModalOpen(true);
     }
 
+    const handleOpenPost = () => {
+        setOpenPost(!openPost)
+    }
+
+    useEffect(() => {
+        console.log('consoling: openPost :::', openPost)
+    }, [openPost])
+
+
     return (
-
-
-
-        <PostContainer key={post.id + index} onClick={()=>setOpenPost(true)}>
-
+        <PostContainer key={post.id + index} onClick={handleOpenPost}>
             {loggedUser
                 ? post.owner.id === loggedUser.userInfo.id
                     ? <div className={postStyles.editIcon} onClick={(e) => handleEditClick(e)}>{svgs.edit}</div>
                     : <div className={postStyles.editIcon} />
                 : null
             }
-
             {openPost
-                ? (<OpenPostModal post={post} setOpenPost={setOpenPost} />)
+                ? (<OpenPostModal post={post} handleOpenPost={handleOpenPost} />)
                 : ''}
             <Link to={`/profile/${post.owner.id}`} className={postStyles.singlePostTop}>
                 <div className={postStyles.postOwnerImgBox}>
@@ -47,14 +52,15 @@ function SinglePost({ handleThumbUp, post, liked, setLiked, index, date, handleT
             </Link>
             <div className={postStyles.singlePostBottom}>
                 <div className={postStyles.BottomImgBox}>
-                    <img src={post.image} alt='' className={postStyles.postImg}/>
+                    <img src={post.image} alt='' className={postStyles.postImg} />
                 </div>
                 <div className={postStyles.BottomPostInfo}>
+                    <p>{post.text}</p>
                     <p>{date}</p>
                     <div className={postStyles.postTags}>
                         {post.tags.map((tag, index) => {
                             return (
-                                <Link to={`/taggedposts/${tag}`} className={postStyles.postSingleTag} key={post.id+index} onClick={e=>{}}>{tag}</Link>
+                                <Tag key={[post.id + index]} tag={tag} />
                             )
                         })}
                     </div>

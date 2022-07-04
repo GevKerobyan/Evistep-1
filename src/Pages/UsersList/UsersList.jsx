@@ -29,7 +29,7 @@ export const UsersList = () => {
     return (
         <>
             <NavBar >
-                <Button onClick={() => { setNewUserModalOpen(true) }}>Add User</Button>
+                <span onClick={() => { setNewUserModalOpen(true) }}>Add User</span>
             </NavBar>
             <PageContainer>
                 {newUserModalOpen

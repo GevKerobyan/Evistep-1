@@ -33,7 +33,7 @@ function EditUserProfile({ setEditModalOpen }) {
          phone: tempLoggedUserData.phone,
       }
 
-      axios.put(url, { data }, { headers })
+      axios.put(url, data ,{ headers } )
          .then(res => handleEditResult(res.data))
          .catch(er => { alert(er) })
    }

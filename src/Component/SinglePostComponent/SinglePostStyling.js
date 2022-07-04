@@ -87,30 +87,6 @@ const singlePostStyling = createUseStyles({
 		justifyContent: 'flex-start',
 	},
 
-	singleTagWrapper: {
-		position: 'relative',
-	},
-
-	postSingleTag: {
-		margin: '0 4px 4px 0',
-		padding: '4px 8px',
-		font: '12px',
-		display: 'flex',
-		whiteSpace: 'nowrap',
-		borderRadius: '3px',
-		color: 'white',
-		backgroundColor: 'rgb(122,38,64)',
-	},
-
-	postSingleTagPopUp: {
-		position: 'absolute',
-		top: '-20px',
-		right: '0',
-		width: '40px',
-		heigth: '20px',
-		backgroundColor: 'blue',
-	},
-
 	postLikeContainer: {
 		width: '50px',
 		display: 'flex',

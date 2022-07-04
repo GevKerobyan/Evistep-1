@@ -3,6 +3,7 @@ import navBarStyling from "./NavBarStyling";
 import blankProfilePic from '../../Assets/blank-profile-picture.png'
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../styled/Buttons.styled";
+import { useEffect } from "react";
 
 function NavBar({ children }) {
 
@@ -17,52 +18,52 @@ function NavBar({ children }) {
       navigate('/');
    }
 
-   console.log('loggedUser NAVBAR', loggedUser)
+   // console.log('loggedUser NAVBAR', loggedUser)
 
-   let myNav = document.querySelector("#Nav")
+   let myNav;
 
-   window.addEventListener("scroll", (event) => {
-      (window.scrollY >= 5) 
-      ? myNav.style.boxShadow = '1px 4px 10px rgb(0, 0, 50)'
-      : myNav.style.boxShadow = '1px 1px 3px rgb(0, 0, 50)'
-  });
+useEffect(() => {
+   myNav = document.querySelector("#Nav")
+},[window.scroll])
+
+   window.addEventListener("scroll", () => {
+      (window.scrollY >= 5)
+         ? myNav.classList.add('navStyles.scrolledNav')
+         : myNav.style.boxShadow = '1px 1px 3px rgb(0, 0, 50)'
+   });
 
    return (
       <div className={navStyles.navWrapper} id='Nav'>
          <div className={navStyles.leftLinkContainer}>
             <Link to='/posts'>
-               <Button>
-                  Home
-               </Button>
+               <span>
+                  Posts
+               </span>
             </Link>
             <Link to='/users'>
-               <Button>
+               <span>
                   Users
-               </Button>
+               </span>
             </Link>
          </div>
          <div className={navStyles.container}>
-            <div className={navStyles.userContainer}>
-               <Link
-                  to={loggedUser.userInfo.id ? `/profile/${loggedUser.userInfo.id}` : '/'}
-                  className={navStyles.userImageContainer}>
-                  <img src={loggedUser.userInfo.picture || blankProfilePic} className={navStyles.userImg} >
-                  </img>
-               </Link>
-               <p className={navStyles.userName}>
-                  {loggedUser.userInfo.firstName} {loggedUser.userInfo.lastName}
-               </p>
-            </div>
-            <div className={navStyles.searchContainer}>
+            <Link
+               to={loggedUser.userInfo.id ? `/profile/${loggedUser.userInfo.id}` : '/'}
+               className={navStyles.userImageContainer}>
+               <img src={loggedUser.userInfo.picture || blankProfilePic} className={navStyles.userImg} >
+               </img>
+            </Link>
+
+            {/* <div className={navStyles.searchContainer}>
                <label htmlFor="search">Search</label>
                <input type="search" id='search' name="search" className={navStyles.searchInput} />
-            </div>
+            </div> */}
             {children ? children : null}
             {loggedUser.isLoggedIn
-               ? <Button onClick={handleSignOut}> Sign Out </Button>
-               : <Link to={'/'} onClick={handleSignOut}><Button>
+               ? <span onClick={handleSignOut}> Sign Out </span>
+               : <Link to={'/'} onClick={handleSignOut}><span>
                   Login
-               </Button></Link>
+               </span></Link>
             }
 
          </div>

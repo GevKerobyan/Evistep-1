@@ -2,6 +2,7 @@ import { createUseStyles } from 'react-jss';
 
 const OpenPostStylings = createUseStyles({
 	openPostWrapper: {
+      position: 'relative',
       width: '600px',
       minWidth: '600px',
 		height: 'auto',
@@ -9,6 +10,18 @@ const OpenPostStylings = createUseStyles({
       borderRadius: '10px',
 		backgroundColor: 'white',
 	},
+
+   closeModalButton: {
+      position: 'sticky',
+      width: '40px',
+      height: '40px',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: '20px',
+      marginLeft: '75vw',
+      backgroundColor:'red'
+   },
 
    postOwner: {
       width: '100%',

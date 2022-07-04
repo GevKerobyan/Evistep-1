@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import useUserContext from "../../Hooks/useUserContext";
 import Modal from "../Modal/Modal";
 
 import { postModalStyling } from "./newPostModalStyling";
@@ -13,18 +14,24 @@ function NewPostModal({ setAddModalOpen, action }) {
         text: '',
     })
 
-    const [singleImage, setSingleImage] = useState({})
+    const formData = new FormData()
+
+
+    const { loggedUser, dispatch } = useUserContext()
+
+    // const [singleImage, setSingleImage] = useState({})
     const [singleTag, setSingleTag] = useState('')
 
+    const handleFileChange = e => {
+        formData.append('image', e.target.files[0])
+        console.log(formData.entries())
 
+        setNewPost({...newPost, image: formData})
+    }
 
     const handleChange = (e) => {
         switch (e.target.id) {
-            case 'image': {
-                let img = e.target.files[0]
-                setSingleImage(URL.createObjectURL(img))
-                break;
-            }
+            
             case 'tags': {
                 setSingleTag(e.target.value)
                 break;
@@ -37,8 +44,6 @@ function NewPostModal({ setAddModalOpen, action }) {
         }
     }
 
-
-
     const handleAddTag = (e) => {
         e.preventDefault()
         if (singleTag) {
@@ -48,29 +53,35 @@ function NewPostModal({ setAddModalOpen, action }) {
             setSingleTag('')
         }
     }
+    useEffect(()=>{
+        // console.log('newImage : ', newPost.image.entries())
+
+    },[newPost.image])
 
     const handleNewPostSubmit = (e) => {
-        e.prevent.default()
-        const url = `https://dummyapi.io/data/v1/user/60d0fe4f5311236168a109ca`;
+        e.preventDefault()   
+        const url = `https://dummyapi.io/data/v1/post/create`;
         const headers = {
             'app-id': "62b1dfc56fa280809ad74846",
             "Access-Control-Allow-Origin": "*"
         }
-        const body = { singleImage, newPost }
-        axios.post(url, { headers, body })
+        // const owner = loggedUser.userInfo.id
+        const body = { newPost, owner: loggedUser.userInfo.id }
+        axios.post(url, { headers, body})
             .then(res => { console.log('res : ', res) })
+            .catch(er => alert(er))
     }
 
     return (
         <Modal isOpen>
-            <form className={modalStyles.modalContainer} onSubmit={e => handleNewPostSubmit(e)}>
+            <form className={modalStyles.modalContainer} >
                 <div className={modalStyles.inputWrapper}>
                     <label htmlFor="image">Pic</label>
                     <input
                         type="file"
                         id="image"
                         className={modalStyles.uploadButton}
-                        onChange={e => handleChange(e)}
+                        onChange={e => handleFileChange(e)}
                     />
                 </div>
                 <div className={modalStyles.tagsInputWrapper}>
@@ -108,7 +119,7 @@ function NewPostModal({ setAddModalOpen, action }) {
                 </div>
                 <div className={modalStyles.buttonsContainer}>
                     <button type="button" className={modalStyles.button} onClick={() => setAddModalOpen(false)}>Cancel</button>
-                    <button type="submit" className={modalStyles.button}>Post</button>
+                    <button type="button" className={modalStyles.button} onClick={e => handleNewPostSubmit(e)}>Post</button>
                 </div>
             </form>
         </Modal>

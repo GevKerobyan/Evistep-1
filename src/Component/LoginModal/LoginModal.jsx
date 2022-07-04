@@ -30,7 +30,7 @@ function LoginModal({ setLoginModal }) {
    const loggingUserId = null
 
    useEffect(() => {
-      if (loginUserCheck.id) navigate(`./profile/${loginUserCheck.id}`)
+      if (loginUserCheck.id) navigate(`./posts`)
    }, [loginUserCheck.id])
 
    const handleChange = (e) => {
@@ -67,7 +67,7 @@ function LoginModal({ setLoginModal }) {
                ...response.data.data])
             if (Math.ceil(total / limit) >= page + 1) {
                setPage(prev => prev += 1)
-               console.log('consoling: allUsers :::', allUsers )
+               console.log('consoling: allUsers :::', allUsers)
             }
          })
    }, [page, limit])

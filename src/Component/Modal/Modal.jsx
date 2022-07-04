@@ -7,7 +7,6 @@ const Modal = ({ children, isOpen, openPost}) => {
     const modalStyles = modalStyling(openPost)
 
     if (!isOpen) return null
-    console.log(openPost);
     return reactDOM.createPortal(
         <>
             <div className={openPost ? modalStyles.openPostModal : modalStyles.modalBG}>

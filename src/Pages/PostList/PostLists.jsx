@@ -81,9 +81,9 @@ export const Postlists = ({ searchTag }) => {
     return (
         <>
             <NavBar className={postlistStyles.userListNavBar}>
-                <Button onClick={() => {
+                <span onClick={() => {
                     setAddModalOpen(true)
-                }}>Add Post</Button>
+                }}>Add Post</span>
             </NavBar>
             <PageContainer>
                 {addModalOpen
@@ -94,13 +94,9 @@ export const Postlists = ({ searchTag }) => {
                     return (
                         <SinglePost
                             key={post.id+index}
-                            // handleThumbUp={handleThumbUp}
                             post={post}
-                            likedUsers={likedUsers}
-                            setLiked={setLiked}
                             index={index}
-                            date={date}
-                            handleTagClick={handleTagClick} />
+                            date={date}/>
                     )
                 })}
             </PageContainer>

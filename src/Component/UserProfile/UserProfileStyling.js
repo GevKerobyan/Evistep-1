@@ -7,7 +7,8 @@ const UserProfileStyles = createUseStyles({
 		display: 'flex',
 		flexDirection: 'column',
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'flex-start',
+		marginTop: '150px',
 	},
 
 	userContainer: {
@@ -67,7 +68,7 @@ const UserProfileStyles = createUseStyles({
 
 	deletePopUpWrapper: {
 		position: 'absolute',
-		top: '50%',
+		top: '50vh',
 		left: '50%',
 		transform: 'translate(-50%, -50%)',
 		width: '600px',
@@ -80,6 +81,7 @@ const UserProfileStyles = createUseStyles({
 		backgroundColor: 'RGB(146, 168, 209)',
 		borderRadius: '20px',
 		boxShadow: '5px 4px 10px rgba(94,97,100,1)',
+		zIndex: '999',
 	},
 
 	buttonContainer: {
@@ -104,6 +106,18 @@ const UserProfileStyles = createUseStyles({
 		backgroundColor: 'Green',
 		color: 'white',
 	},
+
+	userPostsContainer: {
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		marginTop:'50px',
+	},
+
+	singleUserPost: {
+
+	}
 });
 
 export default UserProfileStyles;

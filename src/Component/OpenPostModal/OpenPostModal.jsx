@@ -5,11 +5,12 @@ import { svgs } from "../../Assets/svgs"
 import fixDate from "../../Helpers/dateFix"
 import useUserContext from "../../Hooks/useUserContext"
 import Modal from "../Modal/Modal"
+import Tag from "../Tag/Tag"
 import OpenPostStylings from "./OpenPostModalStyling"
 
 
 
-function OpenPostModal({ post, setOpenPost }) {
+function OpenPostModal({ post, handleOpenPost }) {
    const openPostStyles = OpenPostStylings()
    const { loggedUser, dispatch } = useUserContext()
 
@@ -20,7 +21,6 @@ function OpenPostModal({ post, setOpenPost }) {
 
    // AXIOS get post comments
    useEffect(() => {
-
       const url = `https://dummyapi.io/data/v1/post/${post.id}/comment`;
       const headers = {
          'app-id': "62b1dfc56fa280809ad74846",
@@ -32,18 +32,11 @@ function OpenPostModal({ post, setOpenPost }) {
          .catch(er => { alert(er) })
    }, [])
 
-   useEffect(() => {
-      console.log('comments total', comments)
-
-   }, [comments])
-
-
    return (
       <Modal isOpen openPost>
+         {/* <div className={openPostStyles.closeModalButton} onClick={handleOpenPost}>X</div> */}
+
          <div className={openPostStyles.openPostWrapper}>
-            <div className={openPostStyles.closeModalButton} onClick={() => {
-               setOpenPost(false)
-            }}>X</div>
             <div className={openPostStyles.postOwner}>
                <div className={openPostStyles.postOwnerPic}>
                   <img src={post.owner.picture} className={openPostStyles.postOwnerPicImg}></img>
@@ -62,18 +55,18 @@ function OpenPostModal({ post, setOpenPost }) {
                   <img src={post.image} className={openPostStyles.postPicImg}></img>
                </div>
                <div className={openPostStyles.postSpecs}>
-               <div className={openPostStyles.postLikeContainer}>
+                  <div className={openPostStyles.postLikeContainer}>
                      <span className={openPostStyles.likeThumb} >{svgs.thumbUp}</span>
                      <span className={openPostStyles.likeCount}>{post.likes}</span>
                   </div>
                   <div className={openPostStyles.postTags}>
                      {post.tags.map((tag, index) => {
                         return (
-                           <Link to={`/taggedposts/${tag}`} className={openPostStyles.postSingleTag} key={post.id + index} onClick={e => { }}>{tag}</Link>
+                           <Tag key={[post.id + index]} tag={tag} />
                         )
                      })}
                   </div>
-                 
+
                   <div className={openPostStyles.openCommentsTrigger} onClick={() => { setOpenComments(!openComments) }}>
                      <span className={openPostStyles.commentSVG} >{svgs.comment}
                         <span className={openPostStyles.commentTotal}>{comments.total}</span>
@@ -104,7 +97,7 @@ function OpenPostModal({ post, setOpenPost }) {
                               </div>
                               <div className={openPostStyles.commentText}>{comment.message}</div>
                               <div className={openPostStyles.singleCommentFooter}>{fixDate(new Date(comment.publishDate))}</div>
-                              
+
                            </div>
                         )
                      })}
