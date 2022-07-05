@@ -48,32 +48,6 @@ export const Postlists = ({ searchTag }) => {
         // console.log('consoling: posts :::', posts)
     }, [posts])
 
-    
-
-    // const handleThumbUp = (index) => {
-    //         setPosts(
-    //             posts.map((item, ind) => {
-    //                 return ((ind === index)
-    //                 ? (posts[ind].likedUsers?.includes(loggedUser.userInfo.id)
-    //                 ? {...posts[ind], likes: posts[ind].likes-1, likedUsers: [posts[ind].likedUsers.filter(user=>user === loggedUser.userInfo.id)]}
-                   
-    //                 : {...posts[ind], likes: posts[ind].likes+1, likedUsers: [...posts[ind].likedUsers, loggedUser.userInfo.id]})
-    //                 : item)
-    //             })
-    //         )
-    //         setLiked(false)
-       
-    //         // setPosts(
-    //         //     posts.map((item, ind) => {
-    //         //         return ((ind === index)
-                    
-    //         //         ? {...posts[ind], likes: posts[ind].likes+1}
-    //         //         : item)
-    //         //     })
-    //         // )
-    //         setLiked(true)
-    //     }
-
     const handleTagClick = () => {
         setTagSearchFlag(true)
     }

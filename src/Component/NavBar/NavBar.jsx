@@ -1,9 +1,9 @@
 import useUserContext from "../../Hooks/useUserContext";
-import navBarStyling from "./NavBarStyling";
 import blankProfilePic from '../../Assets/blank-profile-picture.png'
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../styled/Buttons.styled";
 import { useEffect } from "react";
+import navBarStyling from "./NavBarStyling";
 
 function NavBar({ children }) {
 
@@ -22,14 +22,21 @@ function NavBar({ children }) {
 
    let myNav;
 
-useEffect(() => {
-   myNav = document.querySelector("#Nav")
-},[window.scroll])
+   useEffect(() => {
+      myNav = document.querySelector("#Nav")
+   }, [window.scroll])
 
    window.addEventListener("scroll", () => {
-      (window.scrollY >= 5)
-         ? myNav.classList.add('navStyles.scrolledNav')
-         : myNav.style.boxShadow = '1px 1px 3px rgb(0, 0, 50)'
+      if (window.scrollY >= 5) {
+         myNav.style.boxShadow = '1px 4px 10px rgb(0, 0, 50)'
+         myNav.style.backgroundColor = `rgb(15,40,81)`
+         myNav.style.color = 'white'
+
+      } else {
+         myNav.style.boxShadow = '1px 1px 3px rgb(0, 0, 50)'
+         myNav.style.backgroundColor = `rgba(15,40,81,0)`
+         myNav.style.color = 'rgb(122,38,64)'
+      }
    });
 
    return (

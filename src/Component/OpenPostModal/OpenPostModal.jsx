@@ -12,12 +12,13 @@ import OpenPostStylings from "./OpenPostModalStyling"
 
 function OpenPostModal({ post, handleOpenPost }) {
    const openPostStyles = OpenPostStylings()
+
    const { loggedUser, dispatch } = useUserContext()
 
    const [comments, setComments] = useState([])
+   const [newComment, setNewComment] = useState('')
 
    const [openComments, setOpenComments] = useState(false)
-
 
    // AXIOS get post comments
    useEffect(() => {
@@ -32,10 +33,21 @@ function OpenPostModal({ post, handleOpenPost }) {
          .catch(er => { alert(er) })
    }, [])
 
+   const toggleComments = e => {
+      e.stopPropagation()
+      setOpenComments(!openComments)
+   }
+
+   const handleAddComment = e => {
+      e.stopPropagation()
+   }
+
+   useEffect(() => {
+      console.log('consoling: newComment :::', newComment)
+   }, [newComment])
+
    return (
       <Modal isOpen openPost>
-         {/* <div className={openPostStyles.closeModalButton} onClick={handleOpenPost}>X</div> */}
-
          <div className={openPostStyles.openPostWrapper}>
             <div className={openPostStyles.postOwner}>
                <div className={openPostStyles.postOwnerPic}>
@@ -67,7 +79,7 @@ function OpenPostModal({ post, handleOpenPost }) {
                      })}
                   </div>
 
-                  <div className={openPostStyles.openCommentsTrigger} onClick={() => { setOpenComments(!openComments) }}>
+                  <div className={openPostStyles.openCommentsTrigger} onClick={e => toggleComments(e)}>
                      <span className={openPostStyles.commentSVG} >{svgs.comment}
                         <span className={openPostStyles.commentTotal}>{comments.total}</span>
                      </span>
@@ -78,13 +90,13 @@ function OpenPostModal({ post, handleOpenPost }) {
             {openComments
                ? <div className={openPostStyles.commentSection}>
                   <div className={openPostStyles.commentInputWrapper}>
-                     <label htmlFor='commentInput'>Comment the post</label>
-                     <textarea id='commentInput' />
+                     <p>Comment the post</p>
+                     <textarea id='commentInput' value={newComment} onChange={e => setNewComment(e.target.value)} />
+                     {newComment ? <button onClick={e => handleAddComment(e)}>add</button> : ''}
                   </div>
                   <div className={openPostStyles.presentComments}>
                      {comments.data.map(comment => {
                         return (
-                           // console.log('consoling: comment :::', comment )
                            <div className={openPostStyles.singleComment} key={comment.id}>
                               <div className={openPostStyles.commentOwnerField}>
                                  <div className={openPostStyles.commentOwnerPic}>
@@ -102,8 +114,6 @@ function OpenPostModal({ post, handleOpenPost }) {
                         )
                      })}
                   </div>
-
-
                </div>
                : null}
          </div>

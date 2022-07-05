@@ -9,5 +9,5 @@ export const PageContainer = styled.div`
 	justify-content: center;
 	flex-wrap: wrap;
 	padding: 100px 2%;
-	background-color: rgba(15,40,81,0.6);
+	background-color: rgba(30,60,100,0.4);
 `

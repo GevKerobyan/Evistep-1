@@ -1,7 +1,9 @@
+import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { svgs } from '../../Assets/svgs'
 import useUserContext from '../../Hooks/useUserContext'
+import Modal from '../Modal/Modal'
 import OpenPostModal from '../OpenPostModal/OpenPostModal'
 import { PostContainer } from '../styled/PostContainer.styled'
 import Tag from '../Tag/Tag'
@@ -15,26 +17,71 @@ function SinglePost({ post, index, date }) {
     const [editModalOpen, setEditModalOpen] = useState(false)
     const [openPost, setOpenPost] = useState(false)
 
-    const [searchTag, setSearchTag] = useState('')
+    const [deletePostFlag, setDeletePostFlag] = useState(false)
 
-    const handleEditClick = () => {
+    const handleEditClick = e => {
+        e.stopPropagation()
         setEditModalOpen(true);
+        console.log('edit')
     }
 
-    const handleOpenPost = () => {
+    const handleDeleteNo = e => {
+        e.stopPropagation()
+        setDeletePostFlag(false)
+    }
+
+    const handleDeleteClick = e => {
+        e.stopPropagation()
+        setDeletePostFlag(true)
+        console.log('delete')
+    }
+
+    const handlePostDelete = e => {
+        e.stopPropagation()
+        const url = `https://dummyapi.io/data/v1/post/${post.id}`
+        const headers = {
+            'app-id': "62b043e72dfd91bd6b56c58d",
+            'Access-Control-Allow-Origin': "*"
+        }
+        axios.delete(url, { headers })
+            .then(res => console.log('res : ', res))
+    }
+
+    const handleOpenPost = e => {
         setOpenPost(!openPost)
+
     }
 
     useEffect(() => {
-        console.log('consoling: openPost :::', openPost)
-    }, [openPost])
+        console.log('consoling: deletePostFlag :::', deletePostFlag)
+    }, [deletePostFlag])
 
 
     return (
-        <PostContainer key={post.id + index} onClick={handleOpenPost}>
+        <PostContainer key={post.id + index} onClick={e => handleOpenPost(e)}>
+
+            {/* delete section */}
+            
+            {deletePostFlag
+                ? <>
+                    <div className={postStyles.deletePopUpWrapper}>
+                        <h2 className={postStyles.deletePopUpText}>Are you sure you want to delete this post?</h2>
+                        <div className={postStyles.buttonContainer}>
+                            <button className={postStyles.deleteYes} onClick={e => handlePostDelete(e)}>Yes</button>
+                            <button className={postStyles.deleteNo} onClick={e => handleDeleteNo(e)}>No</button>
+                        </div>
+                    </div>
+                </>
+                : null}
+            
+            {/* showing edit delete buttons  */}
+
             {loggedUser
                 ? post.owner.id === loggedUser.userInfo.id
-                    ? <div className={postStyles.editIcon} onClick={(e) => handleEditClick(e)}>{svgs.edit}</div>
+                    ? <div className={postStyles.deleteAndEdit}>
+                        <div className={postStyles.editIcon} onClick={(e) => handleEditClick(e)}>{svgs.edit}</div>
+                        <div className={postStyles.deletIcon} onClick={(e) => handleDeleteClick(e)}>X</div>
+                    </div>
                     : <div className={postStyles.editIcon} />
                 : null
             }
@@ -60,7 +107,11 @@ function SinglePost({ post, index, date }) {
                     <div className={postStyles.postTags}>
                         {post.tags.map((tag, index) => {
                             return (
-                                <Tag key={[post.id + index]} tag={tag} />
+                                <Tag
+                                    key={[post.id + index]}
+                                    tag={tag}
+                                    postId={post.id}
+                                />
                             )
                         })}
                     </div>

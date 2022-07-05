@@ -11,5 +11,5 @@ export const PostContainer = styled.div`
 		background-color: white;
 		border-radius: 5px;
 		box-shadow: 1px 1px 3px RGB(0, 0, 0);
-
+		cursor: pointer;
 `

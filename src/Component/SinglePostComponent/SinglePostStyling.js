@@ -20,17 +20,34 @@ const singlePostStyling = createUseStyles({
 		backgroundColor: 'rgba(146, 168, 209, 0.8)',
 	},
 
-	editIcon: {
+	deleteAndEdit: {
 		position: 'absolute',
+		width: '10%',
 		right: '16px',
 		top: '16px',
-		width: '25px',
-		height: '25px',
-		fill: '#3C4CAD',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
 	},
 
+	
+	editIcon: {
+		width: '17px',
+		height: '17px',
+		fill: 'rgb(15,40,81)',
+	},
+
+	deletIcon: {
+	
+		fill: 'rgba(0,0,0,0.8)',
+		fontSize: '20px',
+		color: 'rgb(122,38,64)'
+
+	},
+
+
 	singlePostTop: {
-		width: '250px',
+		width: '200px',
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -104,6 +121,49 @@ const singlePostStyling = createUseStyles({
 			heigth: '20px',
 		},
 	},
+
+	deletePopUpWrapper: {
+		position: 'absolute',
+		top: '50vh',
+		left: '50%',
+		transform: 'translate(-50%, -50%)',
+		width: '600px',
+		height: '200px',
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		padding: '50px',
+		backgroundColor: 'RGB(146, 168, 209)',
+		borderRadius: '20px',
+		boxShadow: '5px 4px 10px rgba(94,97,100,1)',
+		zIndex: '999',
+	},
+
+	buttonContainer: {
+		width: '75%',
+		display: 'flex',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+		'& button': {
+			padding: '8px 20px',
+			border: 'none',
+			borderRadius: '5px',
+			fontSize: '18px',
+		},
+	},
+
+	deleteYes: {
+		backgroundColor: 'Crimson',
+		color: 'white',
+	},
+
+	deleteNo: {
+		backgroundColor: 'Green',
+		color: 'white',
+	},
+
+
 });
 
 export default singlePostStyling;

@@ -1,25 +1,25 @@
 import { createUseStyles } from 'react-jss';
 
 const UserProfileStyles = createUseStyles({
-	pageContainer: {
-		minHeight: '100vh',
-		padding: '0 5%',
-		display: 'flex',
-		flexDirection: 'column',
-		alignItems: 'center',
-		justifyContent: 'flex-start',
-		marginTop: '150px',
-	},
+	// pageContainer: {
+	// 	minHeight: '100vh',
+	// 	padding: '0 5%',
+	// 	display: 'flex',
+	// 	flexDirection: 'column',
+	// 	alignItems: 'center',
+	// 	justifyContent: 'flex-start',
+	// 	marginTop: '150px',
+	// },
 
 	userContainer: {
 		width: '1000px',
-		height: '200px',
+		height: '300px',
 		padding: '16px',
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		background: 'white',
-		marginBottom: '50px',
+		margin: '100px 0 50px 0',
 		borderRadius: '5px',
 		boxShadow: '5px 4px 10px rgba(94,97,100,1)',
 		'& div': {
@@ -30,21 +30,42 @@ const UserProfileStyles = createUseStyles({
 	},
 
 	left: {
-		textAlign: 'left',
+		height: '75%',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'center',
+		justifyContent: 'space-around',		
+		
 	},
 
 	middle: {
-		textAlign: 'left',
-
+		// height: '100%',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'flex-start',
+		justifyContent: 'space-around',
+		
 		'& div': {
-			margin: ' 20px 0',
+			display: 'flex',
+			flexDirection: 'column',
+			alignItems: 'flex-start',
+			justifyContent: 'space-around',
+			// '& span': {
+			// 	marginBottom: '20px'
+			// },
+			'& p': {
+				margin: ' 15px 0',
+			}
 		},
 	},
 
 	right: {
 		height: '100%',
-		textAlign: 'left',
 		minWidth: '250px',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'flex-start',
+		justifyContent: 'space-around',
 		maxWidth: '300',
 		'& p': {
 			marginTop: '10px',
@@ -93,7 +114,7 @@ const UserProfileStyles = createUseStyles({
 			padding: '8px 20px',
 			border: 'none',
 			borderRadius: '5px',
-            fontSize: '18px'
+			fontSize: '18px',
 		},
 	},
 
@@ -102,7 +123,7 @@ const UserProfileStyles = createUseStyles({
 		color: 'white',
 	},
 
-    deleteNo: {
+	deleteNo: {
 		backgroundColor: 'Green',
 		color: 'white',
 	},
@@ -112,12 +133,10 @@ const UserProfileStyles = createUseStyles({
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 		alignItems: 'center',
-		marginTop:'50px',
+		marginTop: '50px',
 	},
 
-	singleUserPost: {
-
-	}
+	singleUserPost: {},
 });
 
 export default UserProfileStyles;

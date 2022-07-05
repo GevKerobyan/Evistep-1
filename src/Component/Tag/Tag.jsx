@@ -1,10 +1,12 @@
-import { useState } from "react"
-import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
 
-function Tag({ tag }) {
 
-   const [tagSearchFlag, setTagSearchFlag] = useState(false)
+function Tag({ tag, postId }) {
+
+
+   const navigate = useNavigate()
 
    const style = {
       postSingleTag: {
@@ -36,22 +38,19 @@ function Tag({ tag }) {
       },
    }
 
-   const handleTagClick = () => {
-      setTagSearchFlag(false)
-      setTagSearchFlag(true)
-      console.log(tag)
-      console.log('tagFlag', tagSearchFlag)
+   const handleTagClick = e => {
+      e.stopPropagation()
+      console.log(e.nativeEvent);
+      console.log('barev');
+         (e.detail >= 2) ? navigate(`/taggedposts/${tag}`) : console.log(e.detail);
    }
+
+   const handleSearchClick = (e) => {
+      e.stopPropagation()
+   }
+
    return (
-      <>
-         {
-            tagSearchFlag
-               ? <Link to={`/taggedposts/${tag}`} style={style.postSingleTagPopUp}>Search a {tag} tag ? </Link>
-               : ''
-         }
-         <div style={style.postSingleTag} onClick={handleTagClick}>{tag}
-         </div>
-      </>
+      <div style={style.postSingleTag} id={postId + tag} onClick={ e => handleTagClick(e)}>{tag}</div>
    )
 }
 

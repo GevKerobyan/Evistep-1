@@ -11,18 +11,12 @@ const navBarStyling = createUseStyles({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		padding: '10px 15%',
-		background: 'none',
-		// backgroundColor: `rgb(15,40,81)`,
-		transition: 'all 0.5s',
+		backgroundColor: `rgba(15,40,81,0)`,
+		transition: 'all 0.2s',
 		boxShadow: '1px 1px 3px rgb(0, 0, 50)',
 		zIndex: '999',
-		color: 'white',
+		color: 'rgb(122,38,64)',
 		fontSize: '14px',
-	},
-
-	scrolledNav: {
-		boxShadow: '1px 4px 10px rgb(0, 0, 50)',
-		backgroundColor: `rgb(15,40,81)`,
 	},
 
 	leftLinkContainer: {

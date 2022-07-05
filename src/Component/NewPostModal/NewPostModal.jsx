@@ -7,44 +7,55 @@ import { postModalStyling } from "./newPostModalStyling";
 
 function NewPostModal({ setAddModalOpen, action }) {
     const modalStyles = postModalStyling()
+
+    const { loggedUser, dispatch } = useUserContext()
+
     const [newPost, setNewPost] = useState({
-        image: '',
+        // image: '',
         likes: 0,
         tags: [],
         text: '',
     })
 
-    const formData = new FormData()
-
-
-    const { loggedUser, dispatch } = useUserContext()
-
-    // const [singleImage, setSingleImage] = useState({})
     const [singleTag, setSingleTag] = useState('')
 
-    const handleFileChange = e => {
-        formData.append('image', e.target.files[0])
-        console.log(formData.entries())
-
-        setNewPost({...newPost, image: formData})
+    const handleImageChange = e => {
+        setNewPost({ ...newPost, image: e.target.files[0] })
     }
 
-    const handleChange = (e) => {
-        switch (e.target.id) {
-            
-            case 'tags': {
-                setSingleTag(e.target.value)
-                break;
-            }
-            case 'text': {
-                setNewPost({ ...newPost, text: e.target.value })
-                break;
-            }
-            default: return;
-        }
+    const handleTagChange = e => {
+        setSingleTag(e.target.value)
     }
 
-    const handleAddTag = (e) => {
+    const handleTextChange = e => {
+        setNewPost({ ...newPost, text: e.target.value })
+    }
+
+    
+
+    // const handleFileChange = e => {
+    //     formData.append('image', e.target.files[0])
+    //     console.log(formData.entries())
+
+    //     setNewPost({...newPost, image: formData})
+    // }
+
+    // const handleChange = (e) => {
+    //     switch (e.target.id) {
+
+    //         case 'tags': {
+    //             setSingleTag(e.target.value)
+    //             break;
+    //         }
+    //         case 'text': {
+    //             setNewPost({ ...newPost, text: e.target.value })
+    //             break;
+    //         }
+    //         default: return;
+    //     }
+    // }
+
+    const handleTagAdd = (e) => {
         e.preventDefault()
         if (singleTag) {
             setNewPost({
@@ -53,23 +64,31 @@ function NewPostModal({ setAddModalOpen, action }) {
             setSingleTag('')
         }
     }
-    useEffect(()=>{
-        // console.log('newImage : ', newPost.image.entries())
 
-    },[newPost.image])
+    // const url = `https://dummyapi.io/data/v1/user/create`;
+    //     const headers = {
+    //         'app-id': "62b1dfc56fa280809ad74846",
+    //         "Access-Control-Allow-Origin": "*"
+    //     }
+
+    //     axios.post(url, newUser, { headers })
+    //         .then(res => handleResult(res.data))
+    //         .catch(er => { console.log(er) })
+    // }
 
     const handleNewPostSubmit = (e) => {
-        e.preventDefault()   
-        const url = `https://dummyapi.io/data/v1/post/create`;
+        e.preventDefault()
+        const url = `https://dummyapi.io/data/v1/post/create`
         const headers = {
-            'app-id': "62b1dfc56fa280809ad74846",
-            "Access-Control-Allow-Origin": "*"
-        }
-        // const owner = loggedUser.userInfo.id
-        const body = { newPost, owner: loggedUser.userInfo.id }
-        axios.post(url, { headers, body})
+                    'app-id': "62b1dfc56fa280809ad74846",
+                    "Access-Control-Allow-Origin": "*"
+                }
+        const formData = new FormData()
+        formData.append('newPost', newPost)
+    
+        axios.post(url, formData, { headers })
             .then(res => { console.log('res : ', res) })
-            .catch(er => alert(er))
+            .catch(er => console.log(er))
     }
 
     return (
@@ -81,7 +100,7 @@ function NewPostModal({ setAddModalOpen, action }) {
                         type="file"
                         id="image"
                         className={modalStyles.uploadButton}
-                        onChange={e => handleFileChange(e)}
+                        onChange={e => handleImageChange(e)}
                     />
                 </div>
                 <div className={modalStyles.tagsInputWrapper}>
@@ -93,9 +112,9 @@ function NewPostModal({ setAddModalOpen, action }) {
                                 id="tags"
                                 className={modalStyles.tagsInput}
                                 value={singleTag}
-                                onChange={e => handleChange(e)}
+                                onChange={e => handleTagChange(e)}
                             />
-                            <button onClick={e => handleAddTag(e)}>+</button>
+                            <button onClick={e => handleTagAdd(e)}>+</button>
                         </div>
                     </div>
                     {newPost.tags
@@ -114,7 +133,7 @@ function NewPostModal({ setAddModalOpen, action }) {
                         id="text"
                         className={modalStyles.textInput}
                         value={newPost.text}
-                        onChange={e => handleChange(e)}
+                        onChange={e => handleTextChange(e)}
                     />
                 </div>
                 <div className={modalStyles.buttonsContainer}>

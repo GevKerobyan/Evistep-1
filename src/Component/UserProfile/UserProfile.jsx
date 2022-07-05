@@ -139,7 +139,7 @@ export const UserProfile = () => {
 
           <div className={userPageStyles.userFooter}>
             <div className={userPageStyles.loadPosts} onClick={() => setLoadPostsFlag(!loadPostsFlag)}>{!loadPostsFlag ? `Show User Posts` : `Hide Posts`}</div>
-            {loggedUser.isLoggedIn
+            {loggedUser.userInfo.id === match.id
               ? <>
                 <div className={userPageStyles.edit} onClick={() => { setEditModalOpen(true) }}>Edit Profile</div>
                 <div className={userPageStyles.delete} onClick={() => { setDeleteFlag(true) }}>Delete Profile</div>
