@@ -40,8 +40,8 @@ function Tag({ tag, postId }) {
 
    const handleTagClick = e => {
       e.stopPropagation()
-      console.log(e.nativeEvent);
-      console.log('barev');
+      // console.log(e.nativeEvent);
+      console.log('barev', tag);
          (e.detail >= 2) ? navigate(`/taggedposts/${tag}`) : console.log(e.detail);
    }
 

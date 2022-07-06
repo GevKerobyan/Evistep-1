@@ -16,13 +16,17 @@ function SinglePost({ post, index, date }) {
 
     const [editModalOpen, setEditModalOpen] = useState(false)
     const [openPost, setOpenPost] = useState(false)
+console.log('window screen', window.screen.availHeight)
+    useEffect(()=> {
+        // console.log('consoling: openPost in modal :::', openPost )
+    }, [openPost])
 
     const [deletePostFlag, setDeletePostFlag] = useState(false)
 
     const handleEditClick = e => {
         e.stopPropagation()
         setEditModalOpen(true);
-        console.log('edit')
+        // console.log('edit')
     }
 
     const handleDeleteNo = e => {
@@ -33,7 +37,7 @@ function SinglePost({ post, index, date }) {
     const handleDeleteClick = e => {
         e.stopPropagation()
         setDeletePostFlag(true)
-        console.log('delete')
+        // console.log('delete')
     }
 
     const handlePostDelete = e => {
@@ -48,12 +52,12 @@ function SinglePost({ post, index, date }) {
     }
 
     const handleOpenPost = e => {
-        setOpenPost(!openPost)
+        setOpenPost(true)
 
     }
 
     useEffect(() => {
-        console.log('consoling: deletePostFlag :::', deletePostFlag)
+        // console.log('consoling: deletePostFlag :::', deletePostFlag)
     }, [deletePostFlag])
 
 
@@ -86,7 +90,7 @@ function SinglePost({ post, index, date }) {
                 : null
             }
             {openPost
-                ? (<OpenPostModal post={post} handleOpenPost={handleOpenPost} />)
+                ? (<OpenPostModal post={post} handleOpenPost={handleOpenPost} setOpenPost={setOpenPost}/>)
                 : ''}
             <Link to={`/profile/${post.owner.id}`} className={postStyles.singlePostTop}>
                 <div className={postStyles.postOwnerImgBox}>

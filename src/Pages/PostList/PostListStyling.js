@@ -38,14 +38,14 @@ const postsListStyling = createUseStyles({
 	//
 
 	BottomImgBox: {
-		height: '250px',
+		height: '200px',
 		width: '300px',
 		overflow: 'hidden',
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
 		'& img': {
-			width: '250px',
+			width: '200px',
 			heigth: 'auto',
 		},
 	},

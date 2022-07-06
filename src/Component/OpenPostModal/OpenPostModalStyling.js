@@ -2,6 +2,7 @@ import { createUseStyles } from 'react-jss';
 
 const OpenPostStylings = createUseStyles({
 	openPostWrapper: {
+      // top: `${window.screen.availHeight/2}px`,
       position: 'relative',
       width: '600px',
       minWidth: '600px',
@@ -136,16 +137,17 @@ const OpenPostStylings = createUseStyles({
 
 	commentInputWrapper: {
       width: '100%',
-      minHeigth: '50px',
+      minHeight: '40px',
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
       marginBottom: '15px',
       '& textarea': {
          width: '70%',
-         minHeigth: '50px', 
+         height: '30px',
+         minHeigth: '40px', 
          borderRadius: '4px',
-         padding: '2px 10px'
+         padding: '2px 7px'
       }
    },
 

@@ -5,7 +5,7 @@ export const postModalStyling = createUseStyles({
     modalContainer: {
         position: 'relative',
         width: '600px',
-        height: '400px',
+        height: '500px',
         padding: '50px 50px',
         boxShadow: '1px 2px 6px rgb(0,0,0)',
         display: 'flex',
@@ -34,12 +34,20 @@ export const postModalStyling = createUseStyles({
     },
 
     uploadButton: {
-        lineHeight: '28px',
+        lineHeight: '20px',
+        width: '60%',
         backgroundColor: 'rgb(122,38,64)',
-        borderRadius: '50px',
+        borderRadius: '25px',
         padding: '5px 15px',
         color: 'white',
-
+        padding: '8px',
+        fontSize: '14px',
+        '&::file-selector-button' : {
+            marginRight: '35px',
+            border: 'none',
+            borderRadius: '15px',
+            fontSize: '14px'
+        }
     },
 
     tagsInputWrapper: {
@@ -64,12 +72,15 @@ export const postModalStyling = createUseStyles({
             height: '25px',
             width: '25px',
             right: '10px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
             border: 'none',
             borderRadius: '4px',
-            backgroundColor: 'rgba(122,38,64,1)',
-            color: 'white',
-            boxShadow: '1px 2px 6px rgb(0,0,0)',
+            backgroundColor: 'transparent',
+            color: 'bkack',
             fontWeight: 'bold',
+            fontSize: '20px'
         }
     },
 
@@ -88,7 +99,7 @@ export const postModalStyling = createUseStyles({
         padding: '4px 10px',
         border: 'none',
         borderRadius: '4px',
-        boxShadow: '1px 2px 4px rgb(0,0,0)',
+        // boxShadow: '1px 2px 4px rgb(0,0,0)',
         color: 'rgb(11,12,16)',
     },
 
@@ -124,7 +135,8 @@ export const postModalStyling = createUseStyles({
         height: '40px',
         padding: '10px',
         borderRadius: '5px',
-        boxShadow: '1px 2px 4px rgb(0,0,0)',
+        // boxShadow: '1px 2px 4px rgb(0,0,0)',
+        overflow:'hidden',
     },
 
     buttonsContainer: {
@@ -133,13 +145,14 @@ export const postModalStyling = createUseStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        // marginTop: '20px',
     },
 
     button: {
         padding: '10px 15px',
         border: 'none',
         borderRadius: '4px',
-        boxShadow: '1px 2px 6px rgb(0,0,0)',
+        // boxShadow: '1px 2px 6px rgb(0,0,0)',
         color: 'white',
         backgroundColor: 'rgb(122,38,64)'
     },

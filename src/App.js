@@ -19,7 +19,6 @@ import HomePage from './Pages/HomePage/HomePage';
 import { Postlists } from './Pages/PostList/PostLists';
 import { TaggedPosts } from './Pages/PostList/TaggedPosts';
 import { UsersList } from './Pages/UsersList/UsersList';
-import Test1 from './Test1';
 
 const defaultState = {
 	userInfo: {},

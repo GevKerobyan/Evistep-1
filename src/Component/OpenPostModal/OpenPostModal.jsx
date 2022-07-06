@@ -5,21 +5,22 @@ import { svgs } from "../../Assets/svgs"
 import fixDate from "../../Helpers/dateFix"
 import useUserContext from "../../Hooks/useUserContext"
 import Modal from "../Modal/Modal"
+import MyVerticallyCenteredModal from "../Modal/ModalBootstrap"
 import Tag from "../Tag/Tag"
 import OpenPostStylings from "./OpenPostModalStyling"
 
 
 
-function OpenPostModal({ post, handleOpenPost }) {
+function OpenPostModal({ post, handleOpenPost, setOpenPost }) {
    const openPostStyles = OpenPostStylings()
 
    const { loggedUser, dispatch } = useUserContext()
-
    const [comments, setComments] = useState([])
    const [newComment, setNewComment] = useState('')
-
    const [openComments, setOpenComments] = useState(false)
 
+   
+   
    // AXIOS get post comments
    useEffect(() => {
       const url = `https://dummyapi.io/data/v1/post/${post.id}/comment`;
@@ -27,29 +28,44 @@ function OpenPostModal({ post, handleOpenPost }) {
          'app-id': "62b1dfc56fa280809ad74846",
          "Access-Control-Allow-Origin": "*"
       }
-
       axios.get(url, { headers })
          .then(res => setComments(res.data))
          .catch(er => { alert(er) })
-   }, [])
+   }, [newComment])
 
    const toggleComments = e => {
       e.stopPropagation()
       setOpenComments(!openComments)
    }
 
+
+   // AXIOS Post new comment
    const handleAddComment = e => {
       e.stopPropagation()
+      const url = `https://dummyapi.io/data/v1/comment/create`
+      const headers = {
+         'app-id': "62b1dfc56fa280809ad74846",
+         "Access-Control-Allow-Origin": "*"
+      }
+      const body = {
+         'message': newComment,
+         'owner': loggedUser.userInfo.id,
+         'post': post.id,
+      }
+         axios.post(url, body, { headers })
+            .then(res => setComments(res.data, ...comments))
+            .then(setNewComment(''))
+            .catch(er => console.log(er))     
    }
 
    useEffect(() => {
-      console.log('consoling: newComment :::', newComment)
-   }, [newComment])
+      // console.log('consoling: newComment :::', comments)
+   }, [comments])
 
    return (
-      <Modal isOpen openPost>
+      <Modal isOpen openPost setOpenPost={setOpenPost}>
          <div className={openPostStyles.openPostWrapper}>
-            <div className={openPostStyles.postOwner}>
+            <Link to={`/profile/${post.owner.id}`} className={openPostStyles.postOwner}>
                <div className={openPostStyles.postOwnerPic}>
                   <img src={post.owner.picture} className={openPostStyles.postOwnerPicImg}></img>
                </div>
@@ -57,7 +73,7 @@ function OpenPostModal({ post, handleOpenPost }) {
                   <span>{post.owner.firstName}</span>
                   <span>{post.owner.lastName}</span>
                </div >
-            </div >
+            </Link >
 
             <div className={openPostStyles.postBody}>
                <div className={openPostStyles.postText}>

@@ -14,7 +14,7 @@ const navBarStyling = createUseStyles({
 		backgroundColor: `rgba(15,40,81,0)`,
 		transition: 'all 0.2s',
 		boxShadow: '1px 1px 3px rgb(0, 0, 50)',
-		zIndex: '999',
+		zIndex: '900',
 		color: 'rgb(122,38,64)',
 		fontSize: '14px',
 	},

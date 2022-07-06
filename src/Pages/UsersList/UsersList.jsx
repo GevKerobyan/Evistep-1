@@ -29,7 +29,6 @@ export const UsersList = () => {
     return (
         <>
             <NavBar >
-                <span onClick={() => { setNewUserModalOpen(true) }}>Add User</span>
             </NavBar>
             <PageContainer>
                 {newUserModalOpen
@@ -51,7 +50,7 @@ export const UsersList = () => {
                     )
                 })}
             </PageContainer>
-                <div>Show More Users</div>
+            <div>Show More Users</div>
         </>
     )
 }

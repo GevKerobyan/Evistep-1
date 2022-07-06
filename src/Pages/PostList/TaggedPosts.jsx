@@ -10,7 +10,6 @@ export const TaggedPosts = () => {
 
   const [taggedPosts, setTaggedPosts] = useState([])
   const location = useLocation()
-  // const { searchTag } = location.state.searchTag
   const match = useParams()
 
 
@@ -35,7 +34,7 @@ export const TaggedPosts = () => {
         .then(res => setTaggedPosts(...taggedPosts, res.data))
     }
     postsRenderFlag.current = false
-  }, [match])
+  }, [match.tag])
 
 
   return (

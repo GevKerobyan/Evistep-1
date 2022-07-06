@@ -15,6 +15,8 @@ export const UserProfile = () => {
   const profileUser = useLocation()
   const match = useParams()
 
+  const [loading, setLoading] = useState(true)
+
   const { loggedUser, dispatch } = useUserContext()
   const userPageStyles = UserProfileStyles()
 
@@ -37,15 +39,17 @@ export const UserProfile = () => {
       })
       api.get()
         .then(res => setUser(res.data))
+        .then(()=>setLoading(false))
     }
     userRenderFlag.current = false
   }, [])
 
   useEffect(() => {
-    console.log('consoling: user in profile :::', user)
+    // console.log('consoling: user in profile :::', user)
   }, [user])
 
   useEffect(() => {
+   
     if (loadPostsFlag) {
       const api = axios.create({
         baseURL: `https://dummyapi.io/data/v1/user/${match.id}/post`,
@@ -54,9 +58,21 @@ export const UserProfile = () => {
         }
       })
       api.get()
-        .then(response => setUserPosts(response.data.data))
+        .then(response =>setUserPosts(response.data.data))
     }
   }, [loadPostsFlag])
+
+
+  useEffect(() => {
+    // console.log('consoling: loading :::', loading)
+  }, [loading])
+
+useEffect(()=> {
+  // console.log('consoling: loading :::', loading )
+},[loading])
+
+  const bDay = fixDate(new Date(user?.dateOfBirth))
+  const regDay = fixDate(new Date(user?.registerDate))
 
   const handleDelete = () => {
     dispatch({ type: 'deleteUser' })
@@ -76,88 +92,93 @@ export const UserProfile = () => {
     <>
       <NavBar />
       <PageContainer>
-        {deleteFlag
-          ? <>
-            <div className={userPageStyles.deletePopUpWrapper}>
-              <h2 className={userPageStyles.deletePopUpText}>Are you sure you want to delete?</h2>
-              <div className={userPageStyles.buttonContainer}>
-                <button className={userPageStyles.deleteYes} onClick={handleDelete}>Yes</button>
-                <button className={userPageStyles.deleteNo} onClick={() => setDeleteFlag(false)}>No</button>
+        {
+          deleteFlag
+            ? <>
+              < div className={userPageStyles.deletePopUpWrapper}>
+                <h2 className={userPageStyles.deletePopUpText}>Are you sure you want to delete?</h2>
+                <div className={userPageStyles.buttonContainer}>
+                  <button className={userPageStyles.deleteYes} onClick={handleDelete}>Yes</button>
+                  <button className={userPageStyles.deleteNo} onClick={() => setDeleteFlag(false)}>No</button>
+                </div>
               </div>
-            </div>
-          </>
-          : null
+            </>
+            : null
         }
 
-        {editModalOpen
-          ? <EditUserProfile setEditModalOpen={setEditModalOpen} />
-          : null
+        {
+          editModalOpen
+            ? <EditUserProfile setEditModalOpen={setEditModalOpen} />
+            : null
         }
 
-        <div key={user.id} className={userPageStyles.pageContainer}>
-          <div className={userPageStyles.userContainer}>
-            <div className={userPageStyles.left}>
-              <p><span>ID: </span>{user.id}</p>
-              <img src={user.picture} alt=''></img>
-            </div>
-
-            <div className={userPageStyles.middle}>
-              <div className={userPageStyles.middleTop}>
-                <span>
-                  {user.title} {user.firstName} {user.lastName}
-                </span>
-                <p>
-                  <span>Gender: </span>{user.gender}
-                </p>
-
-                <p>
-                  <span>Date of birth: </span>{fixDate(new Date(user.dateOfBirth))}
-                </p>
-
-                <p>
-                  <span>Register date: </span>{fixDate(new Date(user.registerDate))}
-                </p>
+        {loading 
+        ? <h1>Loading ...</h1> 
+        :<div key={user.id} className={userPageStyles.pageContainer}>
+            <div className={userPageStyles.userContainer}>
+              <div className={userPageStyles.left}>
+                <p><span>ID: </span>{user.id}</p>
+                <img src={user.picture} alt=''></img>
               </div>
-              <div className={userPageStyles.middleBottom}>
-                <p><span>Email: </span>{user.email}</p>
-                <p><span>Phone: </span>{user.phone}</p>
+
+              <div className={userPageStyles.middle}>
+                <div className={userPageStyles.middleTop}>
+                  <span>
+                    {user.title} {user.firstName} {user.lastName}
+                  </span>
+                  <p>
+                    <span>Gender: </span>{user.gender}
+                  </p>
+
+                  <p>
+                    <span>Date of birth: </span>{bDay === undefined ? '' : bDay}
+                  </p>
+
+                  <p>
+                    <span>Register date: </span>{regDay}
+                  </p>
+                </div>
+                <div className={userPageStyles.middleBottom}>
+                  <p><span>Email: </span>{user.email}</p>
+                  <p><span>Phone: </span>{user.phone}</p>
+                </div>
+              </div>
+
+              <div className={userPageStyles.right}>
+                <p>
+                  <span>Address</span>
+                </p>
+
+                <p>State: {user.location?.state ? user.location.state : null}</p>
+                <p>Street: {user.location?.street ? user.location.street : null}</p>
+                <p>City: {user.location?.city ? user.location.city : null}</p>
+                <p>Country: {user.location?.country ? user.location.country : null}</p>
+                <p>Timezone: {user.location?.timezone ? user.location.timezone : null} </p>
               </div>
             </div>
 
-            <div className={userPageStyles.right}>
-              <p>
-                <span>Address</span>
-              </p>
-
-              <p>State: {user.location?.state ? user.location.state : null}</p>
-              <p>Street: {user.location?.street ? user.location.street : null}</p>
-              <p>City: {user.location?.city ? user.location.city : null}</p>
-              <p>Country: {user.location?.country ? user.location.country : null}</p>
-              <p>Timezone: {user.location?.timezone ? user.location.timezone : null} </p>
+            <div className={userPageStyles.userFooter}>
+              <div className={userPageStyles.loadPosts} onClick={() => setLoadPostsFlag(!loadPostsFlag)}>{!loadPostsFlag ? `Show User Posts` : `Hide Posts`}</div>
+              {loggedUser.userInfo.id === match.id
+                ? <>
+                  <div className={userPageStyles.edit} onClick={() => { setEditModalOpen(true) }}>Edit Profile</div>
+                  <div className={userPageStyles.delete} onClick={() => { setDeleteFlag(true) }}>Delete Profile</div>
+                </>
+                : null
+              }
             </div>
-          </div>
 
-          <div className={userPageStyles.userFooter}>
-            <div className={userPageStyles.loadPosts} onClick={() => setLoadPostsFlag(!loadPostsFlag)}>{!loadPostsFlag ? `Show User Posts` : `Hide Posts`}</div>
-            {loggedUser.userInfo.id === match.id
-              ? <>
-                <div className={userPageStyles.edit} onClick={() => { setEditModalOpen(true) }}>Edit Profile</div>
-                <div className={userPageStyles.delete} onClick={() => { setDeleteFlag(true) }}>Delete Profile</div>
-              </>
+            {loadPostsFlag
+              ? <div className={userPageStyles.userPostsContainer}>
+                {userPosts.map(item => {
+                  return <SinglePost key={item.id} post={item} className={userPageStyles.singleUserPost}></SinglePost>
+                })}
+              </div>
               : null
             }
           </div>
-
-          {loadPostsFlag
-            ? <div className={userPageStyles.userPostsContainer}>
-              {userPosts.map(item => {
-                return <SinglePost key={item.id} post={item} className={userPageStyles.singleUserPost}></SinglePost>
-              })}
-            </div>
-            : null
-          }
-        </div>
-      </PageContainer>
+        }
+      </PageContainer >
     </>
   )
 }

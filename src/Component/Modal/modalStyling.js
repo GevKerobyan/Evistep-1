@@ -1,5 +1,12 @@
 import { createUseStyles } from "react-jss";
 const modalStyling = createUseStyles({
+    '$:before': {
+        content: '',
+        display: 'inline-block',
+        height: '100%',
+        verticalAlign: 'middle',
+        backgroundColor: 'red'
+    },
     modalBG: {
         position: 'fixed',
         backgroundColor: 'rgba(0,0,0,0.7)',
@@ -11,6 +18,7 @@ const modalStyling = createUseStyles({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        zIndex: '1000'
     },
 
     openPostModal: {
@@ -26,7 +34,9 @@ const modalStyling = createUseStyles({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        padding: '150px 0'
+        padding: '150px 0',
+        zIndex: '1000'
+
     }
 })
 

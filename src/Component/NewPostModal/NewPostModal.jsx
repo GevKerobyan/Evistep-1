@@ -2,16 +2,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import useUserContext from "../../Hooks/useUserContext";
 import Modal from "../Modal/Modal";
+import Tag from "../Tag/Tag";
 
 import { postModalStyling } from "./newPostModalStyling";
 
-function NewPostModal({ setAddModalOpen, action }) {
+function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
     const modalStyles = postModalStyling()
 
     const { loggedUser, dispatch } = useUserContext()
 
     const [newPost, setNewPost] = useState({
-        // image: '',
+        image: '',
         likes: 0,
         tags: [],
         text: '',
@@ -19,42 +20,13 @@ function NewPostModal({ setAddModalOpen, action }) {
 
     const [singleTag, setSingleTag] = useState('')
 
+    // INPUT CHANGE HANDLERS
     const handleImageChange = e => {
         setNewPost({ ...newPost, image: e.target.files[0] })
     }
-
     const handleTagChange = e => {
         setSingleTag(e.target.value)
     }
-
-    const handleTextChange = e => {
-        setNewPost({ ...newPost, text: e.target.value })
-    }
-
-    
-
-    // const handleFileChange = e => {
-    //     formData.append('image', e.target.files[0])
-    //     console.log(formData.entries())
-
-    //     setNewPost({...newPost, image: formData})
-    // }
-
-    // const handleChange = (e) => {
-    //     switch (e.target.id) {
-
-    //         case 'tags': {
-    //             setSingleTag(e.target.value)
-    //             break;
-    //         }
-    //         case 'text': {
-    //             setNewPost({ ...newPost, text: e.target.value })
-    //             break;
-    //         }
-    //         default: return;
-    //     }
-    // }
-
     const handleTagAdd = (e) => {
         e.preventDefault()
         if (singleTag) {
@@ -64,30 +36,35 @@ function NewPostModal({ setAddModalOpen, action }) {
             setSingleTag('')
         }
     }
-
-    // const url = `https://dummyapi.io/data/v1/user/create`;
-    //     const headers = {
-    //         'app-id': "62b1dfc56fa280809ad74846",
-    //         "Access-Control-Allow-Origin": "*"
-    //     }
-
-    //     axios.post(url, newUser, { headers })
-    //         .then(res => handleResult(res.data))
-    //         .catch(er => { console.log(er) })
-    // }
+    const handleTextChange = e => {
+        setNewPost({ ...newPost, text: e.target.value })
+    }
 
     const handleNewPostSubmit = (e) => {
-        e.preventDefault()
+        // e.preventDefault()
+        const formData = new FormData()
+        console.log('consoling: newPost :::', newPost )
+        // formData.append('owner', loggedUser.userInfo.id)
+        formData.append('image', {...newPost.image})
+        formData.append('likes', newPost.likes)
+        formData.append('tags', [...newPost.tags])
+        formData.append('text', newPost.text)
         const url = `https://dummyapi.io/data/v1/post/create`
         const headers = {
-                    'app-id': "62b1dfc56fa280809ad74846",
-                    "Access-Control-Allow-Origin": "*"
-                }
-        const formData = new FormData()
-        formData.append('newPost', newPost)
-    
-        axios.post(url, formData, { headers })
-            .then(res => { console.log('res : ', res) })
+            'app-id': "62b1dfc56fa280809ad74846",
+            "Access-Control-Allow-Origin": "*"
+        }
+        const body = {
+            'owner': loggedUser.userInfo.id,
+            'post' : formData
+        }
+        console.log('body : ',body.post.values())
+        
+        axios.post(url, body, { headers })
+            .then(res => {
+                console.log('posts state : ', posts)
+                console.log('res data : ', res.data)
+            })
             .catch(er => console.log(er))
     }
 
@@ -121,7 +98,12 @@ function NewPostModal({ setAddModalOpen, action }) {
                         ? <div className={modalStyles.tagsDisplay}>
                             {newPost.tags.map((item, index) => {
                                 return (
-                                    <span key={index} className={modalStyles.singleTagDisplay}>{item}</span>
+                                    <Tag
+                                    key={index}
+                                    className = {modalStyles.singleTagDisplay}
+                                    tag={item}
+                                    postId = {`newTag`}
+                                    >{item}</Tag>
                                 )
                             })}
                         </div>

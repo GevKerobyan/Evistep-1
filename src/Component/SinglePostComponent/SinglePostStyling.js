@@ -1,24 +1,6 @@
 import { createUseStyles } from 'react-jss';
 
 const singlePostStyling = createUseStyles({
-	pageWrapper: {
-		width: '100vw',
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		flexWrap: 'wrap',
-		padding: '30px 100px',
-	},
-
-	singlePostWrapper: {
-		position: 'relative',
-		width: '600px',
-		height: '350px',
-		borderRadius: '5px',
-		padding: '16px',
-		margin: '30px 20px 20px 0',
-		backgroundColor: 'rgba(146, 168, 209, 0.8)',
-	},
 
 	deleteAndEdit: {
 		position: 'absolute',
@@ -38,16 +20,14 @@ const singlePostStyling = createUseStyles({
 	},
 
 	deletIcon: {
-	
 		fill: 'rgba(0,0,0,0.8)',
 		fontSize: '20px',
 		color: 'rgb(122,38,64)'
-
 	},
 
-
 	singlePostTop: {
-		width: '200px',
+		height: '40px',
+		width: '220px',
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -65,10 +45,16 @@ const singlePostStyling = createUseStyles({
 		},
 	},
 
+	postOwnerInfo: {
+		height: '40px',
+	},
+
+
 	singlePostBottom: {
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
+		height: '200px'
 	},
 
 	BottomImgBox: {

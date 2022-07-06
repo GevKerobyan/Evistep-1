@@ -61,7 +61,11 @@ export const Postlists = ({ searchTag }) => {
             </NavBar>
             <PageContainer>
                 {addModalOpen
-                    ? (<NewPostModal setAddModalOpen={setAddModalOpen} action='create' />)
+                    ? (<NewPostModal
+                        setAddModalOpen={setAddModalOpen}
+                        action='create'
+                        posts={posts}
+                        setPosts={setPosts}/>)
                     : ''}
                 {posts.map((post, index) => {
                     let date = fixDate(new Date(post.publishDate));
