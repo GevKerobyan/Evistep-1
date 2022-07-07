@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { newUserModalStyling } from "./newUserModalStyling"
-import Modal from "react-modal";
+import ReactModal from "react-modal";
 import useUserContext from '../../Hooks/useUserContext'
 import { useNavigate } from "react-router-dom";
 
@@ -73,7 +73,7 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
     }
 
     return (
-        <Modal isOpen>
+        <ReactModal isOpen>
             <form onSubmit={handleNewUserSubmit} className={modalStyles.modalContainer}>
                 <div className={modalStyles.inputWrapper}>
                     <label htmlFor="nameInput">Your Name</label>
@@ -116,6 +116,6 @@ export const NewUserModal = ({ setNewUserModalOpen }) => {
                     <button type="submit" className={modalStyles.submitButton}>Let's Try</button>
                 </div>
             </form>
-        </Modal >
+        </ReactModal >
     )
 }

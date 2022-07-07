@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useUserContext from "../../Hooks/useUserContext";
-import Modal from "react-modal";
+import ReactModal from "../Modal/Modal";
 import Tag from "../Tag/Tag";
+
 
 import { postModalStyling } from "./newPostModalStyling";
 
@@ -40,23 +41,27 @@ function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
         setNewPost({ ...newPost, text: e.target.value })
     }
 
+    const imgUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPPqkjwiZzga1mtcjRHaYOAIFOZmqHicEq-Z_sZ65xf4aGJ5nHiT5PrHM677z5UOYCbSA&usqp=CAU'
+
     const handleNewPostSubmit = (e) => {
-        // e.preventDefault()
         const formData = new FormData()
         console.log('consoling: newPost :::', newPost )
-        // formData.append('owner', loggedUser.userInfo.id)
-        formData.append('image', newPost.image)
+        formData.append('image', imgUrl)
         formData.append('likes', newPost.likes)
         formData.append('tags', newPost.tags)
         formData.append('text', newPost.text)
+        formData.append('owner', loggedUser.userInfo.id)
+
         const url = `https://dummyapi.io/data/v1/post/create`
+        
         const headers = {
             'app-id': "62b1dfc56fa280809ad74846",
-            "Access-Control-Allow-Origin": "*"
+            "Access-Control-Allow-Origin": "*",
         }
         const body = {
             'owner': loggedUser.userInfo.id,
-            'post' : {
+            'post': {
+                image: imgUrl,
                 likes: newPost.likes,
                 text: newPost.text,
                 tags: newPost.tags,
@@ -73,7 +78,8 @@ function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
     }
 
     return (
-        <Modal isOpen>
+        
+        <ReactModal isOpen={true}>
             <form className={modalStyles.modalContainer} >
                 <div className={modalStyles.inputWrapper}>
                     <label htmlFor="image">Pic</label>
@@ -127,7 +133,7 @@ function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
                     <button type="button" className={modalStyles.button} onClick={e => handleNewPostSubmit(e)}>Post</button>
                 </div>
             </form>
-        </Modal>
+        </ReactModal>
     )
 }
 
