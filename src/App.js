@@ -1,19 +1,13 @@
 import {
 	createContext,
-	useContext,
-	useEffect,
 	useReducer,
-	useState,
 } from 'react';
 import {
 	BrowserRouter as Router,
-	Switch,
 	Route,
-	Link,
 	Routes,
 } from 'react-router-dom';
-import NavBar from './Component/NavBar/NavBar';
-import { PageContainer } from './Component/styled/PageContainer.styled';
+import Modal from 'react-modal'
 import { UserProfile } from './Component/UserProfile/UserProfile';
 import HomePage from './Pages/HomePage/HomePage';
 import { Postlists } from './Pages/PostList/PostLists';
@@ -79,6 +73,8 @@ function reducer(state, actions) {
 		}
 	}
 }
+
+Modal.setAppElement("#root")
 
 function App() {
 	const [loggedUser, dispatch] = useReducer(reducer, defaultState, () => {

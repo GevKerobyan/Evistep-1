@@ -5,7 +5,7 @@ import useUserContext from "../../Hooks/useUserContext";
 import NavBar from "../NavBar/NavBar";
 import UserProfileStyles from "./UserProfileStyling";
 import { useNavigate, useParams } from "react-router-dom";
-import Modal from "../Modal/Modal";
+import Modal from "react-modal"
 import EditUserProfile from "./EditUserProfile";
 import fixDate from "../../Helpers/dateFix";
 import SinglePost from "../SinglePostComponent/SinglePost";

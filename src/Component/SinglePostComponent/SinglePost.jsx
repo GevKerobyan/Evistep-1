@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { svgs } from '../../Assets/svgs'
 import useUserContext from '../../Hooks/useUserContext'
-import Modal from '../Modal/Modal'
+import Modal from "react-modal"
 import OpenPostModal from '../OpenPostModal/OpenPostModal'
 import { PostContainer } from '../styled/PostContainer.styled'
 import Tag from '../Tag/Tag'
@@ -16,7 +16,6 @@ function SinglePost({ post, index, date }) {
 
     const [editModalOpen, setEditModalOpen] = useState(false)
     const [openPost, setOpenPost] = useState(false)
-console.log('window screen', window.screen.availHeight)
     useEffect(()=> {
         // console.log('consoling: openPost in modal :::', openPost )
     }, [openPost])

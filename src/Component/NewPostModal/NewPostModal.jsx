@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useUserContext from "../../Hooks/useUserContext";
-import Modal from "../Modal/Modal";
+import Modal from "react-modal";
 import Tag from "../Tag/Tag";
 
 import { postModalStyling } from "./newPostModalStyling";

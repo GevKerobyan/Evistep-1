@@ -1,4 +1,4 @@
-import Modal from "../Modal/Modal";
+import Modal from "react-modal";
 import { postModalStyling } from "../NewPostModal/newPostModalStyling";
 
 function EditPostModal() {

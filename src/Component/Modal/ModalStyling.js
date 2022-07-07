@@ -1,4 +1,5 @@
 import { createUseStyles } from 'react-jss';
+
 const modalStyling = createUseStyles({
 	modalBG: {
 		position: 'fixed',

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import useUserContext from "../../Hooks/useUserContext"
-import Modal from "../Modal/Modal"
+import Modal from "react-modal"
 import editProfileStyling from "./EditUserProfileStyling"
 
 function EditUserProfile({ setEditModalOpen }) {

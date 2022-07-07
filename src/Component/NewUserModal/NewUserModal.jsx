@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { newUserModalStyling } from "./newUserModalStyling"
-import Modal from "../Modal/Modal";
+import Modal from "react-modal";
 import useUserContext from '../../Hooks/useUserContext'
 import { useNavigate } from "react-router-dom";
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useUserContext from "../../Hooks/useUserContext";
-import Modal from "../Modal/Modal";
+import Modal from "react-modal";
 import { loginStylings } from "./LoginModalStyling";
 
 function LoginModal({ setLoginModal }) {
@@ -15,8 +15,6 @@ function LoginModal({ setLoginModal }) {
       userLastName: '',
    })
 
-   
-
    const navigate = useNavigate()
 
    const [checkFlag, setCheckFlag] = useState(false)
@@ -25,9 +23,6 @@ function LoginModal({ setLoginModal }) {
    const [page, setPage] = useState(0)
    const limit = 50;
    let total;
-
-
-   const loggingUserId = null
 
    useEffect(() => {
       if (loginUserCheck.id) navigate(`./posts`)
@@ -78,21 +73,20 @@ function LoginModal({ setLoginModal }) {
          if (item.firstName === loginUserCheck.userName
             &&
             item.lastName === loginUserCheck.userLastName) {
-           return (setLoginUserCheck({
+            return (setLoginUserCheck({
                ...loginUserCheck,
                id: item.id
             }),
-            dispatch({ type: 'logIn', user: {...item} })
+               dispatch({ type: 'logIn', user: { ...item } })
             )
-            
+
          } else console.log('first')
       })
       setCheckFlag(true)
    }
-
    return (
       <Modal isOpen>
-         <form onSubmit={(e) => handleLoginSubmit(e)} className={loginStyles.modalContainer}>
+         <form onSubmit={(e) => handleLoginSubmit(e)} >
             <h2>Sign In</h2>
             <div className={loginStyles.inputWrapper}>
                <label htmlFor="nameInput">Name</label>
