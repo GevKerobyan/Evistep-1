@@ -2,9 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import NavBar from "../../Component/NavBar/NavBar";
 import SinglePost from "../../Component/SinglePostComponent/SinglePost";
-import { SingleTagPost } from "../../Component/SinglePostComponent/SingleTagPost";
 import { PageContainer } from "../../Component/styled/PageContainer.styled";
-import { PostContainer } from "../../Component/styled/PostContainer.styled";
 
 export const TaggedPosts = () => {
 
@@ -12,16 +10,10 @@ export const TaggedPosts = () => {
   const location = useLocation()
   const match = useParams()
 
-
-
-  useEffect(() => {
-    console.log('tPosts : ', ...taggedPosts)
-  }, [match])
-
   const postsRenderFlag = useRef(true);
 
   useEffect(() => {
-    if (postsRenderFlag.current) {
+      console.log(match.tag, 'useEffect');
       const url = `https://dummyapi.io/data/v1/tag/${match.tag}/post?limit=10`
       const options = {
         method: "GET",
@@ -31,12 +23,12 @@ export const TaggedPosts = () => {
       }
       fetch(url, options)
         .then(response => response.json())
-        .then(res => setTaggedPosts(...taggedPosts, res.data))
-    }
+        .then(res => setTaggedPosts(res.data))
     postsRenderFlag.current = false
   }, [match.tag])
 
-
+  if (!taggedPosts) return null
+console.log(taggedPosts, 'taggedPoststaggedPoststaggedPosts');
   return (
     <>
       <NavBar />

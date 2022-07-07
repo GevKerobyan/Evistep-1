@@ -45,9 +45,9 @@ function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
         const formData = new FormData()
         console.log('consoling: newPost :::', newPost )
         // formData.append('owner', loggedUser.userInfo.id)
-        formData.append('image', {...newPost.image})
+        formData.append('image', newPost.image)
         formData.append('likes', newPost.likes)
-        formData.append('tags', [...newPost.tags])
+        formData.append('tags', newPost.tags)
         formData.append('text', newPost.text)
         const url = `https://dummyapi.io/data/v1/post/create`
         const headers = {
@@ -56,9 +56,13 @@ function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
         }
         const body = {
             'owner': loggedUser.userInfo.id,
-            'post' : formData
+            'post' : {
+                likes: newPost.likes,
+                text: newPost.text,
+                tags: newPost.tags,
+            }
         }
-        console.log('body : ',body.post.values())
+        // console.log('body : ',body.post.values())
         
         axios.post(url, body, { headers })
             .then(res => {

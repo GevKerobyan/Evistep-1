@@ -10,4 +10,7 @@ export const PageContainer = styled.div`
 	flex-wrap: wrap;
 	padding: 100px 2%;
 	background-color: rgba(30,60,100,0.4);
+	height: 100%;
+	overflow: auto;
+	margin-top: 60px;
 `

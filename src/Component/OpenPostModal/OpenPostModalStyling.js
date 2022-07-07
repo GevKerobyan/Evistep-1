@@ -129,7 +129,9 @@ const OpenPostStylings = createUseStyles({
 	},
 
 	commentSection: {
+      height: '300px',
 		minHeight: '100px',
+      overflow: 'auto',
 		backgroundColor: 'rgb(230,230,230)',
 		padding: '15px',
 		borderRadius: '10px',

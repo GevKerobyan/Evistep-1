@@ -53,13 +53,13 @@ function OpenPostModal({ post, handleOpenPost, setOpenPost }) {
          'post': post.id,
       }
          axios.post(url, body, { headers })
-            .then(res => setComments(res.data, ...comments))
+            .then(res => setComments(res.data))
             .then(setNewComment(''))
             .catch(er => console.log(er))     
    }
 
    useEffect(() => {
-      // console.log('consoling: newComment :::', comments)
+      console.log('consoling: newComment :::', comments)
    }, [comments])
 
    return (
@@ -111,7 +111,7 @@ function OpenPostModal({ post, handleOpenPost, setOpenPost }) {
                      {newComment ? <button onClick={e => handleAddComment(e)}>add</button> : ''}
                   </div>
                   <div className={openPostStyles.presentComments}>
-                     {comments.data.map(comment => {
+                     {comments.data?.map(comment => {
                         return (
                            <div className={openPostStyles.singleComment} key={comment.id}>
                               <div className={openPostStyles.commentOwnerField}>

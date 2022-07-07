@@ -1,11 +1,12 @@
 import useUserContext from "../../Hooks/useUserContext";
 import blankProfilePic from '../../Assets/blank-profile-picture.png'
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../styled/Buttons.styled";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import navBarStyling from "./NavBarStyling";
 
 function NavBar({ children }) {
+
+   const navRef = useRef(null)
 
    const navStyles = navBarStyling()
 
@@ -18,29 +19,28 @@ function NavBar({ children }) {
       navigate('/');
    }
 
-   // console.log('loggedUser NAVBAR', loggedUser)
-
-   let myNav;
-
    useEffect(() => {
-      myNav = document.querySelector("#Nav")
-   }, [window.scroll])
+      const addStylesToNavbar = () => {
+         if (window.scrollY >= 5 && navRef.current) {
+            if (!navRef.current.classList.contains('scrolled-nav')) {
+               navRef.current.classList.add('scrolled-nav')
+            }
 
-   window.addEventListener("scroll", () => {
-      if (window.scrollY >= 5) {
-         myNav.style.boxShadow = '1px 4px 10px rgb(0, 0, 50)'
-         myNav.style.backgroundColor = `rgb(15,40,81)`
-         myNav.style.color = 'white'
-
-      } else {
-         myNav.style.boxShadow = '1px 1px 3px rgb(0, 0, 50)'
-         myNav.style.backgroundColor = `rgba(15,40,81,0)`
-         myNav.style.color = 'rgb(122,38,64)'
+         } else {
+            if (navRef.current.classList.contains('scrolled-nav')) {
+               navRef.current.classList.remove('scrolled-nav')
+            }
+         }
       }
-   });
+      if (navRef.current) {
+         window.addEventListener("scroll", addStylesToNavbar);
+      }
+
+      return () => window.removeEventListener('scroll', addStylesToNavbar)
+   }, [navRef.current])
 
    return (
-      <div className={navStyles.navWrapper} id='Nav'>
+      <div ref={navRef} className={navStyles.navWrapper} id='Nav'>
          <div className={navStyles.leftLinkContainer}>
             <Link to='/posts'>
                <span>

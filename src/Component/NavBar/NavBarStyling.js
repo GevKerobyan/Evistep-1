@@ -11,12 +11,12 @@ const navBarStyling = createUseStyles({
 		justifyContent: 'space-between',
 		alignItems: 'center',
 		padding: '10px 15%',
-		backgroundColor: `rgba(15,40,81,0)`,
 		transition: 'all 0.2s',
 		boxShadow: '1px 1px 3px rgb(0, 0, 50)',
 		zIndex: '900',
 		color: 'rgb(122,38,64)',
 		fontSize: '14px',
+		backgroundColor: 'rgba(30,60,100,0.4)',
 	},
 
 	leftLinkContainer: {

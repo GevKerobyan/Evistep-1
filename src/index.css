@@ -37,4 +37,12 @@ input:focus {
 
 .App {
   text-align: center;
+  /* height: 100vh;
+  overflow: hidden; */
+}
+
+.scrolled-nav {
+  box-shadow: 1px 4px 10px rgb(0, 0, 50) !important;
+  background-color: rgb(15,40,81) !important;
+  color: white !important;
 }
