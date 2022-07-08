@@ -20,7 +20,7 @@ const PageButton = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: rgba(255,255,255,0.7);
+	background-color: rgba(255, 255, 255, 0.7);
 	// border-radius: 5px;
 	// border: 1px solid black;
 	margin: 0 5px;
@@ -28,8 +28,8 @@ const PageButton = styled.button`
 
 const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 	const [pageArr, setPageArr] = useState([]);
+	let tempArr = [];
 	useEffect(() => {
-		let tempArr = [];
 		if (currentPage < 3) {
 			tempArr = [1, 2, 3, 4, 5];
 		} else if (currentPage >= 3 && currentPage < numOfPages - 2) {
@@ -45,22 +45,21 @@ const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 		console.log('consoling: currentPage in pagination :::', currentPage);
 	}, [currentPage, loading]);
 
-	return (
-		<PaginationWrapper>
-			{pageArr.map((item, index) => {
-				return (
-					<PageButton key={index} 
-					onClick={() => {
-						
-						setCurrentPage(item)
-						
-						}}>
-						{item}
-					</PageButton>
-				);
-			})}
-		</PaginationWrapper>
-	);
+	if (loading) {
+		return null;
+	} else {
+		return (
+			<PaginationWrapper>
+				{pageArr.map((item, index) => {
+					return (
+						<PageButton key={index} onClick={() => setCurrentPage(item)}>
+							{item}
+						</PageButton>
+					);
+				})}
+			</PaginationWrapper>
+		);
+	}
 };
 
 export default Pagination;

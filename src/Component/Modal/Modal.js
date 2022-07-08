@@ -4,27 +4,44 @@ import styled from 'styled-components';
 
 const CloseBtn = styled.button`
 	position: absolute;
-	height: 20px;
-	width: 20px;
-	right: 10px;
-	top: 10px;
+	height: 60px;
+	width: 60px;
+	right: 0;
+	top: 0;
 	border: none;
-	border-radius: 5px;
-  background: none;
+	border-bottom-left-radius: 100%;
+	background: blue;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 `;
 
-function ReactModal({ setModalOpen, isOpen, children }) {
+const Xspan = styled.span`
+	height: 30px;
+	width: 30px;
+	font-size: 25px;
+	color: white;
+	transform: translate(25%, -25%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+function ReactModal({ setModalOpen, openPost, children }) {
 	useEffect(() => {
-		console.log(isOpen, ' : isOpen');
-	}, [isOpen]);
+		console.log(openPost, ' : openPost');
+	}, [openPost]);
+
+	const handleOverlayClick = () => {
+		console.log('mtav')
+		setModalOpen(false)
+	}
+
 	return (
 		<Modal
-			isOpen={isOpen}
-			onRequestClose={() => setModalOpen(false)}
-			htmlOpenClassName='ReactModal__Html--open'
-			bodyOpenClassName='ReactModal__Body--open'
+			isOpen={openPost}
+			onRequestClose={() => handleOverlayClick()}
 			shouldCloseOnOverlayClick={true}
-			shouldFocusAfterRender={true}
 			ariaHideApp={true}
 			style={{
 				overlay: {
@@ -33,9 +50,8 @@ function ReactModal({ setModalOpen, isOpen, children }) {
 					left: 0,
 					right: 0,
 					bottom: 0,
-					backgroundColor: 'rgba(0,0,0, 0.75)',
 					zIndex: 1000,
-          
+					backgroundColor: 'rgba(0,0,0, 0.85)',
 				},
 				content: {
 					position: 'absolute',
@@ -52,10 +68,14 @@ function ReactModal({ setModalOpen, isOpen, children }) {
 					outline: 'none',
 					padding: '10px 40px',
 					margin: '0 auto',
-        },
+					boxSizing: 'content-box',
+					border: 'none',
+				},
 			}}
 		>
-			<CloseBtn onRequestClose={() => setModalOpen(false)}>X</CloseBtn>
+			<CloseBtn onClick={() => handleOverlayClick()}>
+				<Xspan>X</Xspan>
+			</CloseBtn>
 			{children}
 		</Modal>
 	);

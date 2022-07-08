@@ -10,16 +10,15 @@ import fixDate from "../../Helpers/dateFix"
 import postListStyling from "./PostListStyling"
 
 
-export const Postlists = ({ searchTag }) => {
+export const Postlists = () => {
     const postlistStyles = postListStyling()
     const [posts, setPosts] = useState([])
     const [addModalOpen, setAddModalOpen] = useState(false)
-    const { postId } = useParams()
 
     // PAGINATION INFO
     const [total, setTotal] = useState(0)
-    const [loading, setLoading] = useState(JSON.parse(localStorage.getItem('currentPage')))
-    const [currentPage, setCurrentPage] = useState(1)
+    const [loading, setLoading] = useState(true)
+    const [currentPage, setCurrentPage] = useState(JSON.parse(localStorage.getItem('currentPage')))
     const [postsPerPage, setPostsPerPae] = useState(10)
     let numOfPages = useCallback((Math.ceil(total / postsPerPage)), [total, postsPerPage])
 
@@ -43,6 +42,11 @@ export const Postlists = ({ searchTag }) => {
             })
     }, [currentPage, postsPerPage])
 
+    useEffect(() => {
+        console.log('consoling: isOpen :::', addModalOpen)
+
+    }, [addModalOpen])
+
     return (
         <>
             <NavBar className={postlistStyles.userListNavBar}>
@@ -58,7 +62,7 @@ export const Postlists = ({ searchTag }) => {
                         action='create'
                         posts={posts}
                         setPosts={setPosts} />)
-                    : ''}
+                    : null}
                 {loading
                     ? 'Loading...'
                     : posts.map((post, index) => {
@@ -71,11 +75,12 @@ export const Postlists = ({ searchTag }) => {
                                 date={date} />
                         )
                     })}
-                <Pagination
-                    numOfPages={numOfPages}
-                    currentPage={currentPage}
-                    setCurrentPage={setCurrentPage}
-                    loading={loading} />
+              
+                    : <Pagination
+                        numOfPages={numOfPages}
+                        currentPage={currentPage}
+                        setCurrentPage={setCurrentPage}
+                        loading={loading} />
             </PageContainer>
         </>
     )

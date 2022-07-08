@@ -74,7 +74,7 @@ function reducer(state, actions) {
 	}
 }
 
-Modal.setAppElement("#root")
+Modal.setAppElement("#modal-root")
 
 function App() {
 	const [loggedUser, dispatch] = useReducer(reducer, defaultState, () => {
@@ -86,6 +86,7 @@ function App() {
 		unloggedReducer,
 		defaultUnloggedState
 	);
+	
 
 	return (
 		<State.Provider value={{ loggedUser, dispatch }}>

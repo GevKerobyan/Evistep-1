@@ -58,12 +58,8 @@ function OpenPostModal({ post, openPost, setOpenPost }) {
          .catch(er => console.log(er))
    }
 
-   useEffect(() => {
-      console.log('consoling: newComment :::', comments)
-   }, [comments])
-
    return (
-      <ReactModal setModalOpen={setOpenPost} isOpen={openPost}>
+      <ReactModal setModalOpen={setOpenPost} openPost={openPost}>
          <div className={openPostStyles.openPostWrapper}>
             <Link to={`/profile/${post.owner.id}`} className={openPostStyles.postOwner}>
                <div className={openPostStyles.postOwnerPic}>
