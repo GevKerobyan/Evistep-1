@@ -1,18 +1,16 @@
 import axios from "axios";
-import { useEffect, useMemo, useRef, useState } from "react";
-import { useLocation, useRouteMatch } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import useUserContext from "../../Hooks/useUserContext";
 import NavBar from "../NavBar/NavBar";
 import UserProfileStyles from "./UserProfileStyling";
 import { useNavigate, useParams } from "react-router-dom";
-import Modal from "react-modal"
 import EditUserProfile from "./EditUserProfile";
 import fixDate from "../../Helpers/dateFix";
 import SinglePost from "../SinglePostComponent/SinglePost";
 import { PageContainer } from "../styled/PageContainer.styled";
 
 export const UserProfile = () => {
-  const profileUser = useLocation()
   const match = useParams()
 
   const [loading, setLoading] = useState(true)
@@ -22,11 +20,11 @@ export const UserProfile = () => {
 
   const userRenderFlag = useRef(true);
 
-  const [editModalOpen, setEditModalOpen] = useState(false)
-  const [deleteFlag, setDeleteFlag] = useState(false)
-  const [user, setUser] = useState({})
   const navigate = useNavigate()
+  const [user, setUser] = useState({})
   const [userPosts, setUserPosts] = useState([])
+  const [deleteFlag, setDeleteFlag] = useState(false)
+  const [editModalOpen, setEditModalOpen] = useState(false)
   const [loadPostsFlag, setLoadPostsFlag] = useState(false)
 
   useEffect(() => {

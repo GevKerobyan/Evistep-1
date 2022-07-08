@@ -1,97 +1,77 @@
 import { createUseStyles } from 'react-jss';
 
 const OpenPostStylings = createUseStyles({
-	openPostWrapper: {
-      // top: `${window.screen.availHeight/2}px`,
-      position: 'relative',
-      width: '600px',
-      minWidth: '600px',
-		height: 'auto',
-      padding: '15px 50px',
-      borderRadius: '10px',
-		backgroundColor: 'white',
+	postOwner: {
+		position: 'fixed',
+		width: '400px',
+		display: 'flex',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+		margin: '0 auto',
+		backgroundColor: 'rgba(255,255,255,0.1)',
+		padding: '5px 20px',
+		borderRadius: '15px',
 	},
 
-   closeModalButton: {
-      position: 'sticky',
-      width: '40px',
-      height: '40px',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginTop: '20px',
-      marginLeft: '75vw',
-      backgroundColor:'red'
-   },
+	postOwnerPic: {
+		width: '50px',
+		height: '50px',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		'& img': {
+			width: '45px',
+			height: '45px',
+			borderRadius: '50%',
+		},
+	},
 
-   postOwner: {
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'space-around',
-      alignItems: 'center',
-      marginBottom: '30px',
+	postOwnerName: {
+		width: '50%',
+		textAlign: 'start',
+		padding: '10px 0',
+		borderBottom: '1px solid rgb(122,38,64)',
+		'& span': {
+			margin: '0 10px',
+		},
+	},
 
-   },
+	postText: {
+		margin: '0 auto',
+		padding: '5px 40px',
+	},
 
-   postOwnerPic: {
-      width: '50px',
-      height: '50px',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      '& img': {
-         width: '45px',
-         height: '45px',
-         borderRadius: '50%'
-      }
-   },
-
-   postOwnerName: {
-      width: '50%',
-      textAlign: 'start',
-      padding: '10px 0',
-      borderBottom: '1px solid rgb(122,38,64)',
-      '& span': {
-         margin: '0 10px'
-      }
-   },
-
-   postText: {
-      
-   },
+	postBody: {
+		paddingTop: '75px',
+	},
 
 	postPic: {
 		width: 'auto',
-		maxWidth: '600px',
+		maxWidth: '500px',
 		height: 'auto',
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-      margin: '25px 0 10px 0',
-      borderRadius: '10px',
-      overflow: 'hidden',
+		margin: '0 auto',
+		marginTop: '15px',
+		borderRadius: '10px',
+		overflow: 'hidden',
 		'& img': {
 			width: 'auto',
-			maxWidth: '500px',
+			maxWidth: '350px',
 			height: 'auto',
-         borderRadius: '10px',
+			borderRadius: '10px',
 		},
 	},
 
-   postText: {
-      backgroundColor: 'rgba(230,230,230, 0.7)',
-      padding: '5px 15px',
-      borderRadius: '5px',
-   },
-
-   postSpecs: {
-      width: '80%',
-      padding: '5px 50px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      marginBottom: '25px'
-   },
+	postSpecs: {
+		width: '80%',
+		padding: '5px 50px',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		marginBottom: '25px',
+	},
 
 	postTags: {
 		display: 'flex',
@@ -129,38 +109,48 @@ const OpenPostStylings = createUseStyles({
 	},
 
 	commentSection: {
-      height: '300px',
+		height: '300px',
 		minHeight: '100px',
-      overflow: 'auto',
+		overflow: 'auto',
 		backgroundColor: 'rgb(230,230,230)',
 		padding: '15px',
 		borderRadius: '10px',
 	},
 
 	commentInputWrapper: {
-      width: '100%',
-      minHeight: '40px',
-      display: 'flex',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: '15px',
-      '& textarea': {
-         width: '70%',
-         height: '30px',
-         minHeigth: '40px', 
-         borderRadius: '4px',
-         padding: '2px 7px'
-      }
+		width: '100%',
+		minHeight: '40px',
+		display: 'flex',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		marginBottom: '15px',
+		'& textarea': {
+			width: '50%',
+			height: '30px',
+			minHeigth: '40px',
+			borderRadius: '4px',
+         margin: '0 20px',
+			padding: '2px 7px',
+		},
+	},
+
+   addCommentBtn: {
+
+      border: '1px dashed blue',
+      backgroundColor: 'rgba(250,250,250,1)',
+      padding: '3px 18px',
+      borderRadius: '4px',
+
    },
 
-   openCommentsTrigger: {
-      position: 'relative',
-      height: '30px',
+	openCommentsTrigger: {
+		position: 'relative',
+		height: '30px',
 		width: '30px',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-   },
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
 
 	commentSVG: {
 		height: '20px',
@@ -189,65 +179,65 @@ const OpenPostStylings = createUseStyles({
 		backgroundColor: 'rgb(122,38,64)',
 	},
 
-   singleComment: {
-      backgroundColor:'rgb(255,255,255)',
-      margin: '15px 0',
-      padding:'10px',
-      border: '0.5px solid rgb(122,38,64)',
-      borderRadius: '4px',
-      display:'flex',
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-      justifyContent: 'space-between',
-   },
+	singleComment: {
+		backgroundColor: 'rgb(255,255,255)',
+		margin: '15px 0',
+		padding: '10px',
+		border: '0.5px solid rgb(122,38,64)',
+		borderRadius: '4px',
+		display: 'flex',
+		flexDirection: 'column',
+		alignItems: 'flex-start',
+		justifyContent: 'space-between',
+	},
 
-   commentOwnerField: {
-      width: '100%',
-      display: 'flex',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      marginBottom: '5px'
-   },
+	commentOwnerField: {
+		width: '100%',
+		display: 'flex',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		marginBottom: '5px',
+	},
 
-   commentOwnerPic: {
-      width: '30px',
-      height: '30px',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: '15px',
-      overflow: 'hidden'
-   },
+	commentOwnerPic: {
+		width: '30px',
+		height: '30px',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderRadius: '15px',
+		overflow: 'hidden',
+	},
 
-   commentOwnerPicImg: {
-      width: '30px',
-      height: '30px',
-   },
+	commentOwnerPicImg: {
+		width: '30px',
+		height: '30px',
+	},
 
-   commentOwnerData: {
-      width: '40%',
-      borderBottom: '1px solid rgb(122,38,64)',
-      padding: '10px',
-      marginLeft: '15px',
-      '& span': {
-         margin: '5px',
-      }
-   },
+	commentOwnerData: {
+		width: '40%',
+		borderBottom: '1px solid rgb(122,38,64)',
+		padding: '10px',
+		marginLeft: '15px',
+		'& span': {
+			margin: '5px',
+		},
+	},
 
-   commentText: {
-      margin: '5px 0',
-      minWidth: '70%',
-      padding: '5px 25px',
-      backgroundColor: 'rgb(230,230,230)',
-      borderRadius: '5px',
-   },
+	commentText: {
+		margin: '5px 0',
+		minWidth: '70%',
+		padding: '5px 25px',
+		backgroundColor: 'rgb(230,230,230)',
+		borderRadius: '5px',
+	},
 
-   singleCommentFooter: {
-      marginTop: '5px',
-      width: '100%',
-      textAlign: 'end',
-      fontSize: '11px'
-   },
+	singleCommentFooter: {
+		marginTop: '5px',
+		width: '100%',
+		textAlign: 'end',
+		fontSize: '11px',
+	},
 });
 
 export default OpenPostStylings;

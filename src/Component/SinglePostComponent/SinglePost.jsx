@@ -13,7 +13,6 @@ function SinglePost({ post, index, date }) {
     const postStyles = singlePostStyling()
 
     const { loggedUser, dispatch } = useUserContext()
-
     const [editModalOpen, setEditModalOpen] = useState(false)
     const [openPost, setOpenPost] = useState(false)
     useEffect(()=> {
@@ -52,7 +51,6 @@ function SinglePost({ post, index, date }) {
 
     const handleOpenPost = e => {
         setOpenPost(true)
-
     }
 
     useEffect(() => {
@@ -89,7 +87,7 @@ function SinglePost({ post, index, date }) {
                 : null
             }
             {openPost
-                ? (<OpenPostModal post={post} handleOpenPost={handleOpenPost} setOpenPost={setOpenPost}/>)
+                ? (<OpenPostModal post={post} openPost={openPost} setOpenPost={setOpenPost}/>)
                 : ''}
             <Link to={`/profile/${post.owner.id}`} className={postStyles.singlePostTop}>
                 <div className={postStyles.postOwnerImgBox}>

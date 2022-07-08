@@ -1,26 +1,17 @@
 import { createUseStyles } from 'react-jss';
 
 const UserProfileStyles = createUseStyles({
-	// pageContainer: {
-	// 	minHeight: '100vh',
-	// 	padding: '0 5%',
-	// 	display: 'flex',
-	// 	flexDirection: 'column',
-	// 	alignItems: 'center',
-	// 	justifyContent: 'flex-start',
-	// 	marginTop: '150px',
-	// },
-
 	userContainer: {
 		width: '1000px',
 		height: '300px',
 		padding: '16px',
 		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		background: 'white',
-		margin: '100px 0 50px 0',
+		padding: '20px',
 		borderRadius: '5px',
+		background: 'white',
+		alignItems: 'center',
+		margin: '100px 0 50px 0',
+		justifyContent: 'space-between',
 		boxShadow: '5px 4px 10px rgba(94,97,100,1)',
 		'& div': {
 			'& span': {
@@ -32,10 +23,9 @@ const UserProfileStyles = createUseStyles({
 	left: {
 		height: '75%',
 		display: 'flex',
-		flexDirection: 'column',
 		alignItems: 'center',
-		justifyContent: 'space-around',		
-		
+		flexDirection: 'column',
+		justifyContent: 'space-around',
 	},
 
 	middle: {
@@ -44,46 +34,43 @@ const UserProfileStyles = createUseStyles({
 		flexDirection: 'column',
 		alignItems: 'flex-start',
 		justifyContent: 'space-around',
-		
+
 		'& div': {
 			display: 'flex',
 			flexDirection: 'column',
 			alignItems: 'flex-start',
 			justifyContent: 'space-around',
-			// '& span': {
-			// 	marginBottom: '20px'
-			// },
 			'& p': {
-				margin: ' 15px 0',
-			}
+				margin: ' 10px 0',
+			},
 		},
 	},
 
 	right: {
 		height: '100%',
-		minWidth: '250px',
 		display: 'flex',
+		maxWidth: '300',
+		minWidth: '250px',
 		flexDirection: 'column',
 		alignItems: 'flex-start',
 		justifyContent: 'space-around',
-		maxWidth: '300',
 		'& p': {
 			marginTop: '10px',
 		},
 	},
 
 	userFooter: {
-		width: 'calc(100% - 400px)',
 		display: 'flex',
 		alignItems: 'center',
+		width: 'calc(100% - 400px)',
 		justifyContent: 'flex-end',
 		'& div': {
 			margin: '0 20px',
-			padding: '8px 8px',
-			backgroundColor: 'aliceblue',
-			borderRadius: '5px',
-			boxShadow: '5px 4px 10px rgba(94,97,100,1)',
 			cursor: 'pointer',
+			padding: '8px 8px',
+			borderRadius: '5px',
+			backgroundColor: 'aliceblue',
+			boxShadow: '5px 4px 10px rgba(94,97,100,1)',
 		},
 	},
 
@@ -135,8 +122,6 @@ const UserProfileStyles = createUseStyles({
 		alignItems: 'center',
 		marginTop: '50px',
 	},
-
-	singleUserPost: {},
 });
 
 export default UserProfileStyles;

@@ -35,7 +35,6 @@ function NavBar({ children }) {
       if (navRef.current) {
          window.addEventListener("scroll", addStylesToNavbar);
       }
-
       return () => window.removeEventListener('scroll', addStylesToNavbar)
    }, [navRef.current])
 

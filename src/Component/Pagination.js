@@ -5,51 +5,60 @@ const PaginationWrapper = styled.div`
 	position: absolute;
 	bottom: 25px;
 	width: 70vw;
-	height: 50px;
+	height: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: red;
+	padding: 0 100px;
+	flex-wrap: wrap;
 `;
 
 const PageButton = styled.button`
 	border: blue;
-	height: 40px;
-	width: 40px;
+	height: 30px;
+	width: 30px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: blue;
+	background-color: rgba(255,255,255,0.7);
+	// border-radius: 5px;
+	// border: 1px solid black;
+	margin: 0 5px;
 `;
 
-const Pagination = ({ numOfPages, currentPage, setCurrentPage }) => {
-
-const [pageArr, setPageArr] = useState([])
-useEffect(()=> {
-	let tempArr = [];
-	if(currentPage<3) {
-		tempArr = [1,2,3,4,5]
-	} else if (currentPage >=3 && currentPage<numOfPages-2) {
-		for(let i = currentPage-2; i<= currentPage+2; i++) {
-			tempArr.push(i)
+const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
+	const [pageArr, setPageArr] = useState([]);
+	useEffect(() => {
+		let tempArr = [];
+		if (currentPage < 3) {
+			tempArr = [1, 2, 3, 4, 5];
+		} else if (currentPage >= 3 && currentPage < numOfPages - 2) {
+			for (let i = currentPage - 2; i <= currentPage + 2; i++) {
+				tempArr.push(i);
+			}
+		} else if (currentPage >= numOfPages - 2) {
+			for (let i = numOfPages - 5; i <= numOfPages; i++) {
+				tempArr.push(i);
+			}
 		}
-	} else if (currentPage >= numOfPages-2) {
-		for(let i = numOfPages-5; i<= numOfPages; i++) {
-			tempArr.push(i)
-		}
-	}
-	setPageArr(tempArr)
-	console.log('consoling: currentPage :::', currentPage )
-	console.log('consoling: numOfPages :::', numOfPages )
-	console.log('consoling: pageArr :::', pageArr )
-},[currentPage])
+		setPageArr(tempArr);
+		console.log('consoling: currentPage in pagination :::', currentPage);
+	}, [currentPage, loading]);
 
-   return (
-		<PaginationWrapper onClick={()=> console.log('consoling: numOfPages in page :::', numOfPages )
-	}>
-			{pageArr.map(item => {
-			return <PageButton onClick={()=>setCurrentPage(item)}>{item}</PageButton>
-		})}
+	return (
+		<PaginationWrapper>
+			{pageArr.map((item, index) => {
+				return (
+					<PageButton key={index} 
+					onClick={() => {
+						
+						setCurrentPage(item)
+						
+						}}>
+						{item}
+					</PageButton>
+				);
+			})}
 		</PaginationWrapper>
 	);
 };

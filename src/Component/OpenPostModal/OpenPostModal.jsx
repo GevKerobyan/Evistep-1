@@ -7,10 +7,11 @@ import useUserContext from "../../Hooks/useUserContext"
 import Modal from "react-modal"
 import Tag from "../Tag/Tag"
 import OpenPostStylings from "./OpenPostModalStyling"
+import ReactModal from "../Modal/Modal"
 
 
 
-function OpenPostModal({ post, handleOpenPost, setOpenPost }) {
+function OpenPostModal({ post, openPost, setOpenPost }) {
    const openPostStyles = OpenPostStylings()
 
    const { loggedUser, dispatch } = useUserContext()
@@ -18,8 +19,8 @@ function OpenPostModal({ post, handleOpenPost, setOpenPost }) {
    const [newComment, setNewComment] = useState('')
    const [openComments, setOpenComments] = useState(false)
 
-   
-   
+
+
    // AXIOS get post comments
    useEffect(() => {
       const url = `https://dummyapi.io/data/v1/post/${post.id}/comment`;
@@ -51,10 +52,10 @@ function OpenPostModal({ post, handleOpenPost, setOpenPost }) {
          'owner': loggedUser.userInfo.id,
          'post': post.id,
       }
-         axios.post(url, body, { headers })
-            .then(res => setComments(res.data))
-            .then(setNewComment(''))
-            .catch(er => console.log(er))     
+      axios.post(url, body, { headers })
+         .then(res => setComments(res.data))
+         .then(setNewComment(''))
+         .catch(er => console.log(er))
    }
 
    useEffect(() => {
@@ -62,7 +63,7 @@ function OpenPostModal({ post, handleOpenPost, setOpenPost }) {
    }, [comments])
 
    return (
-      <Modal isOpen openPost setOpenPost={setOpenPost}>
+      <ReactModal setModalOpen={setOpenPost} isOpen={openPost}>
          <div className={openPostStyles.openPostWrapper}>
             <Link to={`/profile/${post.owner.id}`} className={openPostStyles.postOwner}>
                <div className={openPostStyles.postOwnerPic}>
@@ -95,7 +96,7 @@ function OpenPostModal({ post, handleOpenPost, setOpenPost }) {
                   </div>
 
                   <div className={openPostStyles.openCommentsTrigger} onClick={e => toggleComments(e)}>
-                     <span className={openPostStyles.commentSVG} >{svgs.comment}
+                     <span className={openPostStyles.commentSVG}>{svgs.comment}
                         <span className={openPostStyles.commentTotal}>{comments.total}</span>
                      </span>
                   </div>
@@ -107,7 +108,7 @@ function OpenPostModal({ post, handleOpenPost, setOpenPost }) {
                   <div className={openPostStyles.commentInputWrapper}>
                      <p>Comment the post</p>
                      <textarea id='commentInput' value={newComment} onChange={e => setNewComment(e.target.value)} />
-                     {newComment ? <button onClick={e => handleAddComment(e)}>add</button> : ''}
+                     {newComment ? <button onClick={e => handleAddComment(e)} className={openPostStyles.addCommentBtn}>add</button> : ''}
                   </div>
                   <div className={openPostStyles.presentComments}>
                      {comments.data?.map(comment => {
@@ -132,7 +133,8 @@ function OpenPostModal({ post, handleOpenPost, setOpenPost }) {
                </div>
                : null}
          </div>
-      </Modal>
+      </ReactModal>
+
    )
 }
 

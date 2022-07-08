@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useUserContext from "../../Hooks/useUserContext";
 import ReactModal from "../Modal/Modal";
 import Tag from "../Tag/Tag";
@@ -7,7 +7,7 @@ import Tag from "../Tag/Tag";
 
 import { postModalStyling } from "./newPostModalStyling";
 
-function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
+function NewPostModal({ addModalOpen, setAddModalOpen, posts }) {
     const modalStyles = postModalStyling()
 
     const { loggedUser, dispatch } = useUserContext()
@@ -45,7 +45,7 @@ function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
 
     const handleNewPostSubmit = (e) => {
         const formData = new FormData()
-        console.log('consoling: newPost :::', newPost )
+        console.log('consoling: newPost :::', newPost)
         formData.append('image', imgUrl)
         formData.append('likes', newPost.likes)
         formData.append('tags', newPost.tags)
@@ -53,7 +53,7 @@ function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
         formData.append('owner', loggedUser.userInfo.id)
 
         const url = `https://dummyapi.io/data/v1/post/create`
-        
+
         const headers = {
             'app-id': "62b1dfc56fa280809ad74846",
             "Access-Control-Allow-Origin": "*",
@@ -68,7 +68,6 @@ function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
             }
         }
         // console.log('body : ',body.post.values())
-        
         axios.post(url, body, { headers })
             .then(res => {
                 console.log('posts state : ', posts)
@@ -78,8 +77,7 @@ function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
     }
 
     return (
-        
-        <ReactModal isOpen={true}>
+        <ReactModal setModalOpen = {setAddModalOpen} isOpen={addModalOpen}>
             <form className={modalStyles.modalContainer} >
                 <div className={modalStyles.inputWrapper}>
                     <label htmlFor="image">Pic</label>
@@ -109,10 +107,10 @@ function NewPostModal({ setAddModalOpen, action, posts, setPosts }) {
                             {newPost.tags.map((item, index) => {
                                 return (
                                     <Tag
-                                    key={index}
-                                    className = {modalStyles.singleTagDisplay}
-                                    tag={item}
-                                    postId = {`newTag`}
+                                        key={index}
+                                        className={modalStyles.singleTagDisplay}
+                                        tag={item}
+                                        postId={`newTag`}
                                     >{item}</Tag>
                                 )
                             })}

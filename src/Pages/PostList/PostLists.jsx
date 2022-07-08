@@ -7,7 +7,6 @@ import Pagination from "../../Component/Pagination"
 import SinglePost from "../../Component/SinglePostComponent/SinglePost"
 import { PageContainer } from "../../Component/styled/PageContainer.styled"
 import fixDate from "../../Helpers/dateFix"
-import useUserContext from "../../Hooks/useUserContext"
 import postListStyling from "./PostListStyling"
 
 
@@ -15,45 +14,34 @@ export const Postlists = ({ searchTag }) => {
     const postlistStyles = postListStyling()
     const [posts, setPosts] = useState([])
     const [addModalOpen, setAddModalOpen] = useState(false)
-
-    const postsRenderFlag = useRef(true);
-
     const { postId } = useParams()
-
-    const { loggedUser, dispatch } = useUserContext()
 
     // PAGINATION INFO
     const [total, setTotal] = useState(0)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(JSON.parse(localStorage.getItem('currentPage')))
     const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPae] = useState(10)
-    let numOfPages = useCallback((Math.ceil(total/postsPerPage)),[total, postsPerPage])
-    console.log('consoling: numOfPages in parent:::', numOfPages )
+    let numOfPages = useCallback((Math.ceil(total / postsPerPage)), [total, postsPerPage])
+
+    useEffect(() => {
+        localStorage.setItem('currentPage', JSON.stringify(currentPage))
+    }, [currentPage])
 
     // Fetch Data
 
     useEffect(() => {
-        if (postsRenderFlag.current) {
-            // setLoading(true)
-            const url = `https://dummyapi.io/data/v1/post?page=${currentPage}&limit=${postsPerPage}`
-
-            const headers = {
-                'app-id': "62b043e72dfd91bd6b56c58d",
-            }
-
-            axios.get(url, { headers })
-                .then(res => {
-                    setTotal(res.data.total)
-                    setPosts(...posts, res.data.data)
-                    setLoading(false)
-                })
+        console.log('consoling: currentPage in postlists :::', currentPage)
+        const url = `https://dummyapi.io/data/v1/post?page=${currentPage}&limit=${postsPerPage}`
+        const headers = {
+            'app-id': "62b043e72dfd91bd6b56c58d",
         }
-        postsRenderFlag.current = false
+        axios.get(url, { headers })
+            .then(res => {
+                setTotal(res.data.total)
+                setPosts(res.data.data)
+                setLoading(false)
+            })
     }, [currentPage, postsPerPage])
-
-    useEffect(() => {
-        // console.log('consoling: posts :::', posts)
-    }, [posts])
 
     return (
         <>
@@ -65,6 +53,7 @@ export const Postlists = ({ searchTag }) => {
             <PageContainer>
                 {addModalOpen
                     ? (<NewPostModal
+                        addModalOpen={addModalOpen}
                         setAddModalOpen={setAddModalOpen}
                         action='create'
                         posts={posts}
@@ -85,7 +74,8 @@ export const Postlists = ({ searchTag }) => {
                 <Pagination
                     numOfPages={numOfPages}
                     currentPage={currentPage}
-                    setCurrentPage={setCurrentPage} />
+                    setCurrentPage={setCurrentPage}
+                    loading={loading} />
             </PageContainer>
         </>
     )
