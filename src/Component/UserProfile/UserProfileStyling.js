@@ -115,6 +115,16 @@ const UserProfileStyles = createUseStyles({
 		color: 'white',
 	},
 
+	scrollTopButton: {
+		position:'fixed',
+		bottom: '100px',
+		right: '100px',
+		width: '60px',
+		height: '60px',
+		borderRadius: '30px',
+		backgroundColor: 'crimson',
+	},
+
 	userPostsContainer: {
 		display: 'flex',
 		flexDirection: 'column',

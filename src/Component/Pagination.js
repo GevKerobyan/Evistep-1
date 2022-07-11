@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const PaginationWrapper = styled.div`
@@ -13,7 +14,7 @@ const PaginationWrapper = styled.div`
 	flex-wrap: wrap;
 `;
 
-const PageButton = styled.button`
+const PageButton = styled.div`
 	border: blue;
 	height: 25px;
 	width: 25px;
@@ -44,6 +45,10 @@ const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 		setPageArr(tempArr);
 	}, [currentPage, loading]);
 
+	useEffect(() => {
+		console.log('consoling: currentPage :::', currentPage);
+	}, [currentPage]);
+
 	if (loading) {
 		return null;
 	} else {
@@ -51,7 +56,14 @@ const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 			<PaginationWrapper>
 				{currentPage > 3 ? (
 					<>
-						<PageButton onClick={() => setCurrentPage(1)}>1</PageButton>
+						<Link to={`/post?${currentPage}`}
+							onClick={() => {
+								window.scroll(0,0);
+								setCurrentPage(1);
+							}}
+						>
+							1
+						</Link>
 						<span style={{ margin: '0 15px 0 5px' }}>...</span>
 					</>
 				) : (
@@ -62,7 +74,9 @@ const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 					return (
 						<PageButton
 							key={index}
-							onClick={() => setCurrentPage(item)}
+							onClick={() => {
+								window.scroll(0,0);
+								setCurrentPage(item)}}
 							style={{ backgroundColor: item === currentPage && 'red' }}
 						>
 							{item}
@@ -72,7 +86,12 @@ const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 				{currentPage < numOfPages - 3 ? (
 					<>
 						<span style={{ margin: '0 5px 0 15px' }}>...</span>
-						<PageButton onClick={() => setCurrentPage(numOfPages)}>
+						<PageButton
+							onClick={() => {
+								window.scroll(0,0)
+								setCurrentPage(numOfPages);
+							}}
+						>
 							{numOfPages}
 						</PageButton>
 					</>

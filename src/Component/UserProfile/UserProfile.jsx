@@ -25,7 +25,7 @@ export const UserProfile = () => {
   const [userPosts, setUserPosts] = useState([])
   const [deleteFlag, setDeleteFlag] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
-  const [loadPostsFlag, setLoadPostsFlag] = useState(false)
+  const [loadPostsFlag, setLoadPostsFlag] = useState(true)
 
   useEffect(() => {
     if (userRenderFlag.current) {
@@ -91,6 +91,8 @@ export const UserProfile = () => {
       {editModalOpen && <EditUserProfile setEditModalOpen={setEditModalOpen} />}
       <NavBar />
       <PageContainer>
+        {(window.scrollY > 100) ? <div className={userPageStyles.scrollTopButton} /> : ''}
+
         {
           deleteFlag
             ? <>
