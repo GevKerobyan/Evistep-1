@@ -1,29 +1,22 @@
 import { createUseStyles } from "react-jss";
 
 const editProfileStyling =  createUseStyles({
-   modalContainer: {
-      position: 'relative',
-      width: '600px',
-      height: '400px',
-      padding: '50px 50px',
-      boxShadow: '1px 2px 6px rgb(0,0,0)',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      borderRadius: '10px',
-      backgroundColor: 'rgba(85, 122, 149, 0.8)',
-      color: 'rgb(11,12,16)',
-  },
+    modalContainer: {
+		minHeight: '80%',
+        width: '90%',
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
 
-
-  inputWrapper: {
-      width: '100%',
-      height: '30px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-  },
+	inputWrapper: {
+		width: '100%',
+		height: '40px',
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+	},
 
   inputs: {
       width: '50%',
@@ -39,6 +32,7 @@ const editProfileStyling =  createUseStyles({
       width: '100%',
       height: '30px',
       display: 'flex',
+      marginTop: '15px',
       alignItems: 'center',
       justifyContent: 'space-between',
   },

@@ -46,8 +46,3 @@ input:focus {
   background-color: rgb(15,40,81) !important;
   color: white !important;
 }
-
-.ReactModal__Body--open, 
-.ReactModal__Html--open {
-  overflow: hidden;
-}

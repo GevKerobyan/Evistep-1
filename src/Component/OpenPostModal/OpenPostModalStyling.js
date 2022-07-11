@@ -1,8 +1,17 @@
 import { createUseStyles } from 'react-jss';
 
 const OpenPostStylings = createUseStyles({
+	openPostWrapper: {
+		minHeight: '100%',
+		display: 'flex',
+		flexDirection: 'column',
+		// justifyContent: 'stretch',
+		alignItems: 'center',
+	},
+
 	postOwner: {
-		position: 'fixed',
+		// position: 'fixed',
+		top: '5px',
 		width: '400px',
 		display: 'flex',
 		justifyContent: 'space-around',
@@ -37,40 +46,50 @@ const OpenPostStylings = createUseStyles({
 	},
 
 	postText: {
+		maxWidth: '500px',
+		width: '450px',
 		margin: '0 auto',
-		padding: '5px 40px',
+		padding: '5px 0',
+		textAlign: 'left'
 	},
 
 	postBody: {
-		paddingTop: '75px',
+		height: '100%',
+		paddingTop: '20px',
+		display: 'flex',
+		flexDirection: 'column',
+		justifyContent: 'space-around',
+		alignItems: 'center',
+
 	},
 
 	postPic: {
 		width: 'auto',
 		maxWidth: '500px',
 		height: 'auto',
+		minHeight:'350px',
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		margin: '0 auto',
-		marginTop: '15px',
+		margin: '15px auto',
 		borderRadius: '10px',
 		overflow: 'hidden',
 		'& img': {
 			width: 'auto',
-			maxWidth: '350px',
+			maxWidth: '450px',
 			height: 'auto',
+			minHeight:'350px',
 			borderRadius: '10px',
 		},
 	},
 
 	postSpecs: {
-		width: '80%',
+		width: '100%',
 		padding: '5px 50px',
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		marginBottom: '25px',
+		marginBottom: '15px',
 	},
 
 	postTags: {
@@ -112,7 +131,6 @@ const OpenPostStylings = createUseStyles({
 		height: '300px',
 		minHeight: '100px',
 		overflow: 'auto',
-		backgroundColor: 'rgb(230,230,230)',
 		padding: '15px',
 		borderRadius: '10px',
 	},

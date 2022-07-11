@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const PaginationWrapper = styled.div`
 	position: absolute;
 	bottom: 25px;
-	width: 70vw;
+	width: 80vw;
 	height: auto;
 	display: flex;
 	justify-content: center;
@@ -15,8 +15,8 @@ const PaginationWrapper = styled.div`
 
 const PageButton = styled.button`
 	border: blue;
-	height: 30px;
-	width: 30px;
+	height: 25px;
+	width: 25px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -42,7 +42,6 @@ const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 			}
 		}
 		setPageArr(tempArr);
-		console.log('consoling: currentPage in pagination :::', currentPage);
 	}, [currentPage, loading]);
 
 	if (loading) {
@@ -50,13 +49,36 @@ const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 	} else {
 		return (
 			<PaginationWrapper>
+				{currentPage > 3 ? (
+					<>
+						<PageButton onClick={() => setCurrentPage(1)}>1</PageButton>
+						<span style={{ margin: '0 15px 0 5px' }}>...</span>
+					</>
+				) : (
+					''
+				)}
+
 				{pageArr.map((item, index) => {
 					return (
-						<PageButton key={index} onClick={() => setCurrentPage(item)}>
+						<PageButton
+							key={index}
+							onClick={() => setCurrentPage(item)}
+							style={{ backgroundColor: item === currentPage && 'red' }}
+						>
 							{item}
 						</PageButton>
 					);
 				})}
+				{currentPage < numOfPages - 3 ? (
+					<>
+						<span style={{ margin: '0 5px 0 15px' }}>...</span>
+						<PageButton onClick={() => setCurrentPage(numOfPages)}>
+							{numOfPages}
+						</PageButton>
+					</>
+				) : (
+					''
+				)}
 			</PaginationWrapper>
 		);
 	}

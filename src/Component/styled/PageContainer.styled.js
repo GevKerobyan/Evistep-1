@@ -12,5 +12,5 @@ export const PageContainer = styled.div`
 	background-color: rgba(30,60,100,0.4);
 	height: 100%;
 	overflow: auto;
-	margin-top: 60px;
+	margin-top: 71px;
 `

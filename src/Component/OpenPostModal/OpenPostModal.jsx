@@ -7,11 +7,34 @@ import useUserContext from "../../Hooks/useUserContext"
 import Modal from "react-modal"
 import Tag from "../Tag/Tag"
 import OpenPostStylings from "./OpenPostModalStyling"
-import ReactModal from "../Modal/Modal"
+import styled from "styled-components"
 
+const CloseBtn = styled.button`
+	position: absolute;
+	height: 60px;
+	width: 60px;
+	right: 0;
+	top: 0;
+	border: none;
+	border-bottom-left-radius: 100%;
+	background: #3C4CAD;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
 
+const Xspan = styled.span`
+	height: 30px;
+	width: 30px;
+	font-size: 25px;
+	color: white;
+	transform: translate(25%, -25%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
 
-function OpenPostModal({ post, openPost, setOpenPost }) {
+function OpenPostModal({ post, setOpenPost }) {
    const openPostStyles = OpenPostStylings()
 
    const { loggedUser, dispatch } = useUserContext()
@@ -19,10 +42,8 @@ function OpenPostModal({ post, openPost, setOpenPost }) {
    const [newComment, setNewComment] = useState('')
    const [openComments, setOpenComments] = useState(false)
 
-
-
    // AXIOS get post comments
-   useEffect(() => {
+   // useEffect(() => {
       const url = `https://dummyapi.io/data/v1/post/${post.id}/comment`;
       const headers = {
          'app-id': "62b1dfc56fa280809ad74846",
@@ -31,13 +52,12 @@ function OpenPostModal({ post, openPost, setOpenPost }) {
       axios.get(url, { headers })
          .then(res => setComments(res.data))
          .catch(er => { alert(er) })
-   }, [newComment])
+   // }, [newComment])
 
    const toggleComments = e => {
       e.stopPropagation()
       setOpenComments(!openComments)
    }
-
 
    // AXIOS Post new comment
    const handleAddComment = e => {
@@ -59,8 +79,46 @@ function OpenPostModal({ post, openPost, setOpenPost }) {
    }
 
    return (
-      <ReactModal setModalOpen={setOpenPost} openPost={openPost}>
+      <Modal isOpen
+         onRequestClose={() => setOpenPost(false)}
+         style={{
+            overlay: {
+               position: 'fixed',
+               top: 0,
+               left: 0,
+               right: 0,
+               bottom: 0,
+               zIndex: 1000,
+               backgroundColor: 'rgba(0,0,0, 0.85)',
+
+            },
+            content: {
+               position: 'absolute',
+               minHeight: '75%',
+               width: '650px',
+               top: '40px',
+               left: '40px',
+               right: '40px',
+               bottom: '40px',
+               border: '1px solid #ccc',
+               background: '#fff',
+               overflow: 'auto',
+               WebkitOverflowScrolling: 'touch',
+               borderRadius: '10px',
+               outline: 'none',
+               padding: '20px 40px',
+               margin: '0 auto',
+               marginTop: '50vh',
+               transform: 'translateY(-60%)',
+               boxSizing: 'content-box',
+               border: 'none',
+            },
+         }}
+      >
          <div className={openPostStyles.openPostWrapper}>
+            <CloseBtn onClick={() => setOpenPost(false)}>
+               <Xspan>X</Xspan>
+            </CloseBtn>
             <Link to={`/profile/${post.owner.id}`} className={openPostStyles.postOwner}>
                <div className={openPostStyles.postOwnerPic}>
                   <img src={post.owner.picture} className={openPostStyles.postOwnerPicImg}></img>
@@ -103,7 +161,7 @@ function OpenPostModal({ post, openPost, setOpenPost }) {
                ? <div className={openPostStyles.commentSection}>
                   <div className={openPostStyles.commentInputWrapper}>
                      <p>Comment the post</p>
-                     <textarea id='commentInput' value={newComment} onChange={e => setNewComment(e.target.value)} />
+                     <textarea id='commentInput' onClick={e => { e.stopPropagation() }} value={newComment} onChange={e => setNewComment(e.target.value)} />
                      {newComment ? <button onClick={e => handleAddComment(e)} className={openPostStyles.addCommentBtn}>add</button> : ''}
                   </div>
                   <div className={openPostStyles.presentComments}>
@@ -129,7 +187,7 @@ function OpenPostModal({ post, openPost, setOpenPost }) {
                </div>
                : null}
          </div>
-      </ReactModal>
+      </Modal>
 
    )
 }

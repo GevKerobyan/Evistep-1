@@ -1,13 +1,6 @@
-import {
-	createContext,
-	useReducer,
-} from 'react';
-import {
-	BrowserRouter as Router,
-	Route,
-	Routes,
-} from 'react-router-dom';
-import Modal from 'react-modal'
+import { createContext, useEffect, useReducer } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Modal from 'react-modal';
 import { UserProfile } from './Component/UserProfile/UserProfile';
 import HomePage from './Pages/HomePage/HomePage';
 import { Postlists } from './Pages/PostList/PostLists';
@@ -19,16 +12,7 @@ const defaultState = {
 	isLoggedIn: false,
 };
 
-const defaultUnloggedState = {};
-export const unLoggedState = createContext(defaultUnloggedState);
 export const State = createContext(defaultState);
-
-function unloggedReducer(state, actions) {
-	switch (actions.type) {
-		case 'set': {
-		}
-	}
-}
 
 function reducer(state, actions) {
 	switch (actions.type) {
@@ -74,19 +58,18 @@ function reducer(state, actions) {
 	}
 }
 
-Modal.setAppElement("#modal-root")
+Modal.setAppElement('#root');
 
 function App() {
+	useEffect(()=> {
+		console.log('rendervec')
+	})
 	const [loggedUser, dispatch] = useReducer(reducer, defaultState, () => {
 		const localStorageUser = JSON.parse(localStorage.getItem('onlineUser'));
-		return { userInfo: { ...localStorageUser }, isLoggedIn: true };
+		if(localStorageUser){ 
+			return {userInfo: { ...localStorageUser }, isLoggedIn: true }
+		} else {return {userInfo: { }, isLoggedIn: false }}
 	});
-
-	const [otherUser, otherDispatch] = useReducer(
-		unloggedReducer,
-		defaultUnloggedState
-	);
-	
 
 	return (
 		<State.Provider value={{ loggedUser, dispatch }}>
@@ -106,4 +89,3 @@ function App() {
 }
 
 export default App;
-

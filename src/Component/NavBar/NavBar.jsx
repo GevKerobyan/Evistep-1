@@ -53,18 +53,16 @@ function NavBar({ children }) {
             </Link>
          </div>
          <div className={navStyles.container}>
-            <Link
-               to={loggedUser.userInfo.id ? `/profile/${loggedUser.userInfo.id}` : '/'}
-               className={navStyles.userImageContainer}>
-               <img src={loggedUser.userInfo.picture || blankProfilePic} className={navStyles.userImg} >
-               </img>
-            </Link>
+            <Link className={navStyles.userContainer}
+               to={loggedUser.userInfo.id ? `/profile/${loggedUser.userInfo.id}` : '/'}>
+               <div className={navStyles.userImageContainer}>
+                  <img src={loggedUser.userInfo.picture || blankProfilePic} className={navStyles.userImg} >
+                  </img>
 
-            {/* <div className={navStyles.searchContainer}>
-               <label htmlFor="search">Search</label>
-               <input type="search" id='search' name="search" className={navStyles.searchInput} />
-            </div> */}
-            {children ? children : null}
+               </div>
+               <span style={{marginLeft: '10px'}}>{loggedUser.userInfo.firstName}</span>
+            </Link>
+            {children && children}
             {loggedUser.isLoggedIn
                ? <span onClick={handleSignOut}> Sign Out </span>
                : <Link to={'/'} onClick={handleSignOut}><span>
@@ -73,7 +71,7 @@ function NavBar({ children }) {
             }
 
          </div>
-      </div>
+      </div >
    )
 }
 

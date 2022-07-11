@@ -3,22 +3,15 @@ import { createUseStyles } from "react-jss";
 export const loginStylings = createUseStyles({
    modalContainer: {
       position: 'relative',
-      width: '500px',
+      width: '100%',
       height: '300px',
-      padding: '50px 50px 10px 50px',
-      boxShadow: '1px 2px 6px rgb(0,0,0)',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: '10px',
-      backgroundColor: 'rgba(85, 122, 149, 0.9)',
       color: 'rgb(11,12,16)',
-      '& h2': {
-         position: 'absolute',
-         top: '25px',
-         left: '50%',
-         transform: 'translate(-50%, 0)'
+      '& form': {
+        height: '100%',
+        display: 'flex',
+      flexDirection: 'column',
+      justifyContent:'space-around',
+      alignItems: 'stretch',
       }
   },
 

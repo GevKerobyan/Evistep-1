@@ -4,17 +4,16 @@ export const newUserModalStyling = createUseStyles({
 
     modalContainer: {
         position: 'relative',
-        width: '600px',
-        height: '400px',
-        padding: '50px 50px',
-        boxShadow: '1px 2px 6px rgb(0,0,0)',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderRadius: '10px',
-        backgroundColor: 'rgba(85, 122, 149, 0.8)',
+        width: '100%',
+        height: '100%',
         color: 'rgb(11,12,16)',
+        '& form': {
+          height: '100%',
+          display: 'flex',
+        flexDirection: 'column',
+        justifyContent:'space-around',
+        alignItems: 'stretch',
+        }
     },
 
 
@@ -28,11 +27,10 @@ export const newUserModalStyling = createUseStyles({
 
     inputs: {
         width: '50%',
-        height: '90%',
-        padding: '4px',
-        border: 'none',
+        // height: '90%',
+        padding: '4px 10px',
+        border: '1px solid black',
         borderRadius: '4px',
-        boxShadow: '1px 2px 4px rgb(0,0,0)',
         color: 'rgb(11,12,16)',
     },
 

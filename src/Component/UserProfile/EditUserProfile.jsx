@@ -3,6 +3,32 @@ import { useEffect, useState } from "react"
 import useUserContext from "../../Hooks/useUserContext"
 import Modal from "react-modal"
 import editProfileStyling from "./EditUserProfileStyling"
+import styled from "styled-components"
+
+const CloseBtn = styled.button`
+	position: absolute;
+	height: 40px;
+	width: 40px;
+	right: 0;
+	top: 0;
+	border: none;
+	border-bottom-left-radius: 100%;
+	background: #3C4CAD;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+    const Xspan = styled.span`
+	height: 20px;
+	width: 20px;
+	font-size: 20px;
+	color: white;
+	transform: translate(25%, -25%);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
 
 function EditUserProfile({ setEditModalOpen }) {
 
@@ -14,10 +40,6 @@ function EditUserProfile({ setEditModalOpen }) {
    })
 
    const regexCheck = new RegExp('^\d+$')
-
-   useEffect(() => {
-      console.log('consoling: tempLoggedUserData :::', tempLoggedUserData)
-   }, [tempLoggedUserData])
 
    const handleEditUserSubmit = (e) => {
       e.preventDefault()
@@ -43,7 +65,47 @@ function EditUserProfile({ setEditModalOpen }) {
    }
 
    return (
-      <Modal isOpen>
+      <Modal isOpen
+      onRequestClose={() => setEditModalOpen(false)}
+      style={{
+          overlay: {
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              zIndex: 1000,
+              backgroundColor: 'rgba(0,0,0, 0.85)',
+          },
+          content: {
+              position: 'absolute',
+              minHeight: '60%',
+              width: '450px',
+              top: '40px',
+              left: '40px',
+              right: '40px',
+              bottom: '40px',
+              border: '1px solid #ccc',
+              background: '#fff',
+              overflow: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              borderRadius: '10px',
+              outline: 'none',
+              padding: '20px 40px',
+              margin: '0 auto',
+              marginTop: '50vh',
+              transform: 'translateY(-60%)',
+              boxSizing: 'content-box',
+              border: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+          },
+      }}>
+          <CloseBtn onClick={() => setEditModalOpen(false)}>
+              <Xspan>X</Xspan>
+          </CloseBtn>
          <form onSubmit={e => handleEditUserSubmit(e)} className={editStyles.modalContainer}>
             <div className={editStyles.inputWrapper}>
                <label htmlFor='firstName'>Change Name</label>

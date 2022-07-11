@@ -37,7 +37,7 @@ export const UserProfile = () => {
       })
       api.get()
         .then(res => setUser(res.data))
-        .then(()=>setLoading(false))
+        .then(() => setLoading(false))
     }
     userRenderFlag.current = false
   }, [])
@@ -47,7 +47,7 @@ export const UserProfile = () => {
   }, [user])
 
   useEffect(() => {
-   
+
     if (loadPostsFlag) {
       const api = axios.create({
         baseURL: `https://dummyapi.io/data/v1/user/${match.id}/post`,
@@ -56,7 +56,7 @@ export const UserProfile = () => {
         }
       })
       api.get()
-        .then(response =>setUserPosts(response.data.data))
+        .then(response => setUserPosts(response.data.data))
     }
   }, [loadPostsFlag])
 
@@ -65,9 +65,9 @@ export const UserProfile = () => {
     // console.log('consoling: loading :::', loading)
   }, [loading])
 
-useEffect(()=> {
-  // console.log('consoling: loading :::', loading )
-},[loading])
+  useEffect(() => {
+    // console.log('consoling: loading :::', loading )
+  }, [loading])
 
   const bDay = fixDate(new Date(user?.dateOfBirth))
   const regDay = fixDate(new Date(user?.registerDate))
@@ -88,6 +88,7 @@ useEffect(()=> {
 
   return (
     <>
+      {editModalOpen && <EditUserProfile setEditModalOpen={setEditModalOpen} />}
       <NavBar />
       <PageContainer>
         {
@@ -104,15 +105,9 @@ useEffect(()=> {
             : null
         }
 
-        {
-          editModalOpen
-            ? <EditUserProfile setEditModalOpen={setEditModalOpen} />
-            : null
-        }
-
-        {loading 
-        ? <h1>Loading ...</h1> 
-        :<div key={user.id} className={userPageStyles.pageContainer}>
+        {loading
+          ? <h1>Loading ...</h1>
+          : <div key={user.id} className={userPageStyles.pageContainer}>
             <div className={userPageStyles.userContainer}>
               <div className={userPageStyles.left}>
                 <p><span>ID: </span>{user.id}</p>

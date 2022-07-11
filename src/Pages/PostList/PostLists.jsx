@@ -20,16 +20,14 @@ export const Postlists = () => {
     const [loading, setLoading] = useState(true)
     const [currentPage, setCurrentPage] = useState(JSON.parse(localStorage.getItem('currentPage')))
     const [postsPerPage, setPostsPerPae] = useState(10)
-    let numOfPages = useCallback((Math.ceil(total / postsPerPage)), [total, postsPerPage])
+    let numOfPages = useCallback((Math.ceil(total / postsPerPage)-1), [total, postsPerPage])
 
     useEffect(() => {
         localStorage.setItem('currentPage', JSON.stringify(currentPage))
     }, [currentPage])
 
     // Fetch Data
-
     useEffect(() => {
-        console.log('consoling: currentPage in postlists :::', currentPage)
         const url = `https://dummyapi.io/data/v1/post?page=${currentPage}&limit=${postsPerPage}`
         const headers = {
             'app-id': "62b043e72dfd91bd6b56c58d",
@@ -42,26 +40,19 @@ export const Postlists = () => {
             })
     }, [currentPage, postsPerPage])
 
-    useEffect(() => {
-        console.log('consoling: isOpen :::', addModalOpen)
-
-    }, [addModalOpen])
-
     return (
         <>
             <NavBar className={postlistStyles.userListNavBar}>
                 <span onClick={() => {
-                    setAddModalOpen(true)
+                    setAddModalOpen(!addModalOpen)
                 }}>Add Post</span>
             </NavBar>
             <PageContainer>
                 {addModalOpen
                     ? (<NewPostModal
-                        addModalOpen={addModalOpen}
-                        setAddModalOpen={setAddModalOpen}
-                        action='create'
+                        setAddModalOpen={setAddModalOpen} 
                         posts={posts}
-                        setPosts={setPosts} />)
+                       />)
                     : null}
                 {loading
                     ? 'Loading...'
