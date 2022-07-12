@@ -6,7 +6,6 @@ height: 150px;
 display: flex;
 align-items: center;
 justify-content: flex-start;
-margin: 15px 20px;
 padding: 15px;
 background-color: white;
 border-radius: 5px;

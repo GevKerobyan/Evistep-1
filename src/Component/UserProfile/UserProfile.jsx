@@ -131,9 +131,8 @@ useEffect(()=> {
           ? <h1>Loading ...</h1>
           : <div key={user.id}>
             <div className={userPageStyles.userContainer}>
-              <div className={userPageStyles.left}>
-                <p><span>ID: </span>{user.id}</p>
-                <img src={user.picture} alt=''></img>
+              <div className={userPageStyles.userImgContainer}>
+               <img src={user.picture} className={userPageStyles.userImg} alt='user image'></img>
               </div>
 
               <div className={userPageStyles.middle}>

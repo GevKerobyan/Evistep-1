@@ -7,17 +7,22 @@ import { NewUserModal } from "../../Component/NewUserModal/NewUserModal"
 import { Button } from "../../Component/styled/Buttons.styled"
 import { PageContainer } from "../../Component/styled/PageContainer.styled"
 import { UserContainer } from "../../Component/styled/UserContainer.styled"
-import userConatinerStyles from "./UsersListStyling"
+import userContainerStyles from "./UsersListStyling"
 
 export const UsersList = () => {
-    const userStyles = userConatinerStyles()
-    const [data, setData] = useState([])
+    const userStyles = userContainerStyles()
+
     const [newUserModalOpen, setNewUserModalOpen] = useState(false);
     const [loading, setLoading] = useState(false)
 
-    const [page, setPage] = useState(1)
-    const limit = 20;
-    let total;
+    const [userList, setUserList] = useState([])
+    const [totalUsers, setTotalUsers] = useState(0)
+    const [page, setPage] = useState(0)
+
+    const limit = 10;
+    let noMorePages = (page === Math.ceil(totalUsers / limit));
+    console.log('consoling: noMorePages :::', noMorePages)
+
     const [observedElement, setObservedElement] = useState(null)
 
     useEffect(() => {
@@ -33,43 +38,29 @@ export const UsersList = () => {
         }
     }, [observedElement])
 
+
+    useEffect(() => {
+        const api = axios.create({
+            baseURL: `https://dummyapi.io/data/v1/user?page=${page}&limit=${limit}`,
+            headers: {
+                'app-id': "62b043e72dfd91bd6b56c58d",
+            }
+        })
+        api.get()
+            .then(response => {
+                setTotalUsers(response.data.total)
+                setUserList([...userList, ...response.data.data])
+            })
+    }, [page])
+
     const loadMore = entries => {
         const entry = entries[0];
         if (entry.isIntersecting) {
-            setLoading(true)
-            const api = axios.create({
-                baseURL: `https://dummyapi.io/data/v1/user?page=${page}&limit=${limit}`,
-                headers: {
-                    'app-id': "62b043e72dfd91bd6b56c58d",
-                }
-            })
-            api.get()
-                .then(response => {
-                    total = response.data.total
-                    console.log('total : ', total)
-                    setData([
-                        ...data,
-                        ...response.data.data])
-                })
-            setLoading(true)
+            setPage(prev => prev + 1)
         }
     }
 
     const observer = useRef(new IntersectionObserver(loadMore, { threshold: 1 }))
-
-    const url = "https://dummyapi.io/data/v1/user?limit=10"
-    const options = {
-        method: "GET",
-        headers: {
-            'app-id': "62b043e72dfd91bd6b56c58d",
-        }
-    }
-
-    useEffect(() => {
-        fetch(url, options)
-            .then(response => response.json())
-            .then(res => setData(...data, res.data))
-    }, [])
 
     return (
         <>
@@ -79,9 +70,9 @@ export const UsersList = () => {
                 {newUserModalOpen
                     ? <NewUserModal setNewUserModalOpen={setNewUserModalOpen} />
                     : ''}
-                {data.map(user => {
+                {userList.map((user, index) => {
                     return (
-                        <Link to={`/profile/${user.id}`} key={user.id}>
+                        <Link to={`/profile/${user.id}`} key={user.id + index}>
                             <UserContainer>
                                 <img src={user.picture} className={userStyles.userPicture} alt='' />
                                 <div className={userStyles.userInfo}>
@@ -94,10 +85,14 @@ export const UsersList = () => {
                         </Link>
                     )
                 })}
+                {/* {(moreLeft) && (<div ref={setObservedElement} className={userStyles.showMore}>Show More Users</div>)} */}
             </PageContainer>
             {loading
-                ? <div>{total===data.length ?'Loading...': ''}</div>
-                : <div ref={setObservedElement}>Show More Users</div>}
+                ? <div>{userList.totalUsers === userList.users.length ? 'Loading...' : ''}</div>
+                : !noMorePages
+                    ? <div ref={setObservedElement} className={userStyles.showMore}>Show More Users</div>
+                    : ''}
+
         </>
     )
 }

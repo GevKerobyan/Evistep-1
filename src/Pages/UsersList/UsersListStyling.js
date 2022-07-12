@@ -1,14 +1,16 @@
 import { createUseStyles } from "react-jss";
 
-const userConatinerStyles = createUseStyles({
+const userContainerStyles = createUseStyles({
 
     userPicture: {
-        maxHeight: '120px',
+        maxHeight: '130px',
+        height: '100px',
         width: 'auto',
+        marginRight: '50px'
     },
 
     userInfo: {
-        margin: ' 0 15px',
+        margin: ' 0 25px',
 
     },
 
@@ -16,6 +18,21 @@ const userConatinerStyles = createUseStyles({
         marginBottom: '10px'
 
     },
+
+    showMore: {
+        position: 'absolute',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        bottom: '5px',
+		height: '50px',
+		width: '250px',
+		display: 'flex',
+        alignItems:'center',
+        justifyContent: 'center',
+        fontSize: '24px',
+		backgroundColor: 'lightblue',
+        
+		}
 })
 
-export default userConatinerStyles;
+export default userContainerStyles;

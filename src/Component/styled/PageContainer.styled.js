@@ -13,4 +13,5 @@ export const PageContainer = styled.div`
 	height: 100%;
 	overflow: auto;
 	margin-top: 71px;
+	gap: 35px;
 `

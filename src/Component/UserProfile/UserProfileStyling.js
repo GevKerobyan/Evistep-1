@@ -11,7 +11,7 @@ const UserProfileStyles = createUseStyles({
 		background: 'white',
 		alignItems: 'center',
 		marginBottom: '50px',
-		justifyContent: 'space-between',
+		justifyContent: 'space-around',
 		boxShadow: '5px 4px 10px rgba(94,97,100,1)',
 		'& div': {
 			'& span': {
@@ -20,12 +20,16 @@ const UserProfileStyles = createUseStyles({
 		},
 	},
 
-	left: {
-		height: '75%',
+	userImgContainer: {
+		height: '80%',
 		display: 'flex',
 		alignItems: 'center',
-		flexDirection: 'column',
-		justifyContent: 'space-around',
+		justifyContent: 'center',
+	},
+
+	userImg: {
+		height: '90%',
+		width: 'auto',
 	},
 
 	middle: {
