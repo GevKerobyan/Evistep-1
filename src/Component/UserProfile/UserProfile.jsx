@@ -10,31 +10,34 @@ import fixDate from "../../Helpers/dateFix";
 import SinglePost from "../SinglePostComponent/SinglePost";
 import { PageContainer } from "../styled/PageContainer.styled";
 import styled from "styled-components";
-
+// ${((window.innerHeight + window.scrollY) > document.body.scrollHeight)
 const ScrollTopBtn = styled.button`
   position: fixed;
   bottom: 50px;
-  
-  left: ${((window.innerHeight + window.scrollY) > document.body.scrollHeight)
-  ?  '100px'  : '300px'}
+  right:100px;
   background: transparent;
     outline: none;
   border: 1px solid black;
-  font-size: 20px;
   color: black;
-  width: 50px;
-  height: 50px;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  box-shadow: 1px 1px 10px rgba rgb(50, 50,50, 0.2);
+  box-shadow: 1px 1px 10px rgb(50, 50,50, 0.2);
   z-index: 100;
-  
+  & span {
+    font-size: 40px;
+    transform: translateY(5px)
+  }
 &:hover {
-  background-color: rgba(50,50,50, 0.2);
-  box-shadow: 1px 1px 1px rgba rgb(50, 50, 50)
+  background-color: black;
+  box-shadow: 3px 3px 5px rgb(50, 50, 50);
+  border: 1px solid rgba(0,0,0,0.6);
+  color: silver;
 }
+
 `
 
 export const UserProfile = () => {
@@ -117,7 +120,7 @@ export const UserProfile = () => {
       {editModalOpen && <EditUserProfile setEditModalOpen={setEditModalOpen} />}
       <NavBar />
       <PageContainer>
-        {showScrollBtnFlag && <ScrollTopBtn onClick={() => window.scrollTo(0, 70)} > ^ </ScrollTopBtn>}
+        {showScrollBtnFlag && <ScrollTopBtn onClick={() => window.scrollTo(0, 70)} > <span>^</span></ScrollTopBtn>}
 
         {
           deleteFlag
