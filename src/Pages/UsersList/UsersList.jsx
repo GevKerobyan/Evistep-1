@@ -10,6 +10,7 @@ import { UserContainer } from "../../Component/styled/UserContainer.styled"
 import userContainerStyles from "./UsersListStyling"
 
 export const UsersList = () => {
+
     const userStyles = userContainerStyles()
 
     const [newUserModalOpen, setNewUserModalOpen] = useState(false);
@@ -23,6 +24,10 @@ export const UsersList = () => {
     let noMorePages = (page === Math.ceil(totalUsers / limit));
 
     const [observedElement, setObservedElement] = useState(null)
+
+    useEffect(()=> {
+        window.scrollTo(0,0)
+    }, [])
 
     useEffect(() => {
         const element = observedElement;

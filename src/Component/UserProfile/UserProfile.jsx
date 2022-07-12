@@ -10,7 +10,6 @@ import fixDate from "../../Helpers/dateFix";
 import SinglePost from "../SinglePostComponent/SinglePost";
 import { PageContainer } from "../styled/PageContainer.styled";
 import styled from "styled-components";
-// ${((window.innerHeight + window.scrollY) > document.body.scrollHeight)
 const ScrollTopBtn = styled.button`
   position: fixed;
   bottom: 50px;
