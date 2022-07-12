@@ -11,8 +11,8 @@ function LoginModal({ setLoginModal }) {
    const [allUsers, setAllUsers] = useState([])
    const [loginUserCheck, setLoginUserCheck] = useState({
       id: '',
-      userName: '',
-      userLastName: '',
+      userName: 'Heinz-Georg',
+      userLastName: 'Fiedler',
    })
 
    const navigate = useNavigate()
@@ -139,7 +139,7 @@ function LoginModal({ setLoginModal }) {
                   type="text"
                   id="lastNameInput"
                   className={loginStyles.inputs}
-                  value={loginUserCheck.userEmail}
+                  value={loginUserCheck.userLastName}
                   onChange={e => handleChange(e)}
                />
             </div>

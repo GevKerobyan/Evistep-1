@@ -78,7 +78,7 @@ function App() {
 					<Routes>
 						<Route exact path='/' element={<HomePage />} />
 						<Route path='/users' element={<UsersList />} />
-						<Route path="posts/:page" element={<Postlists />} />
+						<Route path="posts/" element={<Postlists />} />
 						<Route path='/taggedposts/:tag' element={<TaggedPosts />} />
 						<Route path='/profile/:id' element={<UserProfile />} />
 					</Routes>

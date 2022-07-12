@@ -1,6 +1,6 @@
 import axios from "axios"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useCallback, useEffect, useState } from "react"
+import { useSearchParams } from "react-router-dom"
 import NavBar from "../../Component/NavBar/NavBar"
 import NewPostModal from "../../Component/NewPostModal/NewPostModal"
 import Pagination from "../../Component/Pagination"
@@ -16,16 +16,19 @@ export const Postlists = () => {
     const [addModalOpen, setAddModalOpen] = useState(false)
 
     // PAGINATION INFO
+
+const [pageParams, setPageParams]=useSearchParams();
+console.log('pageParams : ', pageParams)
+
+
+
     const [total, setTotal] = useState(0)
     const [loading, setLoading] = useState(true)
-    const [currentPage, setCurrentPage] = useState(JSON.parse(localStorage.getItem('currentPage')))
+    const [currentPage, setCurrentPage] = useState(1)
     const [postsPerPage, setPostsPerPae] = useState(10)
     let numOfPages = useCallback((Math.ceil(total / postsPerPage)-1), [total, postsPerPage])
-
-    useEffect(() => {
-        localStorage.setItem('currentPage', JSON.stringify(currentPage))
-    }, [currentPage])
-
+    useEffect(()=> {setPageParams({page: currentPage})},[currentPage])
+    
     // Fetch Data
     useEffect(() => {
         const url = `https://dummyapi.io/data/v1/post?page=${currentPage}&limit=${postsPerPage}`

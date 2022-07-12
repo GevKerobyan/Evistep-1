@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { unstable_HistoryRouter, useLocation } from "react-router-dom";
 import useUserContext from "../../Hooks/useUserContext";
 import NavBar from "../NavBar/NavBar";
 import UserProfileStyles from "./UserProfileStyling";
@@ -9,16 +9,41 @@ import EditUserProfile from "./EditUserProfile";
 import fixDate from "../../Helpers/dateFix";
 import SinglePost from "../SinglePostComponent/SinglePost";
 import { PageContainer } from "../styled/PageContainer.styled";
+import styled from "styled-components";
+import { createBrowserHistory } from "history";
+
+
+const ScrollTopBtn = styled.button`
+
+  display: none; /* Hidden by default */
+  position: fixed; /* Fixed/sticky position */
+  bottom: 20px; /* Place the button at the bottom of the page */
+  right: 30px; /* Place the button 30px from the right */
+  z-index: 99; /* Make sure it does not overlap */
+  border: none; /* Remove borders */
+  outline: none; /* Remove outline */
+  background-color: red; /* Set a background color */
+  color: white; /* Text color */
+  cursor: pointer; /* Add a mouse pointer on hover */
+  padding: 15px; /* Some padding */
+  border-radius: 10px; /* Rounded corners */
+  font-size: 18px; /* Increase font size */
+&:hover {
+  background-color: #555; /* Add a dark-grey background on hover */
+}
+`
 
 export const UserProfile = () => {
+  const history = createBrowserHistory();
+  
   const match = useParams()
-
   const [loading, setLoading] = useState(true)
 
   const { loggedUser, dispatch } = useUserContext()
   const userPageStyles = UserProfileStyles()
 
   const userRenderFlag = useRef(true);
+  const [showScrollBtnFlag, setShowBtnFlag]=useState(false)
 
   const navigate = useNavigate()
   const [user, setUser] = useState({})
@@ -46,8 +71,12 @@ export const UserProfile = () => {
     // console.log('consoling: user in profile :::', user)
   }, [user])
 
-  useEffect(() => {
+useEffect(()=> {
+  console.log('es el es', document.body.scrollTop)
+ 
+},[document.body.scrollTop])
 
+  useEffect(() => {
     if (loadPostsFlag) {
       const api = axios.create({
         baseURL: `https://dummyapi.io/data/v1/user/${match.id}/post`,
@@ -59,15 +88,6 @@ export const UserProfile = () => {
         .then(response => setUserPosts(response.data.data))
     }
   }, [loadPostsFlag])
-
-
-  useEffect(() => {
-    // console.log('consoling: loading :::', loading)
-  }, [loading])
-
-  useEffect(() => {
-    // console.log('consoling: loading :::', loading )
-  }, [loading])
 
   const bDay = fixDate(new Date(user?.dateOfBirth))
   const regDay = fixDate(new Date(user?.registerDate))
@@ -91,7 +111,7 @@ export const UserProfile = () => {
       {editModalOpen && <EditUserProfile setEditModalOpen={setEditModalOpen} />}
       <NavBar />
       <PageContainer>
-        {(window.scrollY > 100) ? <div className={userPageStyles.scrollTopButton} /> : ''}
+        {showScrollBtnFlag ? <ScrollTopBtn /> : console.log(window.scrollY, 'hesa')}
 
         {
           deleteFlag
@@ -109,7 +129,7 @@ export const UserProfile = () => {
 
         {loading
           ? <h1>Loading ...</h1>
-          : <div key={user.id} className={userPageStyles.pageContainer}>
+          : <div key={user.id}>
             <div className={userPageStyles.userContainer}>
               <div className={userPageStyles.left}>
                 <p><span>ID: </span>{user.id}</p>

@@ -10,7 +10,7 @@ const UserProfileStyles = createUseStyles({
 		borderRadius: '5px',
 		background: 'white',
 		alignItems: 'center',
-		margin: '100px 0 50px 0',
+		marginBottom: '50px',
 		justifyContent: 'space-between',
 		boxShadow: '5px 4px 10px rgba(94,97,100,1)',
 		'& div': {

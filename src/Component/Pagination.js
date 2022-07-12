@@ -12,23 +12,28 @@ const PaginationWrapper = styled.div`
 	align-items: center;
 	padding: 0 100px;
 	flex-wrap: wrap;
+	margin-bottom: 25px;
 `;
 
 const PageButton = styled.div`
 	border: blue;
-	height: 25px;
-	width: 25px;
+	height: 30px;
+	width: 30px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: rgba(255, 255, 255, 0.7);
-	// border-radius: 5px;
-	// border: 1px solid black;
+	background-color: rgba(173, 216, 230, 0.8);
 	margin: 0 5px;
+	cursor: pointer;
+	border-radius: 2px;
+	&:hover {
+		background-color: rgb(173, 216, 230);
+	}
 `;
 
 const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 	const [pageArr, setPageArr] = useState([]);
+	console.log('currentPage : ', currentPage)
 	let tempArr = [];
 	useEffect(() => {
 		if (currentPage < 3) {
@@ -56,14 +61,14 @@ const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 			<PaginationWrapper>
 				{currentPage > 3 ? (
 					<>
-						<Link to={`/post?${currentPage}`}
+						<PageButton
 							onClick={() => {
-								window.scroll(0,0);
-								setCurrentPage(1);
+								window.scroll(0, 0);
+								setCurrentPage(currentPage);
 							}}
 						>
 							1
-						</Link>
+						</PageButton>
 						<span style={{ margin: '0 15px 0 5px' }}>...</span>
 					</>
 				) : (
@@ -75,9 +80,12 @@ const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 						<PageButton
 							key={index}
 							onClick={() => {
-								window.scroll(0,0);
-								setCurrentPage(item)}}
-							style={{ backgroundColor: item === currentPage && 'red' }}
+								window.scroll(0, 0);
+								setCurrentPage(item);
+							}}
+							style={{
+								backgroundColor: item === currentPage && 'rgba(255, 255, 255, 0.8)',
+							}}
 						>
 							{item}
 						</PageButton>
@@ -88,7 +96,7 @@ const Pagination = ({ numOfPages, currentPage, setCurrentPage, loading }) => {
 						<span style={{ margin: '0 5px 0 15px' }}>...</span>
 						<PageButton
 							onClick={() => {
-								window.scroll(0,0)
+								window.scroll(0, 0);
 								setCurrentPage(numOfPages);
 							}}
 						>
