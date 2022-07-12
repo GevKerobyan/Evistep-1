@@ -33,7 +33,6 @@ function reducer(state, actions) {
 
 		case 'logIn': {
 			localStorage.setItem('onlineUser', JSON.stringify(actions.user));
-			console.log('logIn');
 			return {
 				userInfo: actions.user,
 				isLoggedIn: true,
@@ -61,9 +60,7 @@ function reducer(state, actions) {
 Modal.setAppElement('#root');
 
 function App() {
-	useEffect(()=> {
-		console.log('rendervec')
-	})
+	
 	const [loggedUser, dispatch] = useReducer(reducer, defaultState, () => {
 		const localStorageUser = JSON.parse(localStorage.getItem('onlineUser'));
 		if(localStorageUser){ 

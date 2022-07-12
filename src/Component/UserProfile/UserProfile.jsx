@@ -10,32 +10,35 @@ import fixDate from "../../Helpers/dateFix";
 import SinglePost from "../SinglePostComponent/SinglePost";
 import { PageContainer } from "../styled/PageContainer.styled";
 import styled from "styled-components";
-import { createBrowserHistory } from "history";
-
 
 const ScrollTopBtn = styled.button`
-
-  display: none; /* Hidden by default */
-  position: fixed; /* Fixed/sticky position */
-  bottom: 20px; /* Place the button at the bottom of the page */
-  right: 30px; /* Place the button 30px from the right */
-  z-index: 99; /* Make sure it does not overlap */
-  border: none; /* Remove borders */
-  outline: none; /* Remove outline */
-  background-color: red; /* Set a background color */
-  color: white; /* Text color */
-  cursor: pointer; /* Add a mouse pointer on hover */
-  padding: 15px; /* Some padding */
-  border-radius: 10px; /* Rounded corners */
-  font-size: 18px; /* Increase font size */
+  position: fixed;
+  bottom: 50px;
+  
+  left: ${((window.innerHeight + window.scrollY) > document.body.scrollHeight)
+  ?  '100px'  : '300px'}
+  background: transparent;
+    outline: none;
+  border: 1px solid black;
+  font-size: 20px;
+  color: black;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 1px 1px 10px rgba rgb(50, 50,50, 0.2);
+  z-index: 100;
+  
 &:hover {
-  background-color: #555; /* Add a dark-grey background on hover */
+  background-color: rgba(50,50,50, 0.2);
+  box-shadow: 1px 1px 1px rgba rgb(50, 50, 50)
 }
 `
 
 export const UserProfile = () => {
-  const history = createBrowserHistory();
-  
+
   const match = useParams()
   const [loading, setLoading] = useState(true)
 
@@ -43,7 +46,7 @@ export const UserProfile = () => {
   const userPageStyles = UserProfileStyles()
 
   const userRenderFlag = useRef(true);
-  const [showScrollBtnFlag, setShowBtnFlag]=useState(false)
+  const [showScrollBtnFlag, setShowBtnFlag] = useState(false)
 
   const navigate = useNavigate()
   const [user, setUser] = useState({})
@@ -52,6 +55,18 @@ export const UserProfile = () => {
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [loadPostsFlag, setLoadPostsFlag] = useState(true)
 
+  useEffect(() => {
+    window.scrollTo(0,0)
+    window.addEventListener('scroll', scrollMethods)
+    return () => {
+      window.removeEventListener('scroll', scrollMethods)
+    }
+  }, [])
+
+  function scrollMethods() {
+    console.log((window.innerHeight + window.scrollY) > document.body.scrollHeight)
+    window.scrollY>400 ? setShowBtnFlag(true) : setShowBtnFlag(false);
+  }
   useEffect(() => {
     if (userRenderFlag.current) {
       const api = axios.create({
@@ -66,15 +81,6 @@ export const UserProfile = () => {
     }
     userRenderFlag.current = false
   }, [])
-
-  useEffect(() => {
-    // console.log('consoling: user in profile :::', user)
-  }, [user])
-
-useEffect(()=> {
-  console.log('es el es', document.body.scrollTop)
- 
-},[document.body.scrollTop])
 
   useEffect(() => {
     if (loadPostsFlag) {
@@ -111,7 +117,7 @@ useEffect(()=> {
       {editModalOpen && <EditUserProfile setEditModalOpen={setEditModalOpen} />}
       <NavBar />
       <PageContainer>
-        {showScrollBtnFlag ? <ScrollTopBtn /> : console.log(window.scrollY, 'hesa')}
+        {showScrollBtnFlag && <ScrollTopBtn onClick={() => window.scrollTo(0, 70)} > ^ </ScrollTopBtn>}
 
         {
           deleteFlag
@@ -132,7 +138,7 @@ useEffect(()=> {
           : <div key={user.id}>
             <div className={userPageStyles.userContainer}>
               <div className={userPageStyles.userImgContainer}>
-               <img src={user.picture} className={userPageStyles.userImg} alt='user image'></img>
+                <img src={user.picture} className={userPageStyles.userImg} alt='user image'></img>
               </div>
 
               <div className={userPageStyles.middle}>

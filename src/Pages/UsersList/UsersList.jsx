@@ -21,7 +21,6 @@ export const UsersList = () => {
 
     const limit = 10;
     let noMorePages = (page === Math.ceil(totalUsers / limit));
-    console.log('consoling: noMorePages :::', noMorePages)
 
     const [observedElement, setObservedElement] = useState(null)
 
@@ -76,7 +75,6 @@ export const UsersList = () => {
                             <UserContainer>
                                 <img src={user.picture} className={userStyles.userPicture} alt='' />
                                 <div className={userStyles.userInfo}>
-                                    <div className={userStyles.userId}>{user.id}</div>
                                     <div className={userStyles.userNames}>
                                         <span>{user.title} {user.firstName} {user.lastName}</span>
                                     </div>
@@ -85,7 +83,6 @@ export const UsersList = () => {
                         </Link>
                     )
                 })}
-                {/* {(moreLeft) && (<div ref={setObservedElement} className={userStyles.showMore}>Show More Users</div>)} */}
             </PageContainer>
             {loading
                 ? <div>{userList.totalUsers === userList.users.length ? 'Loading...' : ''}</div>

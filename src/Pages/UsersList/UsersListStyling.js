@@ -11,12 +11,6 @@ const userContainerStyles = createUseStyles({
 
     userInfo: {
         margin: ' 0 25px',
-
-    },
-
-    userId:{
-        marginBottom: '10px'
-
     },
 
     showMore: {
